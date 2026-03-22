@@ -40,7 +40,7 @@
 | Forms | TanStack Form v0 | type-safe form state, validation |
 | Image generation | Satori + `@resvg/resvg-js` | server-side SVG → PNG, no browser needed |
 | Review source | Google Places API | `findplacefromtext` + `place/details` |
-| AI | OpenAI GPT-4o-mini | review scoring + caption (~$0.01/generation) |
+| AI | OpenAI GPT-4o-mini | review scoring + caption (~$0.0001/generation) |
 | Design | Pencil.dev (OpenPencil) | `.fig` files via MCP server — 90+ AI tools |
 | Database | Supabase | not used in Phase 1; setup for Phase 2 |
 | Hosting | Vercel | zero-config Next.js deploy |

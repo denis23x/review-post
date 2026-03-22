@@ -58,8 +58,8 @@ CREATE TABLE businesses (
   user_id             UUID REFERENCES auth.users NOT NULL,
   name                TEXT NOT NULL,
   google_place_id     TEXT,
-  google_access_token TEXT,           -- OAuth token for Google Business Profile
-  meta_access_token   TEXT,           -- OAuth token for Instagram + Facebook
+  google_access_token TEXT,           -- OAuth token — encrypt at app level before storing (see note below)
+  meta_access_token   TEXT,           -- OAuth token — encrypt at app level before storing (see note below)
   logo_url            TEXT,
   brand_color         TEXT DEFAULT '#1a1a2e',
   posting_schedule    TEXT DEFAULT 'mon,wed,fri',
@@ -71,6 +71,12 @@ ALTER TABLE businesses ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "users see own businesses"
   ON businesses FOR ALL
   USING (auth.uid() = user_id);
+
+-- Security note: google_access_token and meta_access_token must be encrypted
+-- at the application layer before INSERT/UPDATE, and decrypted after SELECT.
+-- Options: Supabase Vault (recommended), pgcrypto with a server-held key,
+-- or application-level AES-256-GCM encryption in the API route.
+-- RLS alone does not protect tokens if the service_role key is compromised.
 ```
 
 ### `reviews`

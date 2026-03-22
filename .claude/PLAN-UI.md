@@ -24,10 +24,10 @@ components/
 │   ├── Spinner.tsx
 │   └── StarRating.tsx
 ├── UrlForm.tsx                 TanStack Form — Google Maps URL input
-├── ReviewList.tsx              Shows fetched reviews (read-only)
 ├── CardPreview.tsx             Shows generated PNG card <img>
 ├── ThemeSelector.tsx           Pick card theme: dark / light / brand
 └── DownloadButton.tsx          Triggers PNG download
+# ReviewList.tsx is Phase 2 — Phase 1 shows only review count + author name
 
 hooks/
 ├── useReviews.ts               TanStack Query — fetch /api/reviews
@@ -71,9 +71,9 @@ design/
 
 ### `/demo` — The Tool (`app/demo/page.tsx`)
 
-**Purpose:** Accept a Google Maps URL, fetch reviews, let user pick a theme, generate card.
+**Purpose:** Accept a Google Maps URL, fetch reviews, pick a theme, generate and display the card inline.
 
-**Layout:**
+**Layout — before generation:**
 ```
 ┌─────────────────────────────────────────┐
 │  Step 1: Paste your Google Maps link    │
@@ -88,21 +88,10 @@ design/
 └─────────────────────────────────────────┘
 ```
 
-**State flow:**
-1. User submits URL → `useReviews` query fires → displays review count
-2. User picks theme → local state
-3. User clicks "Generate post" → `useGenerateCard` mutation fires → redirect to `/result?...`
-
----
-
-### `/result` — Result View (`app/result/page.tsx`)
-
-**Purpose:** Show the generated card image + caption. Let user download.
-
-**Layout:**
+**Layout — after generation (inline result, same page):**
 ```
 ┌─────────────────────────────────────────┐
-│  [← Back to demo]                       │
+│  [← Try another]                        │
 │                                         │
 │  ┌────────────────────┐                 │
 │  │   1080×1080 card   │                 │
@@ -118,8 +107,16 @@ design/
 └─────────────────────────────────────────┘
 ```
 
-**Data source:** URL search params (`?cardUrl=...&caption=...&businessName=...`).
-Card image is loaded as a `<img src={cardUrl}>` from the API.
+**State flow:**
+1. User submits URL → `useReviews` query fires → displays review count + best match author
+2. User picks theme → local `useState`
+3. User clicks "Generate post" → `useGenerateCard` mutation fires → on success, store `blobUrl` in local state → show inline result panel
+4. Download: `<a href={blobUrl} download="reviewpost.png">` — blob URL is valid for the lifetime of the current tab session
+
+**Why not redirect to `/result`?**
+`useGenerateCard` returns a `URL.createObjectURL(blob)` — a `blob:http://...` URL valid only in the current browser tab. Passing it as a URL search param to `/result` would break on navigation. Showing the result inline on `/demo` keeps it simple and reliable for Phase 1.
+
+**`/result` route:** Remove from Phase 1 scope. The page routes in `PLAN.md` list it for completeness — it can be added in Phase 2 once cards are stored in Supabase Storage and accessible via a real URL.
 
 ---
 
@@ -140,22 +137,36 @@ export const queryClient = new QueryClient({
 })
 ```
 
-### `app/layout.tsx` — Provider
+### `app/layout.tsx` — Root Layout (Server Component)
+
+The root layout must remain a Server Component. Wrap providers in a separate client component:
 
 ```tsx
+// app/layout.tsx  ← Server Component, no 'use client'
+import { Providers } from '@/components/Providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+```tsx
+// components/Providers.tsx
 'use client'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/lib/queryClient'
 
-export default function RootLayout({ children }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <html>
-      <body>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      </body>
-    </html>
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
   )
 }
 ```
@@ -216,29 +227,35 @@ export function useGenerateCard() {
 
 ## TanStack Form — `components/UrlForm.tsx`
 
+TanStack Form v0 wires Zod via the `validators` config on `useForm` and per-field. The schema must be connected explicitly — defining it without passing it to `validators` has no effect.
+
 ```tsx
 'use client'
 import { useForm } from '@tanstack/react-form'
+import { zodValidator } from '@tanstack/zod-form-adapter'
 import { z } from 'zod'
 
-const schema = z.object({
-  url: z.string().url('Enter a valid Google Maps URL').min(1),
-})
+const urlSchema = z.string().url('Enter a valid Google Maps URL')
 
 export function UrlForm({ onSubmit }: { onSubmit: (url: string) => void }) {
   const form = useForm({
     defaultValues: { url: '' },
+    validatorAdapter: zodValidator(),
     onSubmit: ({ value }) => onSubmit(value.url),
   })
 
   return (
     <form onSubmit={(e) => { e.preventDefault(); form.handleSubmit() }}>
-      <form.Field name="url">
+      <form.Field
+        name="url"
+        validators={{ onChange: urlSchema }}
+      >
         {(field) => (
           <>
             <input
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
               placeholder="https://maps.google.com/..."
               className="w-full rounded-lg border px-4 py-3 text-sm"
             />
@@ -256,6 +273,11 @@ export function UrlForm({ onSubmit }: { onSubmit: (url: string) => void }) {
     </form>
   )
 }
+```
+
+**Additional dependency:**
+```bash
+npm install @tanstack/zod-form-adapter
 ```
 
 ---
@@ -315,7 +337,7 @@ The Satori implementation in `/api/generate-card` mirrors this spec exactly so t
 ## Dependencies to Install
 
 ```bash
-npm install @tanstack/react-query @tanstack/react-form
+npm install @tanstack/react-query @tanstack/react-form @tanstack/zod-form-adapter
 npm install zod
 npm install tailwindcss @tailwindcss/vite   # or postcss, depending on Next config
 ```

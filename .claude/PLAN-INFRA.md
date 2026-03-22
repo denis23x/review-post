@@ -124,12 +124,16 @@ META_APP_SECRET=
 
 ### `next.config.ts`
 
+The `outputFileTracingIncludes` option ensures font files in `public/fonts/` are bundled into the Vercel serverless function for `/api/generate-card`. Without it, `readFileSync` will throw in production even though it works locally.
+
 ```ts
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   experimental: {
-    // required for Satori font loading via readFileSync
+    outputFileTracingIncludes: {
+      '/api/generate-card': ['./public/fonts/**/*'],
+    },
   },
 }
 

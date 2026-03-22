@@ -188,13 +188,16 @@ Body: raw PNG binary (1080×1080)
 
 ### Font Loading
 
-Satori requires fonts to be loaded manually. Fetch from Google Fonts or bundle locally:
+Satori requires fonts in `.ttf` or `.otf` format — `.woff2` is not supported. Bundle locally in `public/fonts/`:
 
 ```ts
-const fontData = await fetch(
-  'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2'
-).then(r => r.arrayBuffer())
+import { readFileSync } from 'fs'
+import { join } from 'path'
+
+const fontData = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'))
 ```
+
+See `PLAN-AI.md` for the full font setup.
 
 ### Error Cases
 
@@ -232,8 +235,8 @@ const fontData = await fetch(
 
 ```bash
 npm install openai
-npm install @google/maps   # or use native fetch — no SDK needed for Places API
 npm install satori @resvg/resvg-js
+# No SDK needed for Google Places API — all calls use native fetch
 ```
 
 ---

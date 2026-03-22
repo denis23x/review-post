@@ -120,7 +120,17 @@ const interRegular = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regula
 const interBold    = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'))
 ```
 
-**Option B — Fetch from Google Fonts at build time** (less reliable on cold starts).
+**Option B — Fetch from Google Fonts at request time** (unreliable on cold starts, adds ~200ms latency, avoid for Vercel).
+
+**Vercel bundling note:** `readFileSync` from `public/fonts/` works locally but font files are not automatically included in Vercel serverless function bundles. Add to `next.config.ts` (see `PLAN-INFRA.md`):
+```ts
+experimental: {
+  outputFileTracingIncludes: {
+    '/api/generate-card': ['./public/fonts/**/*'],
+  },
+}
+```
+Without this, the function will crash in production with a "file not found" error that does not appear locally.
 
 ### Implementation
 
@@ -162,6 +172,7 @@ export async function POST(req: Request) {
           justifyContent: 'center',
           padding: 80,
           fontFamily: 'Inter',
+          position: 'relative',   // required for absolute-positioned children
         },
         children: [
           {
