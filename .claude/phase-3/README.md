@@ -19,6 +19,7 @@ becomes automated and owner-controlled via a dashboard.
 
 | File | Area |
 | --- | --- |
+| [UI.md](./UI.md) | Next.js pages, route groups, components, dark design system |
 | [API.md](./API.md) | Google Business Profile OAuth, Meta Graph API |
 | [DATABASE.md](./DATABASE.md) | Supabase schema for businesses, reviews, posts |
 | [AUTH.md](./AUTH.md) | Supabase Auth — email/password + Google OAuth |

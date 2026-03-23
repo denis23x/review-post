@@ -51,9 +51,12 @@
 
 ```
 /           → Landing page: "Paste your Google Maps link"
-/demo       → The tool: URL input → reviews → card generation
-/result     → Generated card + caption + download button
+/demo       → The tool: URL input → reviews → card generation → inline result
 ```
+
+> `/result` is deferred to Phase 2. The generated card (a `blob:` URL) is shown inline on `/demo`
+> after generation. A shareable `/result` route requires Supabase Storage to host the card image,
+> which is not available until Phase 2. See `UI.md` for the reasoning.
 
 ---
 

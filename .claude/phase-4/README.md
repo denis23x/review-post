@@ -21,6 +21,8 @@ Growth focuses on three levers:
 
 | File | Area |
 | --- | --- |
+| [API.md](./API.md) | New API routes: /api/analyze, /api/reply-draft, Yelp, Trustpilot, LinkedIn |
+| [DATABASE.md](./DATABASE.md) | Schema migrations: review sources, new platforms, business fields |
 | [INTEGRATIONS.md](./INTEGRATIONS.md) | New review sources + new social platforms |
 | [AI.md](./AI.md) | AI upgrades: clustering, posting time, hashtags, reply drafts |
 | [DISTRIBUTION.md](./DISTRIBUTION.md) | Launch channels, SEO, agency white-label, partnerships |
