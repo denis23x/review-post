@@ -42,21 +42,31 @@ export async function POST(req: Request) {
 
   const openai = new OpenAI({ apiKey })
 
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    response_format: { type: 'json_object' },
-    max_tokens: 300,
-    temperature: 0.4,
-    messages: [
-      { role: 'system', content: SYSTEM_PROMPT },
-      {
-        role: 'user',
-        content: `Reviews:\n${JSON.stringify(qualifying, null, 2)}`,
-      },
-    ],
-  })
+  let completion
+  try {
+    completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      response_format: { type: 'json_object' },
+      max_tokens: 300,
+      temperature: 0.4,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        {
+          role: 'user',
+          content: `Reviews:\n${JSON.stringify(qualifying, null, 2)}`,
+        },
+      ],
+    })
+  } catch {
+    return Response.json({ error: 'ai scoring failed' }, { status: 500 })
+  }
 
-  const parsed = JSON.parse(completion.choices[0].message.content ?? '{}')
+  let parsed: { review?: string; caption?: string } = {}
+  try {
+    parsed = JSON.parse(completion.choices[0].message.content ?? '{}')
+  } catch {
+    // AI returned non-JSON — fall back to first qualifying review
+  }
 
   const selectedReview =
     qualifying.find((r) => r.text === parsed.review) ?? qualifying[0]

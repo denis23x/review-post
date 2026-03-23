@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { MapPin, CheckCircle, Loader2, Circle, Copy, Check, RefreshCw, ArrowLeft } from 'lucide-react'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
@@ -85,9 +85,7 @@ function LoadingStepItem({
       {state === 'pending' && <Circle size={18} className="text-[#4a5568] shrink-0" />}
       <span
         className={
-          state === 'done'
-            ? 'text-sm text-white'
-            : state === 'active'
+          state === 'active' || state === 'done'
             ? 'text-sm text-white'
             : 'text-sm text-[#94a3b8]'
         }
@@ -102,6 +100,7 @@ export default function DemoPage() {
   const [step, setStep] = useState<Step>('input')
   const [theme, setTheme] = useState<Theme>('dark')
   const [error, setError] = useState<string | null>(null)
+  const [isRegenerating, setIsRegenerating] = useState(false)
   const [loadingSteps, setLoadingSteps] = useState<LoadingStepState>({
     reviews: 'pending',
     score: 'pending',
@@ -110,91 +109,92 @@ export default function DemoPage() {
   const [result, setResult] = useState<ResultData | null>(null)
   const [copied, setCopied] = useState(false)
 
-  const form = useForm({
-    defaultValues: { url: '' },
-    validatorAdapter: zodValidator(),
-    onSubmit: async ({ value }) => {
-      await handleGenerate(value.url)
-    },
-  })
+  // ref keeps the latest theme accessible inside stable callbacks
+  const themeRef = useRef(theme)
+  themeRef.current = theme
 
-  const handleGenerate = useCallback(
-    async (url: string) => {
-      setError(null)
-      setStep('loading')
-      setLoadingSteps({ reviews: 'active', score: 'pending', card: 'pending' })
+  // ── Full generation pipeline ────────────────────────────────────────────────
+  const handleGenerate = useCallback(async (url: string) => {
+    setError(null)
+    setStep('loading')
+    setLoadingSteps({ reviews: 'active', score: 'pending', card: 'pending' })
 
-      try {
-        // Step 1: fetch reviews
-        const reviewsRes = await fetch('/api/reviews', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url }),
-        })
-        if (!reviewsRes.ok) {
-          const data = await reviewsRes.json().catch(() => ({}))
-          throw new Error(data.error ?? 'Could not find this business. Try a different URL.')
-        }
-        const reviewsData = await reviewsRes.json()
-        setLoadingSteps({ reviews: 'done', score: 'active', card: 'pending' })
+    try {
+      // Step 1: fetch reviews
+      const reviewsRes = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      })
+      if (!reviewsRes.ok) {
+        const data = await reviewsRes.json().catch(() => ({}))
+        throw new Error(data.error ?? 'Could not find this business. Try a different URL.')
+      }
+      const reviewsData = await reviewsRes.json()
 
-        // Step 2: score + caption
-        const scoreRes = await fetch('/api/score', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ reviews: reviewsData.reviews }),
-        })
-        if (!scoreRes.ok) {
-          const data = await scoreRes.json().catch(() => ({}))
-          throw new Error(data.error ?? 'AI scoring failed. Try again.')
-        }
-        const scoreData = await scoreRes.json()
-        if (scoreData.error) {
-          throw new Error(scoreData.error)
-        }
-        setLoadingSteps({ reviews: 'done', score: 'done', card: 'active' })
+      if (!reviewsData.reviews?.length) {
+        throw new Error('This business has no reviews yet. Try a different URL.')
+      }
 
-        // Step 3: generate card
-        const cardRes = await fetch('/api/generate-card', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            quote: scoreData.selectedReview.text,
-            businessName: reviewsData.name,
-            rating: scoreData.selectedReview.rating,
-            theme,
-          }),
-        })
-        if (!cardRes.ok) {
-          throw new Error('Card generation failed. Try again.')
-        }
-        const blob = await cardRes.blob()
-        const blobUrl = URL.createObjectURL(blob)
+      setLoadingSteps({ reviews: 'done', score: 'active', card: 'pending' })
 
-        setLoadingSteps({ reviews: 'done', score: 'done', card: 'done' })
-        setResult({
-          blobUrl,
+      // Step 2: score + caption
+      const scoreRes = await fetch('/api/score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reviews: reviewsData.reviews }),
+      })
+      if (!scoreRes.ok) {
+        const data = await scoreRes.json().catch(() => ({}))
+        throw new Error(data.error ?? 'AI scoring failed. Try again.')
+      }
+      const scoreData = await scoreRes.json()
+      if (scoreData.error) {
+        throw new Error(scoreData.error)
+      }
+
+      setLoadingSteps({ reviews: 'done', score: 'done', card: 'active' })
+
+      // Step 3: generate card (use ref to always read the current theme)
+      const cardRes = await fetch('/api/generate-card', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          quote: scoreData.selectedReview.text,
           businessName: reviewsData.name,
           rating: scoreData.selectedReview.rating,
-          caption: scoreData.caption,
-          reviewText: scoreData.selectedReview.text,
-        })
-
-        setTimeout(() => setStep('result'), 400)
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Something went wrong.'
-        setError(msg)
-        setStep('input')
-        setLoadingSteps({ reviews: 'pending', score: 'pending', card: 'pending' })
+          theme: themeRef.current,
+        }),
+      })
+      if (!cardRes.ok) {
+        throw new Error('Card generation failed. Try again.')
       }
-    },
-    [theme]
-  )
+      const blob = await cardRes.blob()
+      const blobUrl = URL.createObjectURL(blob)
 
+      setLoadingSteps({ reviews: 'done', score: 'done', card: 'done' })
+      setResult({
+        blobUrl,
+        businessName: reviewsData.name,
+        rating: scoreData.selectedReview.rating,
+        caption: scoreData.caption,
+        reviewText: scoreData.selectedReview.text,
+      })
+
+      setTimeout(() => setStep('result'), 400)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Something went wrong.'
+      setError(msg)
+      setStep('input')
+      setLoadingSteps({ reviews: 'pending', score: 'pending', card: 'pending' })
+    }
+  }, [])
+
+  // ── Re-generate card only (theme change) ────────────────────────────────────
   const handleRegenerate = useCallback(async () => {
-    if (!result) return
-    setStep('loading')
-    setLoadingSteps({ reviews: 'pending', score: 'pending', card: 'active' })
+    if (!result || isRegenerating) return
+    setIsRegenerating(true)
+    setError(null)
 
     try {
       const cardRes = await fetch('/api/generate-card', {
@@ -204,21 +204,24 @@ export default function DemoPage() {
           quote: result.reviewText,
           businessName: result.businessName,
           rating: result.rating,
-          theme,
+          theme: themeRef.current,
         }),
       })
-      if (!cardRes.ok) throw new Error('Card generation failed.')
+      if (!cardRes.ok) throw new Error('Card generation failed. Try again.')
+
       const blob = await cardRes.blob()
-      const blobUrl = URL.createObjectURL(blob)
-      setLoadingSteps({ reviews: 'done', score: 'done', card: 'done' })
-      setResult((prev) => prev ? { ...prev, blobUrl } : prev)
-      setTimeout(() => setStep('result'), 300)
+      const newBlobUrl = URL.createObjectURL(blob)
+
+      // revoke the previous blob URL to free memory
+      URL.revokeObjectURL(result.blobUrl)
+      setResult((prev) => (prev ? { ...prev, blobUrl: newBlobUrl } : prev))
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong.'
       setError(msg)
-      setStep('result')
+    } finally {
+      setIsRegenerating(false)
     }
-  }, [result, theme])
+  }, [result, isRegenerating])
 
   const handleCopy = useCallback(async () => {
     if (!result?.caption) return
@@ -227,7 +230,7 @@ export default function DemoPage() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // ignore
+      // clipboard API not available (e.g. non-HTTPS)
     }
   }, [result?.caption])
 
@@ -238,7 +241,15 @@ export default function DemoPage() {
     setError(null)
     setLoadingSteps({ reviews: 'pending', score: 'pending', card: 'pending' })
     form.reset()
-  }, [result, form])
+  }, [result]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const form = useForm({
+    defaultValues: { url: '' },
+    validatorAdapter: zodValidator(),
+    onSubmit: async ({ value }) => {
+      await handleGenerate(value.url)
+    },
+  })
 
   return (
     <div className="min-h-screen bg-[#0d0d1a]">
@@ -419,6 +430,8 @@ export default function DemoPage() {
                   variant="ghost"
                   size="md"
                   onClick={handleRegenerate}
+                  loading={isRegenerating}
+                  loadingText="Regenerating..."
                   className="gap-1.5"
                 >
                   <RefreshCw size={15} />

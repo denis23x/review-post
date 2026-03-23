@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { cn } from '@/lib/cn'
 
 interface CardPreviewProps {
@@ -14,17 +13,18 @@ export function CardPreview({ src, businessName, rating, className }: CardPrevie
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-[16px] bg-[#12122a]',
+        'overflow-hidden rounded-[16px] bg-[#12122a]',
         'aspect-square w-full max-w-[400px]',
         className
       )}
     >
-      <Image
+      {/* plain <img> is required: next/image does not support blob: URLs */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={src}
         alt={`Generated post card for ${businessName} — ${rating} stars`}
-        fill
-        className="object-cover"
-        unoptimized
+        className="h-full w-full object-cover"
+        draggable={false}
       />
     </div>
   )
