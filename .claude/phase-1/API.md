@@ -197,7 +197,7 @@ import { join } from 'path'
 const fontData = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'))
 ```
 
-See `PLAN-AI.md` for the full font setup.
+See `AI.md` for the full font setup.
 
 ### Error Cases
 

@@ -15,7 +15,7 @@ app/
 │   └── page.tsx                Demo tool     →  /demo
 ├── result/
 │   └── page.tsx                Result view   →  /result
-└── api/                        (see PLAN-API.md)
+└── api/                        (see API.md)
 
 components/
 ├── ui/                         Generic, reusable primitives
@@ -116,7 +116,7 @@ design/
 **Why not redirect to `/result`?**
 `useGenerateCard` returns a `URL.createObjectURL(blob)` — a `blob:http://...` URL valid only in the current browser tab. Passing it as a URL search param to `/result` would break on navigation. Showing the result inline on `/demo` keeps it simple and reliable for Phase 1.
 
-**`/result` route:** Remove from Phase 1 scope. The page routes in `PLAN.md` list it for completeness — it can be added in Phase 2 once cards are stored in Supabase Storage and accessible via a real URL.
+**`/result` route:** Remove from Phase 1 scope. The page routes in `README.md` list it for completeness — it can be added in Phase 2 once cards are stored in Supabase Storage and accessible via a real URL.
 
 ---
 
@@ -330,7 +330,7 @@ The Satori implementation in `/api/generate-card` mirrors this spec exactly so t
 2. Open `design/card-dark.fig` via `open_file` MCP tool
 3. Use `render` (JSX) to prototype layouts
 4. Export final frame with `export_image` → PNG reference
-5. Match measurements and colors in `PLAN-AI.md` Satori template
+5. Match measurements and colors in `AI.md` Satori template
 
 ---
 

@@ -20,12 +20,11 @@
 
 | File | Area |
 | --- | --- |
-| [PLAN-API.md](./PLAN-API.md) | Google Places API + OpenAI API routes |
-| [PLAN-UI.md](./PLAN-UI.md) | Next.js pages, components, TanStack Query/Form, Pencil.dev design |
-| [PLAN-AI.md](./PLAN-AI.md) | OpenAI review scoring, caption generation, Satori card rendering |
-| [PLAN-DATABASE.md](./PLAN-DATABASE.md) | Supabase setup (Phase 2 prep, not needed for Phase 1) |
-| [PLAN-INFRA.md](./PLAN-INFRA.md) | Vercel deployment, env vars, CI/CD |
-| [SKILLS.md](./SKILLS.md) | Cursor Agent Skills to install |
+| [API.md](./API.md) | Google Places API + OpenAI API routes |
+| [UI.md](./UI.md) | Next.js pages, components, TanStack Query/Form, Pencil.dev design |
+| [AI.md](./AI.md) | OpenAI review scoring, caption generation, Satori card rendering |
+| [DATABASE.md](../phase-2/DATABASE.md) | Supabase setup (Phase 2 prep, not needed for Phase 1) |
+| [INFRA.md](./INFRA.md) | Vercel deployment, env vars, CI/CD |
 
 ---
 
@@ -117,4 +116,4 @@ OPENAI_API_KEY=
 
 ---
 
-*Phase 2 (Agency Model) and beyond are documented in [MVP by Calculon.md](./MVP%20by%20Calculon.md)*
+*Phase 2 (Agency Model) and beyond are documented in [MVP by Calculon.md](../MVP%20by%20Calculon.md)*

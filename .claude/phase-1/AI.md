@@ -122,7 +122,7 @@ const interBold    = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.t
 
 **Option B — Fetch from Google Fonts at request time** (unreliable on cold starts, adds ~200ms latency, avoid for Vercel).
 
-**Vercel bundling note:** `readFileSync` from `public/fonts/` works locally but font files are not automatically included in Vercel serverless function bundles. Add to `next.config.ts` (see `PLAN-INFRA.md`):
+**Vercel bundling note:** `readFileSync` from `public/fonts/` works locally but font files are not automatically included in Vercel serverless function bundles. Add to `next.config.ts` (see `INFRA.md`):
 ```ts
 experimental: {
   outputFileTracingIncludes: {
