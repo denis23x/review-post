@@ -12,6 +12,25 @@ const THEMES = {
   brand: { bg: '#0f172a', text: '#f8fafc', stars: '#38bdf8', meta: '#94a3b8' },
 }
 
+function starElement(color: string, size = 36) {
+  return React.createElement(
+    'svg',
+    { width: size, height: size, viewBox: '0 0 24 24', style: { display: 'block' } },
+    React.createElement('path', {
+      fill: color,
+      d: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+    })
+  )
+}
+
+function renderStars(count: number, color: string, size = 36) {
+  return React.createElement(
+    'div',
+    { style: { display: 'flex', gap: 4, marginTop: 40 } },
+    ...Array.from({ length: count }, (_, i) => React.cloneElement(starElement(color, size), { key: i }))
+  )
+}
+
 function truncateQuote(text: string, maxChars = 220): string {
   if (text.length <= maxChars) return text
   return text.slice(0, maxChars).trimEnd() + '\u2026'
@@ -45,7 +64,7 @@ export async function POST(req: Request) {
   }
 
   const colors = THEMES[theme] ?? THEMES.dark
-  const stars = '\u2605'.repeat(Math.min(5, Math.max(1, Math.round(rating))))
+  const starCount = Math.min(5, Math.max(1, Math.round(rating)))
   const truncated = truncateQuote(quote)
 
   let fonts
@@ -83,11 +102,7 @@ export async function POST(req: Request) {
         },
         `\u201c${truncated}\u201d`
       ),
-      React.createElement(
-        'div',
-        { style: { marginTop: 40, fontSize: 36, color: colors.stars } },
-        stars
-      ),
+      renderStars(starCount, colors.stars),
       React.createElement(
         'div',
         { style: { marginTop: 16, fontSize: 24, color: colors.meta } },

@@ -1,4 +1,4 @@
-import OpenAI from 'openai'
+import Groq from 'groq-sdk'
 
 const SYSTEM_PROMPT = `
 You are a social media manager for local businesses.
@@ -22,9 +22,9 @@ interface ReviewInput {
 }
 
 export async function POST(req: Request) {
-  const apiKey = process.env.OPENAI_API_KEY
+  const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
-    return Response.json({ error: 'openai not configured' }, { status: 500 })
+    return Response.json({ error: 'groq not configured' }, { status: 500 })
   }
 
   const body = await req.json().catch(() => null)
@@ -40,14 +40,14 @@ export async function POST(req: Request) {
     return Response.json({ error: 'no qualifying reviews' }, { status: 200 })
   }
 
-  const openai = new OpenAI({ apiKey })
+  const groq = new Groq({ apiKey })
 
   let completion
   try {
-    completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       response_format: { type: 'json_object' },
-      max_tokens: 300,
+      max_tokens: 1024,
       temperature: 0.4,
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
@@ -57,7 +57,8 @@ export async function POST(req: Request) {
         },
       ],
     })
-  } catch {
+  } catch (error) {
+    console.error('👉 ~ error:', error)
     return Response.json({ error: 'ai scoring failed' }, { status: 500 })
   }
 

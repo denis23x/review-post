@@ -1,13 +1,22 @@
-const PLACES_BASE = 'https://maps.googleapis.com/maps/api/place'
+const PLACES_BASE = 'https://places.googleapis.com/v1/places'
 
-const GOOGLE_ERROR_STATUSES = new Set([
-  'NOT_FOUND',
-  'ZERO_RESULTS',
-  'MAX_WHEELCHAIR_ACCESSIBLE_JOURNEY_NOT_FOUND',
-  'REQUEST_DENIED',
-  'INVALID_REQUEST',
-  'UNKNOWN_ERROR',
-])
+const SHORT_LINK_HOSTS = new Set(['maps.app.goo.gl', 'goo.gl'])
+
+/**
+ * Follows redirects for short Google Maps links (e.g. maps.app.goo.gl)
+ * and returns the final expanded URL.
+ */
+async function expandUrl(url: string): Promise<string> {
+  try {
+    const host = new URL(url).hostname
+    if (!SHORT_LINK_HOSTS.has(host)) return url
+
+    const res = await fetch(url, { method: 'HEAD', redirect: 'follow' })
+    return res.url || url
+  } catch {
+    return url
+  }
+}
 
 /**
  * Extracts the best search query from a Google Maps URL.
@@ -17,7 +26,7 @@ const GOOGLE_ERROR_STATUSES = new Set([
  *  - https://www.google.com/maps/place/NAME/@lat,lng,zoom/...
  *  - https://maps.google.com/?q=NAME
  *  - https://maps.google.com/?cid=12345  (returns empty — caller uses url directly)
- *  - https://maps.app.goo.gl/xyz          (short link — use full url as query)
+ *  - https://maps.app.goo.gl/xyz          (short link — expanded before extraction)
  */
 function extractSearchQuery(url: string): string {
   try {
@@ -52,81 +61,81 @@ export async function POST(req: Request) {
     return Response.json({ error: 'url is required' }, { status: 400 })
   }
 
-  const searchQuery = extractSearchQuery(body.url as string)
+  const resolvedUrl = await expandUrl(body.url as string)
+  const searchQuery = extractSearchQuery(resolvedUrl)
+  console.log('👉 ~ searchQuery:', searchQuery)
 
   // ── Step 1: resolve Place ID ────────────────────────────────────────────────
   let placeId: string
 
   try {
-    const findUrl = new URL(`${PLACES_BASE}/findplacefromtext/json`)
-    findUrl.searchParams.set('input', searchQuery)
-    findUrl.searchParams.set('inputtype', 'textquery')
-    findUrl.searchParams.set('fields', 'place_id,name')
-    findUrl.searchParams.set('key', apiKey)
+    const findRes = await fetch(`${PLACES_BASE}:searchText`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': apiKey,
+        'X-Goog-FieldMask': 'places.id,places.displayName',
+      },
+      body: JSON.stringify({ textQuery: searchQuery }),
+    })
 
-    const findRes = await fetch(findUrl.toString())
-    if (!findRes.ok) {
-      return Response.json({ error: 'google api error' }, { status: 500 })
-    }
-
-    const findData = await findRes.json()
-
-    if (GOOGLE_ERROR_STATUSES.has(findData.status)) {
-      return Response.json({ error: 'could not resolve place' }, { status: 400 })
-    }
-
-    if (findData.status === 'OVER_QUERY_LIMIT') {
+    if (findRes.status === 429) {
       return Response.json({ error: 'rate limit exceeded' }, { status: 429 })
     }
 
-    if (!findData.candidates?.length) {
+    if (!findRes.ok) {
+      const errBody = await findRes.json().catch(() => null)
+      console.error('👉 ~ searchText error:', findRes.status, errBody)
       return Response.json({ error: 'could not resolve place' }, { status: 400 })
     }
 
-    placeId = findData.candidates[0].place_id as string
+    const findData = await findRes.json()
+    console.log('👉 ~ searchText result:', JSON.stringify(findData))
+
+    if (!findData.places?.length) {
+      return Response.json({ error: 'could not resolve place' }, { status: 400 })
+    }
+
+    placeId = findData.places[0].id as string
   } catch {
     return Response.json({ error: 'google api error' }, { status: 500 })
   }
 
   // ── Step 2: fetch reviews ────────────────────────────────────────────────────
   try {
-    const detailsUrl = new URL(`${PLACES_BASE}/details/json`)
-    detailsUrl.searchParams.set('place_id', placeId)
-    detailsUrl.searchParams.set('fields', 'name,rating,reviews')
-    detailsUrl.searchParams.set('key', apiKey)
+    const detailsRes = await fetch(`${PLACES_BASE}/${placeId}`, {
+      headers: {
+        'X-Goog-Api-Key': apiKey,
+        'X-Goog-FieldMask': 'id,displayName,rating,reviews',
+      },
+    })
 
-    const detailsRes = await fetch(detailsUrl.toString())
+    if (detailsRes.status === 429) {
+      return Response.json({ error: 'rate limit exceeded' }, { status: 429 })
+    }
+
     if (!detailsRes.ok) {
-      return Response.json({ error: 'google api error' }, { status: 500 })
+      return Response.json({ error: 'could not find this business' }, { status: 400 })
     }
 
     const detailsData = await detailsRes.json()
 
-    if (detailsData.status === 'OVER_QUERY_LIMIT') {
-      return Response.json({ error: 'rate limit exceeded' }, { status: 429 })
-    }
-
-    if (GOOGLE_ERROR_STATUSES.has(detailsData.status)) {
-      return Response.json({ error: 'could not find this business' }, { status: 400 })
-    }
-
-    const result = detailsData.result ?? {}
-    const reviews = (result.reviews ?? []).map((r: {
-      author_name: string
+    const reviews = (detailsData.reviews ?? []).map((r: {
+      authorAttribution: { displayName: string }
       rating: number
-      text: string
-      time: number
+      text: { text: string }
+      publishTime: string
     }) => ({
-      authorName: r.author_name,
+      authorName: r.authorAttribution?.displayName,
       rating: r.rating,
-      text: r.text,
-      time: r.time,
+      text: r.text?.text,
+      time: Math.floor(new Date(r.publishTime).getTime() / 1000),
     }))
 
     return Response.json({
       placeId,
-      name: result.name ?? 'Unknown Business',
-      rating: result.rating ?? 0,
+      name: detailsData.displayName?.text ?? 'Unknown Business',
+      rating: detailsData.rating ?? 0,
       reviews,
     })
   } catch {
