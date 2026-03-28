@@ -1586,200 +1586,255 @@
               "id": "ZRGUk",
               "name": "stepsRow",
               "width": "fill_container",
-              "gap": 32,
+              "layout": "vertical",
+              "gap": 24,
+              "alignItems": "center",
               "children": [
                 {
                   "type": "frame",
-                  "id": "0kCq8",
-                  "name": "step1",
+                  "id": "zjqgZ",
+                  "name": "contentRow",
                   "width": "fill_container",
-                  "fill": "$--background",
-                  "cornerRadius": 16,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$--background"
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 32,
+                  "justifyContent": "center",
                   "children": [
                     {
                       "type": "frame",
-                      "id": "mPbno",
-                      "name": "s1num",
-                      "width": 40,
-                      "height": 40,
-                      "fill": "#4A9FD8",
-                      "cornerRadius": 16,
+                      "id": "UfE73",
+                      "name": "stepContent1",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "2KGUd",
+                          "name": "icon1",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "link",
+                          "iconFontFamily": "lucide",
+                          "fill": "$--primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "y0NPb",
+                          "name": "step1Title",
+                          "fill": "$--foreground",
+                          "content": "Paste your link",
+                          "textAlign": "center",
+                          "fontFamily": "Geist",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "6MI2m",
+                          "name": "step1Desc",
+                          "fill": "$--muted-foreground",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Drop in your Google Maps business URL. We'll fetch all your latest reviews instantly.",
+                          "lineHeight": 1.5,
+                          "textAlign": "center",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kPhvn",
+                      "name": "stepContent2",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "Z3ufM",
+                          "name": "icon2",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "palette",
+                          "iconFontFamily": "lucide",
+                          "fill": "$--primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Uxr14",
+                          "name": "step2Title",
+                          "fill": "$--foreground",
+                          "content": "Pick your style",
+                          "textAlign": "center",
+                          "fontFamily": "Geist",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "8eJYG",
+                          "name": "step2Desc",
+                          "fill": "$--muted-foreground",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Choose from dark, light, or branded themes. Customize colors to match your brand identity.",
+                          "lineHeight": 1.5,
+                          "textAlign": "center",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sdXmA",
+                      "name": "stepContent3",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "GO18u",
+                          "name": "icon3",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "download",
+                          "iconFontFamily": "lucide",
+                          "fill": "$--primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ikTzu",
+                          "name": "step3Title",
+                          "fill": "$--foreground",
+                          "content": "Download & share",
+                          "textAlign": "center",
+                          "fontFamily": "Geist",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "5qdTN",
+                          "name": "step3Desc",
+                          "fill": "$--muted-foreground",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Get a ready-to-post image with AI-written caption. Share to Instagram, Facebook, or LinkedIn.",
+                          "lineHeight": 1.5,
+                          "textAlign": "center",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6mmTZ",
+                  "name": "wizardRow",
+                  "width": "fill_container",
+                  "gap": 23,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "9UbLk",
+                      "name": "circle1",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "$--primary",
+                      "cornerRadius": 24,
                       "layout": "vertical",
                       "justifyContent": "center",
                       "alignItems": "center",
                       "children": [
                         {
                           "type": "text",
-                          "id": "sJfiO",
-                          "name": "s1numT",
-                          "fill": "#1A1A1A",
+                          "id": "pAQsf",
+                          "name": "txt1",
+                          "fill": "$--primary-foreground",
                           "content": "1",
                           "fontFamily": "Inter",
-                          "fontSize": 16,
+                          "fontSize": 18,
                           "fontWeight": "700"
                         }
                       ]
                     },
                     {
-                      "type": "text",
-                      "id": "JddNG",
-                      "name": "s1title",
-                      "fill": "#1A1A1A",
-                      "content": "Paste your link",
-                      "fontFamily": "Geist",
-                      "fontSize": 20,
-                      "fontWeight": "600"
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "OLl3T",
+                      "name": "connector2",
+                      "fill": "$--border",
+                      "width": 310,
+                      "height": 3
                     },
                     {
-                      "type": "text",
-                      "id": "oqs40",
-                      "name": "s1desc",
-                      "fill": "#666666",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Drop in your Google Maps business URL. We'll fetch all your latest reviews instantly.",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Inter",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "hH32Y",
-                  "name": "step2",
-                  "width": "fill_container",
-                  "fill": "$--background",
-                  "cornerRadius": 16,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "#E5E7EB"
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 32,
-                  "children": [
-                    {
                       "type": "frame",
-                      "id": "spx2W",
-                      "name": "s2num",
-                      "width": 40,
-                      "height": 40,
-                      "fill": "#4A9FD8",
-                      "cornerRadius": 16,
+                      "id": "zqEvk",
+                      "name": "circle2",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "$--primary",
+                      "cornerRadius": 24,
                       "layout": "vertical",
                       "justifyContent": "center",
                       "alignItems": "center",
                       "children": [
                         {
                           "type": "text",
-                          "id": "qCnR1",
-                          "name": "s2numT",
-                          "fill": "#1A1A1A",
+                          "id": "XbuBE",
+                          "name": "txt2",
+                          "fill": "$--primary-foreground",
                           "content": "2",
                           "fontFamily": "Inter",
-                          "fontSize": 16,
+                          "fontSize": 18,
                           "fontWeight": "700"
                         }
                       ]
                     },
                     {
-                      "type": "text",
-                      "id": "AGBUn",
-                      "name": "s2title",
-                      "fill": "#1A1A1A",
-                      "content": "Pick your style",
-                      "fontFamily": "Geist",
-                      "fontSize": 20,
-                      "fontWeight": "600"
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "lZ4KQ",
+                      "name": "line1",
+                      "fill": "$--border",
+                      "width": 310,
+                      "height": 3
                     },
                     {
-                      "type": "text",
-                      "id": "scWn3",
-                      "name": "s2desc",
-                      "fill": "#666666",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Choose from dark, light, or branded themes. Customize colors to match your brand identity.",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Inter",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "tE1rX",
-                  "name": "step3",
-                  "width": "fill_container",
-                  "fill": "$--background",
-                  "cornerRadius": 16,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "#E5E7EB"
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 32,
-                  "children": [
-                    {
                       "type": "frame",
-                      "id": "nHpg7",
-                      "name": "s3num",
-                      "width": 40,
-                      "height": 40,
-                      "fill": "#4A9FD8",
-                      "cornerRadius": 16,
+                      "id": "fTLnc",
+                      "name": "stepCircle3",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "$--primary",
+                      "cornerRadius": 24,
                       "layout": "vertical",
                       "justifyContent": "center",
                       "alignItems": "center",
                       "children": [
                         {
                           "type": "text",
-                          "id": "xBok0",
-                          "name": "s3numT",
-                          "fill": "#1A1A1A",
+                          "id": "fTrcO",
+                          "name": "num3",
+                          "fill": "$--primary-foreground",
                           "content": "3",
                           "fontFamily": "Inter",
-                          "fontSize": 16,
+                          "fontSize": 18,
                           "fontWeight": "700"
                         }
                       ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "8Uu0H",
-                      "name": "s3title",
-                      "fill": "#1A1A1A",
-                      "content": "Download & share",
-                      "fontFamily": "Geist",
-                      "fontSize": 20,
-                      "fontWeight": "600"
-                    },
-                    {
-                      "type": "text",
-                      "id": "P5Pjl",
-                      "name": "s3desc",
-                      "fill": "#666666",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Get a ready-to-post image with AI-written caption. Share to Instagram, Facebook, or LinkedIn.",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Inter",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -3599,7 +3654,7 @@
           "ref": "eYaa7",
           "width": "fill_container",
           "name": "footerLP",
-          "y": 3565,
+          "y": 3524,
           "height": "fit_content",
           "stroke": {
             "align": "inside",
@@ -3621,6 +3676,9 @@
             "eiluz": {
               "width": "fit_content",
               "height": "fit_content"
+            },
+            "tq0xw": {
+              "fill": "$--primary"
             },
             "jECcU": {
               "x": 32
