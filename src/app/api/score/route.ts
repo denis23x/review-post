@@ -11,8 +11,10 @@ Scoring criteria:
 - Minimum 3 stars — discard anything below 3 stars
 
 Return a valid JSON object with exactly two fields:
-- "review": the full text of the chosen review (do not truncate or paraphrase)
+- "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
 - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
+
+IMPORTANT: Always respond in the same language as the reviews provided. Never translate any text.
 `.trim()
 
 interface ReviewInput {
