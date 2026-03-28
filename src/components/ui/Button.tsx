@@ -5,7 +5,7 @@ import { cn } from '@/lib/cn'
 import { Spinner } from './Spinner'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive' | 'outline-indigo'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive' | 'outline'
   size?: 'sm' | 'md' | 'lg' | 'xl'
   loading?: boolean
   loadingText?: string
@@ -13,15 +13,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary:
-    'bg-[#4f46e5] text-white hover:bg-[#4338ca] focus-visible:ring-2 focus-visible:ring-[#4f46e5]/50',
+    'bg-[#4A9FD8] text-white hover:bg-[#3b8ec4] focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
   secondary:
-    'bg-[#1a1a2e] text-white border border-[#2a2a4a] hover:bg-[#222240] focus-visible:ring-2 focus-visible:ring-[#2a2a4a]',
+    'bg-[#F7F8FA] text-[#1a1a1a] border border-[#E5E7EB] hover:bg-[#eef0f3] focus-visible:ring-2 focus-visible:ring-[#E5E7EB]',
   ghost:
-    'bg-transparent text-[#94a3b8] hover:text-white hover:bg-[#222240] focus-visible:ring-2 focus-visible:ring-[#2a2a4a]',
+    'bg-transparent text-[#666666] hover:text-[#1a1a1a] hover:bg-[#F7F8FA] focus-visible:ring-2 focus-visible:ring-[#E5E7EB]',
   destructive:
     'bg-[#ef4444] text-white hover:bg-[#dc2626] focus-visible:ring-2 focus-visible:ring-[#ef4444]/50',
-  'outline-indigo':
-    'bg-transparent text-[#4f46e5] border border-[#4f46e5] hover:bg-[#4f46e5]/10 focus-visible:ring-2 focus-visible:ring-[#4f46e5]/50',
+  outline:
+    'bg-transparent text-[#4A9FD8] border border-[#4A9FD8] hover:bg-[#4A9FD8]/10 focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
 }
 
 const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {

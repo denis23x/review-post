@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
-import { MapPin, CheckCircle, Loader2, Circle, Copy, Check, RefreshCw, ArrowLeft } from 'lucide-react'
+import { MapPin, CheckCircle, Loader2, Circle, Copy, Check, RefreshCw, ArrowLeft, Star } from 'lucide-react'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { Navbar } from '@/components/Navbar'
@@ -51,8 +51,8 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
           <div
             className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-all"
             style={{
-              background: i <= activeIndex ? '#4f46e5' : '#2a2a2e',
-              color: i <= activeIndex ? '#ffffff' : '#94a3b8',
+              background: i <= activeIndex ? '#4A9FD8' : '#F7F8FA',
+              color: i <= activeIndex ? '#ffffff' : '#888888',
             }}
           >
             {i < activeIndex ? <CheckCircle size={16} /> : i + 1}
@@ -60,7 +60,7 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
           {i < steps.length - 1 && (
             <div
               className="h-0.5 w-20 rounded transition-all"
-              style={{ background: i < activeIndex ? '#4f46e5' : '#2a2a2e' }}
+              style={{ background: i < activeIndex ? '#4A9FD8' : '#E5E7EB' }}
             />
           )}
         </div>
@@ -78,16 +78,16 @@ function LoadingStepItem({
 }) {
   return (
     <div className="flex items-center gap-2.5">
-      {state === 'done' && <CheckCircle size={18} className="text-[#22c55e] shrink-0" />}
+      {state === 'done' && <CheckCircle size={18} className="text-[#32D583] shrink-0" />}
       {state === 'active' && (
-        <Loader2 size={18} className="animate-spin text-[#4f46e5] shrink-0" />
+        <Loader2 size={18} className="animate-spin text-[#4A9FD8] shrink-0" />
       )}
-      {state === 'pending' && <Circle size={18} className="text-[#4a5568] shrink-0" />}
+      {state === 'pending' && <Circle size={18} className="text-[#E5E7EB] shrink-0" />}
       <span
         className={
           state === 'active' || state === 'done'
-            ? 'text-sm text-white'
-            : 'text-sm text-[#94a3b8]'
+            ? 'text-sm text-[#1a1a1a]'
+            : 'text-sm text-[#888888]'
         }
       >
         {label}
@@ -252,16 +252,16 @@ export default function DemoPage() {
   })
 
   return (
-    <div className="min-h-screen bg-[#0d0d1a]">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
-      <main className="mx-auto flex max-w-[640px] flex-col items-center gap-12 px-6 py-12">
+      <main className="mx-auto flex max-w-[800px] flex-col items-center gap-12 px-6 py-12">
         {/* Title */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">
             Try ReviewPost &mdash; Free
           </h1>
-          <p className="mt-3 text-base text-[#94a3b8]">
+          <p className="mt-3 text-base text-[#666666]">
             See how your reviews look as branded social posts. No sign-up required.
           </p>
         </div>
@@ -271,8 +271,8 @@ export default function DemoPage() {
 
         {/* Step 1: Input */}
         {step === 'input' && (
-          <div className="w-full rounded-[16px] border border-[#2a2a2e] bg-[#16161a] p-8">
-            <h2 className="text-xl font-semibold text-white">
+          <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
+            <h2 className="text-xl font-semibold text-[#1a1a1a]">
               Step 1: Paste your Google Maps URL
             </h2>
 
@@ -289,11 +289,11 @@ export default function DemoPage() {
               >
                 {(field) => (
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-medium text-white" htmlFor="url-input">
+                    <label className="text-sm font-medium text-[#1a1a1a]" htmlFor="url-input">
                       Business URL
                     </label>
                     <div className="relative flex items-center">
-                      <span className="absolute left-3 text-[#4a5568] pointer-events-none">
+                      <span className="absolute left-3 text-[#888888] pointer-events-none">
                         <MapPin size={18} />
                       </span>
                       <input
@@ -303,7 +303,9 @@ export default function DemoPage() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         onBlur={field.handleBlur}
                         placeholder="https://maps.google.com/..."
-                        className="h-11 w-full rounded-[8px] border border-[#2a2a4a] bg-[#12122a] pl-11 pr-4 text-sm text-white placeholder:text-[#4a5568] outline-none focus:border-[#4f46e5] focus:ring-2 focus:ring-[#4f46e5]/20 transition-all"
+                        className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white pl-11 pr-4 text-sm
+                          text-[#1a1a1a] placeholder:text-[#888888] outline-none
+                          focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)] transition-all"
                         autoComplete="off"
                       />
                     </div>
@@ -317,12 +319,12 @@ export default function DemoPage() {
               </form.Field>
 
               <div className="flex flex-col gap-3">
-                <p className="text-sm font-medium text-white">Choose a theme</p>
+                <p className="text-sm font-medium text-[#1a1a1a]">Choose a theme</p>
                 <ThemeSelector value={theme} onChange={setTheme} />
               </div>
 
               {error && (
-                <div className="rounded-[8px] border-l-4 border-[#ef4444] bg-[#450a0a] p-3 text-sm text-[#ef4444]">
+                <div className="rounded-[8px] border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
                   {error}
                 </div>
               )}
@@ -346,10 +348,10 @@ export default function DemoPage() {
 
         {/* Step 2: Loading */}
         {step === 'loading' && (
-          <div className="w-full rounded-[16px] border border-[#2a2a2e] bg-[#16161a] p-8">
+          <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
             <div className="flex items-center gap-3">
-              <Spinner size="md" className="text-[#4f46e5]" />
-              <h2 className="text-xl font-semibold text-white">
+              <Spinner size="md" className="text-[#4A9FD8]" />
+              <h2 className="text-xl font-semibold text-[#1a1a1a]">
                 Step 2: Generating your post...
               </h2>
             </div>
@@ -366,88 +368,96 @@ export default function DemoPage() {
           <div className="w-full flex flex-col gap-6">
             <button
               onClick={handleReset}
-              className="flex items-center gap-1.5 self-start text-sm text-[#94a3b8] hover:text-white transition-colors"
+              className="flex items-center gap-1.5 self-start text-sm text-[#666666] hover:text-[#1a1a1a] transition-colors"
             >
               <ArrowLeft size={16} />
               Try another URL
             </button>
 
-            <div className="w-full rounded-[16px] border border-[#2a2a2e] bg-[#16161a] p-8">
-              <h2 className="mb-6 text-xl font-semibold text-white">
+            <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
+              <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">
                 Step 3: Your post is ready!
               </h2>
 
-              {/* Card preview */}
-              <div className="flex justify-center">
-                <CardPreview
-                  src={result.blobUrl}
-                  businessName={result.businessName}
-                  rating={result.rating}
-                  className="max-w-[360px]"
-                />
-              </div>
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
+                {/* Card preview column */}
+                <div className="flex flex-col gap-4 lg:w-[400px] shrink-0">
+                  <div className="rounded-[16px] border border-[#E5E7EB] bg-white p-2">
+                    <CardPreview
+                      src={result.blobUrl}
+                      businessName={result.businessName}
+                      rating={result.rating}
+                      className="max-w-full"
+                    />
+                  </div>
 
-              {/* Business info */}
-              <div className="mt-5 flex items-center justify-between">
-                <p className="text-base font-semibold text-white">{result.businessName}</p>
-                <StarRating rating={result.rating} />
-              </div>
-
-              {/* Caption */}
-              <div className="mt-4 flex flex-col gap-2">
-                <p className="text-sm font-medium text-white">Caption</p>
-                <div className="rounded-[8px] border border-[#2a2a4a] bg-[#12122a] p-3">
-                  <p className="font-mono text-sm text-white leading-relaxed">
-                    {result.caption}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Star size={14} className="text-[#F6A700]" fill="currentColor" />
+                      <p className="text-sm font-semibold text-[#1a1a1a]">{result.businessName}</p>
+                    </div>
+                    <StarRating rating={result.rating} size="sm" />
+                  </div>
                 </div>
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-1.5 self-start text-sm transition-colors"
-                  style={{ color: copied ? '#22c55e' : '#94a3b8' }}
-                >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? 'Copied!' : 'Copy Caption'}
-                </button>
-              </div>
 
-              {/* Theme re-picker */}
-              <div className="mt-5 flex flex-col gap-3">
-                <p className="text-sm font-medium text-white">Change theme</p>
-                <ThemeSelector value={theme} onChange={setTheme} />
-              </div>
+                {/* Right column */}
+                <div className="flex flex-1 flex-col gap-5">
+                  {/* Caption */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-sm font-semibold text-[#1a1a1a]">AI-Generated Caption</p>
+                    <div className="rounded-[12px] border border-[#E5E7EB] bg-white p-4">
+                      <p className="text-sm text-[#1a1a1a] leading-relaxed">
+                        {result.caption}
+                      </p>
+                      <button
+                        onClick={handleCopy}
+                        className="mt-3 flex items-center gap-1.5 text-sm transition-colors"
+                        style={{ color: copied ? '#32D583' : '#4A9FD8' }}
+                      >
+                        {copied ? <Check size={14} /> : <Copy size={14} />}
+                        {copied ? 'Copied!' : 'Copy Caption'}
+                      </button>
+                    </div>
+                  </div>
 
-              {error && (
-                <div className="mt-4 rounded-[8px] border-l-4 border-[#ef4444] bg-[#450a0a] p-3 text-sm text-[#ef4444]">
-                  {error}
+                  {/* Theme re-picker */}
+                  <div className="flex flex-col gap-3">
+                    <p className="text-sm font-medium text-[#1a1a1a]">Change theme</p>
+                    <ThemeSelector value={theme} onChange={setTheme} />
+                  </div>
+
+                  {error && (
+                    <div className="rounded-[8px] border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
+                      {error}
+                    </div>
+                  )}
+
+                  {/* Action buttons */}
+                  <div className="flex flex-wrap gap-3">
+                    <DownloadButton blobUrl={result.blobUrl} />
+                    <Button
+                      variant="secondary"
+                      size="md"
+                      onClick={handleRegenerate}
+                      loading={isRegenerating}
+                      loadingText="Regenerating..."
+                      className="gap-1.5"
+                    >
+                      <RefreshCw size={15} />
+                      Change Theme
+                    </Button>
+                  </div>
+
+                  {/* Upsell */}
+                  <div className="flex items-center justify-between gap-3 rounded-[16px] bg-white border border-[#E5E7EB] p-5">
+                    <p className="text-[15px] font-medium text-[#1a1a1a]">
+                      Want unlimited posts?
+                    </p>
+                    <a href="/signup" className="text-sm font-medium text-[#4A9FD8] whitespace-nowrap">
+                      Sign up free &rarr;
+                    </a>
+                  </div>
                 </div>
-              )}
-
-              {/* Action buttons */}
-              <div className="mt-6 flex flex-wrap gap-3">
-                <DownloadButton blobUrl={result.blobUrl} />
-                <Button
-                  variant="ghost"
-                  size="md"
-                  onClick={handleRegenerate}
-                  loading={isRegenerating}
-                  loadingText="Regenerating..."
-                  className="gap-1.5"
-                >
-                  <RefreshCw size={15} />
-                  Change Theme
-                </Button>
-              </div>
-
-              {/* Upsell */}
-              <div className="mt-8 border-t border-[#2a2a4a] pt-6 text-center">
-                <p className="text-base font-semibold text-white">
-                  Want this done automatically every week?
-                </p>
-                <Button size="xl" className="mt-4 w-full rounded-[12px]">
-                  Start Free Trial &rarr;
-                </Button>
-                <p className="mt-2 text-xs text-[#4a5568]">No credit card required</p>
               </div>
             </div>
           </div>

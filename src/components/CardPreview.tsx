@@ -13,7 +13,7 @@ export function CardPreview({ src, businessName, rating, className }: CardPrevie
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-[16px] bg-[#12122a]',
+        'overflow-hidden rounded-[16px] bg-[#F7F8FA]',
         'aspect-square w-full max-w-[400px]',
         className
       )}

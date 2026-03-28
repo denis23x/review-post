@@ -20,14 +20,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-[13px] text-[#94a3b8] font-normal leading-snug"
+            className="text-[13px] text-[#1a1a1a] font-medium leading-snug"
           >
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {iconLeft && (
-            <span className="absolute left-3 text-[#4a5568] pointer-events-none">
+            <span className="absolute left-3 text-[#888888] pointer-events-none">
               {iconLeft}
             </span>
           )}
@@ -35,13 +35,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full h-11 rounded-[8px] bg-[#12122a] border text-white placeholder:text-[#4a5568]',
+              'w-full h-11 rounded-[8px] bg-white border text-[#1a1a1a] placeholder:text-[#888888]',
               'text-sm font-normal px-4 py-3 outline-none transition-all duration-150',
-              'focus:border-[#4f46e5] focus:shadow-[0_0_0_3px_rgba(79,70,229,0.15)]',
+              'focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]',
               error
                 ? 'border-[#ef4444]'
-                : 'border-[#2a2a4a]',
-              'disabled:bg-[#0d0d1a] disabled:text-[#4a5568] disabled:cursor-not-allowed',
+                : 'border-[#E5E7EB]',
+              'disabled:bg-[#F7F8FA] disabled:text-[#888888] disabled:cursor-not-allowed',
               iconLeft && 'pl-11',
               iconRight && 'pr-11',
               className
@@ -49,7 +49,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {iconRight && (
-            <span className="absolute right-3 text-[#4a5568]">
+            <span className="absolute right-3 text-[#888888]">
               {iconRight}
             </span>
           )}
@@ -58,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <p className="text-[12px] text-[#ef4444] leading-snug">{error}</p>
         )}
         {helperText && !error && (
-          <p className="text-[12px] text-[#4a5568] leading-snug">{helperText}</p>
+          <p className="text-[12px] text-[#888888] leading-snug">{helperText}</p>
         )}
       </div>
     )

@@ -25,15 +25,15 @@ export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
           className={cn(
             'flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium',
             'border transition-all duration-150 outline-none',
-            'focus-visible:ring-2 focus-visible:ring-[#4f46e5]/50',
+            'focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
             value === theme.value
-              ? 'bg-[#4f46e5] border-[#4f46e5] text-white'
-              : 'bg-transparent border-[#2a2a4a] text-[#94a3b8] hover:border-[#4f46e5]/50 hover:text-white'
+              ? 'bg-[#EDF6FC] border-[#4A9FD8] text-[#4A9FD8]'
+              : 'bg-transparent border-[#E5E7EB] text-[#666666] hover:border-[#4A9FD8]/50 hover:text-[#1a1a1a]'
           )}
           aria-pressed={value === theme.value}
         >
           <span
-            className="w-3 h-3 rounded-full border border-white/20 shrink-0"
+            className="w-3 h-3 rounded-full border border-[#E5E7EB] shrink-0"
             style={{ backgroundColor: theme.dot }}
           />
           {theme.label}
