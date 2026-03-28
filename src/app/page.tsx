@@ -1,21 +1,19 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { Link2, Palette, Share2, ArrowRight } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
-import { Button } from '@/components/ui/Button'
 import { StarRating } from '@/components/ui/StarRating'
 
 const EXAMPLE_CARDS = [
   {
     quote: 'Best coffee in town! The pour-over is incredible and the staff is always so friendly.',
     author: 'Maria S. · Local Guide',
-    business: 'Blue Bottle Coffee',
     rating: 5,
     platforms: ['IG', 'FB'],
   },
   {
     quote: 'Absolutely transformed my morning routine. The atmosphere is unmatched anywhere else.',
     author: 'Jake T. · 52 reviews',
-    business: 'Verve Coffee Roasters',
     rating: 5,
     featured: true,
     platforms: ['IG', 'LI'],
@@ -23,7 +21,6 @@ const EXAMPLE_CARDS = [
   {
     quote: "Five stars isn't enough! Every visit has been perfect. The team truly cares.",
     author: 'Linda K. · 20 reviews',
-    business: 'Ritual Coffee',
     rating: 5,
     platforms: ['FB', 'LI'],
   },
@@ -31,17 +28,20 @@ const EXAMPLE_CARDS = [
 
 const HOW_IT_WORKS = [
   {
-    step: '1',
+    step: 1,
+    Icon: Link2,
     title: 'Paste your link',
     body: "Drop in your Google Maps business URL. We'll fetch all your latest reviews instantly.",
   },
   {
-    step: '2',
+    step: 2,
+    Icon: Palette,
     title: 'Pick your style',
     body: 'Choose from dark, light, or branded themes. Customize colors to match your brand identity.',
   },
   {
-    step: '3',
+    step: 3,
+    Icon: Share2,
     title: 'Download & share',
     body: 'Get a ready-to-post image with AI-written caption. Share to Instagram, Facebook, or LinkedIn.',
   },
@@ -73,7 +73,7 @@ const PRICING = [
     desc: 'Perfect for trying it out',
     features: ['✓ 3 posts per month', '✓ 1 theme', '✓ Watermark included'],
     cta: 'Get Started',
-    ctaVariant: 'secondary' as const,
+    featured: false,
   },
   {
     name: 'Solo',
@@ -81,7 +81,7 @@ const PRICING = [
     desc: 'For solopreneurs & freelancers',
     features: ['✓ 30 posts per month', '✓ All themes', '✓ No watermark', '✓ AI captions'],
     cta: 'Start Free Trial',
-    ctaVariant: 'secondary' as const,
+    featured: false,
   },
   {
     name: 'Business',
@@ -95,7 +95,6 @@ const PRICING = [
       '✓ Priority support',
     ],
     cta: 'Start Free Trial',
-    ctaVariant: 'primary' as const,
     featured: true,
   },
   {
@@ -110,7 +109,7 @@ const PRICING = [
       '✓ API access',
     ],
     cta: 'Contact Sales',
-    ctaVariant: 'secondary' as const,
+    featured: false,
   },
 ]
 
@@ -148,46 +147,46 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero */}
-      <section className="flex flex-col items-center gap-8 px-6 py-20 text-center md:px-12 lg:px-[120px] lg:py-20">
+      {/* ── Hero ── */}
+      <section className="flex flex-col items-center gap-8 bg-white px-6 py-20 text-center md:px-12 lg:px-[120px]">
         {/* Badge */}
         <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD833] bg-[#4A9FD815] px-4 py-1.5">
           <div className="h-2 w-2 rounded-full bg-[#4A9FD8]" />
-          <span className="text-xs font-medium text-[#4A9FD8]">
-            Now with AI-powered captions
-          </span>
+          <span className="text-xs font-medium text-[#4A9FD8]">Now with AI-powered captions</span>
         </div>
 
         {/* Headline */}
-        <h1 className="mx-auto max-w-[900px] text-5xl font-extrabold leading-[1.1] tracking-[-2px] text-[#1a1a1a] md:text-6xl lg:text-[56px]">
-          Turn your best Google reviews
+        <h1 className="font-geist mx-auto max-w-[900px] text-[56px] font-extrabold leading-[1.1] tracking-[-2px] text-[#1a1a1a]">
+          Turn your Google reviews
           <br />
           into branded social posts.
-          <br />
-          <span className="text-[#4A9FD8]">Automatically.</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="mx-auto max-w-[640px] text-lg text-[#666666] leading-relaxed">
+        <p className="mx-auto max-w-[640px] text-lg leading-relaxed text-[#666666]">
           Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with
           caption &mdash; in seconds.
         </p>
 
-        {/* Input + CTA row */}
-        <div className="flex w-full max-w-[540px] flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="flex h-12 flex-1 items-center rounded-full border border-[#E5E7EB] bg-white px-5">
-            <span className="text-sm text-[#888888] truncate">
+        {/* Input + CTA — combined pill with primary bg */}
+        <div
+          className="flex items-center gap-3 rounded-full bg-[#4A9FD8] p-1.5"
+          style={{ boxShadow: '0 4px 16px rgba(74,159,216,0.20)' }}
+        >
+          <div className="flex h-11 w-[300px] items-center rounded-full bg-white px-5 sm:w-[420px]">
+            <span className="truncate text-sm text-[#1a1a1a]/40">
               Paste your Google Maps URL...
             </span>
           </div>
-          <Link href="/demo">
-            <Button size="lg" className="w-full rounded-full sm:w-auto whitespace-nowrap">
-              Generate Post &rarr;
-            </Button>
+          <Link
+            href="/demo"
+            className="flex h-11 items-center rounded-full bg-white px-5 text-sm font-medium text-[#1a1a1a] whitespace-nowrap transition-opacity hover:opacity-80"
+          >
+            Generate Post &rarr;
           </Link>
         </div>
 
-        {/* Example cards row */}
+        {/* Example review cards */}
         <div
           id="examples"
           className="flex w-full max-w-[1100px] gap-6 overflow-x-auto pb-2 pt-4 lg:grid lg:grid-cols-3"
@@ -195,14 +194,17 @@ export default function LandingPage() {
           {EXAMPLE_CARDS.map((card, i) => (
             <div
               key={i}
-              className="flex min-w-[280px] flex-col gap-4 rounded-[16px] bg-[#F7F8FA] p-6 lg:min-w-0"
+              className="flex min-w-[280px] flex-col gap-4 rounded-[16px] p-6 lg:min-w-0"
               style={{
-                border: card.featured ? '1px solid #4A9FD8' : '1px solid #E5E7EB',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                background: card.featured ? '#F0F7FC' : '#FFFFFF',
+                border: card.featured ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
+                boxShadow: card.featured
+                  ? '0 2px 8px rgba(74,159,216,0.10)'
+                  : '0 2px 8px rgba(0,0,0,0.05)',
               }}
             >
               <StarRating rating={card.rating} size="sm" />
-              <p className="text-sm italic leading-relaxed text-[#1a1a1a]">
+              <p className="text-sm font-medium leading-relaxed text-[#1a1a1a]">
                 &ldquo;{card.quote}&rdquo;
               </p>
               <span className="text-xs text-[#666666]">&mdash; {card.author}</span>
@@ -222,40 +224,50 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* ── How It Works ── */}
       <section
         id="how-it-works"
-        className="flex flex-col items-center gap-12 px-6 py-20 md:px-12 lg:px-[120px]"
+        className="flex flex-col items-center gap-12 bg-[#F7F8FA] px-6 py-20 md:px-12 lg:px-[120px]"
       >
         <div className="text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">How It Works</h2>
+          <h2 className="font-geist text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">How It Works</h2>
           <p className="mt-3 text-base text-[#666666]">
             Three simple steps to turn reviews into social gold
           </p>
         </div>
 
-        <div className="grid w-full max-w-[1100px] gap-8 md:grid-cols-3">
-          {HOW_IT_WORKS.map(({ step, title, body }) => (
-            <div
-              key={step}
-              className="flex flex-col gap-4 rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8"
-            >
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[#4A9FD8]"
-              >
-                <span className="text-base font-bold text-[#1a1a1a]">{step}</span>
+        <div className="flex w-full max-w-[1100px] flex-col gap-6">
+          {/* Step content row: icon + title + description */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {HOW_IT_WORKS.map(({ step, Icon, title, body }) => (
+              <div key={step} className="flex flex-col items-center gap-2 text-center">
+                <Icon size={28} className="text-[#4A9FD8]" />
+                <h3 className="text-xl font-semibold text-[#1a1a1a]">{title}</h3>
+                <p className="text-sm leading-relaxed text-[#666666]">{body}</p>
               </div>
-              <h3 className="text-xl font-semibold text-[#1a1a1a]">{title}</h3>
-              <p className="text-sm leading-relaxed text-[#666666]">{body}</p>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Wizard row: numbered circles connected by lines */}
+          <div className="hidden items-center justify-center md:flex">
+            {HOW_IT_WORKS.map(({ step }, i) => (
+              <Fragment key={step}>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#4A9FD8]">
+                  <span className="text-lg font-bold text-white">{step}</span>
+                </div>
+                {i < HOW_IT_WORKS.length - 1 && (
+                  <div className="h-[3px] w-[310px] shrink-0 bg-[#E5E7EB]" />
+                )}
+              </Fragment>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Social proof */}
-      <section className="flex flex-col items-center gap-12 bg-[#F7F8FA] px-6 py-20 md:px-12 lg:px-[120px]">
+      {/* ── Social Proof ── */}
+      <section className="flex flex-col items-center gap-12 bg-white px-6 py-20 md:px-12 lg:px-[120px]">
         <div className="text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">
+          <h2 className="font-geist text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">
             Trusted by 2,000+ businesses
           </h2>
           <p className="mt-3 text-base text-[#666666]">
@@ -263,10 +275,14 @@ export default function LandingPage() {
           </p>
         </div>
 
+        {/* Stats */}
         <div className="flex flex-wrap items-center justify-center gap-16">
           {STATS.map(({ value, label, color }) => (
             <div key={label} className="flex flex-col items-center gap-1">
-              <span className="font-mono text-5xl font-extrabold" style={{ color }}>
+              <span
+                className="font-geist-mono text-[40px] font-extrabold leading-none tracking-tight"
+                style={{ color }}
+              >
                 {value}
               </span>
               <span className="text-sm text-[#888888]">{label}</span>
@@ -274,11 +290,13 @@ export default function LandingPage() {
           ))}
         </div>
 
+        {/* Testimonials */}
         <div className="grid w-full max-w-[1100px] gap-6 md:grid-cols-2">
           {TESTIMONIALS.map(({ quote, author }) => (
             <div
               key={author}
               className="flex flex-col gap-4 rounded-[16px] border border-[#E5E7EB] bg-white p-6"
+              style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
             >
               <p className="text-sm italic leading-relaxed text-[#1a1a1a]">
                 &ldquo;{quote}&rdquo;
@@ -289,114 +307,121 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* ── Pricing ── */}
       <section
         id="pricing"
-        className="flex flex-col items-center gap-12 px-6 py-20 md:px-12 lg:px-[120px]"
+        className="flex flex-col items-center gap-12 bg-[#F7F8FA] px-6 py-20 md:px-12 lg:px-[120px]"
       >
-        <div className="text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h2 className="font-geist text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">
             Simple, transparent pricing
           </h2>
-          <p className="mt-3 text-base text-[#666666]">
+          <p className="text-base text-[#666666]">
             Start free. Upgrade when you&rsquo;re ready.
           </p>
         </div>
 
-        <div className="grid w-full max-w-[1100px] gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid w-full max-w-[1100px] gap-6 md:grid-cols-2 lg:grid-cols-4 items-start">
           {PRICING.map((plan) => (
             <div
               key={plan.name}
-              className="flex flex-col gap-5 rounded-[16px] bg-[#F7F8FA] p-7 relative"
+              className="flex flex-col gap-5 rounded-[16px] bg-white p-7"
               style={{
                 border: plan.featured ? '2px solid #4A9FD8' : '1px solid #E5E7EB',
+                boxShadow: plan.featured ? '0 1px 3px rgba(0,0,0,0.04)' : undefined,
               }}
             >
               {plan.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="rounded-full bg-[#4A9FD8] px-3 py-1 text-[11px] font-bold text-white">
-                    Most Popular
-                  </span>
-                </div>
+                <span className="self-start rounded bg-[#4A9FD8] px-2 py-1 text-[12px] font-semibold leading-[1.4] text-[#F7F8FA]">
+                  Most Popular
+                </span>
               )}
 
-              <p className="text-lg font-semibold text-[#1a1a1a]">{plan.name}</p>
+              <p className="font-geist text-[18px] font-semibold text-[#1a1a1a]">{plan.name}</p>
 
-              <div className="flex items-end gap-1">
-                <span className="font-mono text-4xl font-extrabold text-[#1a1a1a]">
+              <div className="flex items-center gap-0.5">
+                <span className="font-geist-mono text-[30px] font-extrabold text-[#1a1a1a]">
                   {plan.amount}
                 </span>
-                <span className="mb-1 text-sm text-[#888888]">/month</span>
+                <span className="text-base font-medium text-[#666666]">/month</span>
               </div>
 
               <p className="text-[13px] text-[#666666]">{plan.desc}</p>
 
               <div className="h-px bg-[#E5E7EB]" />
 
-              <ul className="flex flex-col gap-2">
-                {plan.features.map((f) => (
-                  <li key={f} className="text-[13px] text-[#666666]">
-                    {f}
-                  </li>
-                ))}
-              </ul>
+              {plan.features.map((f) => (
+                <span key={f} className="text-[13px] text-[#666666]">{f}</span>
+              ))}
 
-              <Link href="/demo" className="mt-auto">
-                <Button variant={plan.ctaVariant} size="md" className="w-full">
-                  {plan.cta}
-                </Button>
+              <Link
+                href={plan.name === 'Agency' ? '/contact' : '/demo'}
+                className="mt-auto flex h-11 items-center justify-center rounded-full font-geist text-[14px] font-medium transition-opacity hover:opacity-80"
+                style={
+                  plan.featured
+                    ? { background: '#4A9FD8', color: '#fff' }
+                    : {
+                        background: '#fff',
+                        color: '#1a1a1a',
+                        border: '1px solid #E5E7EB',
+                        boxShadow: '0 1px 1.75px rgba(0,0,0,0.08)',
+                      }
+                }
+              >
+                {plan.cta}
               </Link>
             </div>
           ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="flex flex-col items-center gap-12 px-6 py-20 md:px-12 lg:px-[200px]">
-        <h2 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">
+      {/* ── FAQ ── */}
+      <section className="flex flex-col items-center gap-12 bg-white px-6 py-20 md:px-12 lg:px-[200px]">
+        <h2 className="font-geist text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">
           Frequently Asked Questions
         </h2>
 
         <div className="w-full max-w-[720px] divide-y divide-[#E5E7EB]">
-          {FAQS.map(({ q, a }) => (
-            <details key={q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+          {FAQS.map(({ q, a }, i) => (
+            <details key={q} className="group py-4" {...(i === 0 ? { open: true } : {})}>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-1">
                 <span className="text-base font-medium text-[#1a1a1a]">{q}</span>
                 <span className="shrink-0 text-[#888888] transition-transform group-open:rotate-180">
                   &#8964;
                 </span>
               </summary>
-              <p className="mt-3 text-sm leading-relaxed text-[#666666]">{a}</p>
+              <p className="mt-3 text-sm leading-[1.43] text-[#666666]">{a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="flex flex-col items-center gap-6 bg-[#4A9FD8] px-6 py-16 text-center md:px-12 lg:px-[120px]">
-        <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-          Ready to turn reviews into revenue?
-        </h2>
-        <p className="max-w-[560px] text-base leading-relaxed text-white/80">
-          Join 2,000+ businesses already using ReviewPost. Start free &mdash; no credit card required.
-        </p>
-        <Link href="/signup">
-          <Button
-            size="lg"
-            className="rounded-[12px] bg-white text-[#1a1a1a] hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/50"
-          >
-            Get Started Free <ArrowRight size={18} className="ml-1" />
-          </Button>
+      {/* ── CTA ── */}
+      <section className="flex flex-col items-center gap-12 bg-[#4A9FD8] px-6 py-16 text-center md:px-12 lg:px-[120px]">
+        <div className="flex flex-col items-center gap-4">
+          <h2 className="font-geist text-[32px] font-bold tracking-tight text-white">
+            Ready to turn reviews into revenue?
+          </h2>
+          <p className="max-w-[560px] text-base leading-relaxed text-white/80">
+            Join 2,000+ businesses already using ReviewPost. Start free &mdash; no credit card
+            required.
+          </p>
+        </div>
+        <Link
+          href="/signup"
+          className="flex h-12 items-center gap-2 rounded-full bg-white px-6 text-[15px] font-medium text-[#1a1a1a] transition-opacity hover:opacity-90"
+        >
+          Get Started Free <ArrowRight size={16} />
         </Link>
       </section>
 
-      {/* Footer */}
+      {/* ── Footer ── */}
       <footer className="border-t border-[#E5E7EB] bg-white px-6 py-12 md:px-12">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-col gap-8 md:flex-row md:justify-between">
             <div className="max-w-[260px]">
               <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#4A9FD8]">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#4A9FD8]">
                   <span className="text-xs font-bold text-[#F6A700]">★</span>
                 </div>
                 <span className="text-sm font-bold text-[#1a1a1a]">ReviewPost</span>
@@ -408,18 +433,18 @@ export default function LandingPage() {
             <div className="flex gap-12 text-sm">
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-[#1a1a1a]">Product</p>
-                <Link href="/demo" className="text-[#666666] hover:text-[#1a1a1a]">Demo</Link>
-                <Link href="#pricing" className="text-[#666666] hover:text-[#1a1a1a]">Pricing</Link>
+                <Link href="/demo" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Demo</Link>
+                <Link href="#pricing" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Pricing</Link>
               </div>
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-[#1a1a1a]">Account</p>
-                <Link href="/login" className="text-[#666666] hover:text-[#1a1a1a]">Log in</Link>
-                <Link href="/signup" className="text-[#666666] hover:text-[#1a1a1a]">Sign up</Link>
+                <Link href="/login" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Log in</Link>
+                <Link href="/signup" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Sign up</Link>
               </div>
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-[#1a1a1a]">Legal</p>
-                <a href="#" className="text-[#666666] hover:text-[#1a1a1a]">Terms</a>
-                <a href="#" className="text-[#666666] hover:text-[#1a1a1a]">Privacy</a>
+                <a href="#" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Terms</a>
+                <a href="#" className="text-[#666666] hover:text-[#1a1a1a] transition-colors">Privacy</a>
               </div>
             </div>
           </div>

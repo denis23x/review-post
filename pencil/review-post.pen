@@ -193,87 +193,6 @@
                   "fontWeight": "600"
                 }
               ]
-            },
-            {
-              "type": "frame",
-              "id": "6NAur",
-              "name": "Badge/Neutral",
-              "reusable": true,
-              "fill": "#1e1e3a",
-              "cornerRadius": 4,
-              "gap": 4,
-              "padding": [
-                4,
-                8
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "qOsGK",
-                  "name": "bnText",
-                  "fill": "$--muted-foreground",
-                  "content": "Skipped",
-                  "lineHeight": 1.4,
-                  "fontFamily": "$--font-secondary",
-                  "fontSize": 12,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "mdQIO",
-              "name": "Badge/Gold",
-              "reusable": true,
-              "fill": "#2a2400",
-              "cornerRadius": 4,
-              "gap": 4,
-              "padding": [
-                4,
-                8
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "vrZjE",
-                  "name": "bgText",
-                  "fill": "$--accent-gold",
-                  "content": "Popular",
-                  "lineHeight": 1.4,
-                  "fontFamily": "$--font-secondary",
-                  "fontSize": 12,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "Czglb",
-              "name": "Badge/Indigo",
-              "reusable": true,
-              "fill": "#1e1b4b",
-              "cornerRadius": 4,
-              "gap": 4,
-              "padding": [
-                4,
-                8
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "3Y57T",
-                  "name": "binText",
-                  "fill": "#818cf8",
-                  "content": "Approved",
-                  "lineHeight": 1.4,
-                  "fontFamily": "$--font-secondary",
-                  "fontSize": 12,
-                  "fontWeight": "600"
-                }
-              ]
             }
           ]
         },
@@ -371,13 +290,13 @@
               "reusable": true,
               "width": 1440,
               "height": 64,
-              "fill": "#FFFFFF",
+              "fill": "$--background",
               "stroke": {
                 "align": "inside",
                 "thickness": {
                   "bottom": 1
                 },
-                "fill": "#E5E7EB"
+                "fill": "$--border"
               },
               "padding": [
                 0,
@@ -408,7 +327,7 @@
                           "clip": true,
                           "width": 24,
                           "height": 24,
-                          "fill": "$--accent-gold",
+                          "fill": "$--primary",
                           "cornerRadius": 4,
                           "layout": "vertical",
                           "justifyContent": "center",
@@ -429,7 +348,7 @@
                           "type": "text",
                           "id": "ohfKX",
                           "name": "logoText",
-                          "fill": "#1A1A1A",
+                          "fill": "$--foreground",
                           "content": "Review to Post",
                           "fontFamily": "Inter",
                           "fontSize": 18,
@@ -448,7 +367,7 @@
                           "type": "text",
                           "id": "dq2OO",
                           "name": "nl1",
-                          "fill": "#666666",
+                          "fill": "$--muted-foreground",
                           "content": "Product",
                           "fontFamily": "Inter",
                           "fontSize": 14,
@@ -458,7 +377,7 @@
                           "type": "text",
                           "id": "wipgX",
                           "name": "nl2",
-                          "fill": "#666666",
+                          "fill": "$--muted-foreground",
                           "content": "Pricing",
                           "fontFamily": "Inter",
                           "fontSize": 14,
@@ -483,7 +402,8 @@
                       "cornerRadius": "$--radius-pill",
                       "stroke": {
                         "align": "inside",
-                        "thickness": 1
+                        "thickness": 1,
+                        "fill": "$--border"
                       },
                       "gap": 6,
                       "padding": [
@@ -531,7 +451,7 @@
                           "type": "text",
                           "id": "Paqf8",
                           "name": "Button",
-                          "fill": "#1A1A1A",
+                          "fill": "$--foreground",
                           "content": "Sign In",
                           "lineHeight": 1.4285714285714286,
                           "textAlign": "center",
@@ -621,7 +541,7 @@
                 "thickness": {
                   "top": 1
                 },
-                "fill": "#E5E7EB"
+                "fill": "$--border"
               },
               "layout": "vertical",
               "gap": 32,
@@ -659,13 +579,19 @@
                               "type": "ref",
                               "ref": "gEUsf",
                               "x": 0,
-                              "y": 0
+                              "y": 0,
+                              "descendants": {
+                                "7y3Cy": {
+                                  "x": 4,
+                                  "y": 4
+                                }
+                              }
                             },
                             {
                               "type": "text",
                               "id": "jECcU",
                               "name": "footLogoTxt",
-                              "fill": "#1A1A1A",
+                              "fill": "$--foreground",
                               "content": "Review to Post",
                               "fontFamily": "Inter",
                               "fontSize": 16,
@@ -677,7 +603,7 @@
                           "type": "text",
                           "id": "riGCE",
                           "name": "footTagline",
-                          "fill": "#888888",
+                          "fill": "$--muted-foreground",
                           "textGrowth": "fixed-width",
                           "width": 280,
                           "content": "Turn your Google reviews into social posts. Automatically.",
@@ -705,7 +631,7 @@
                               "type": "text",
                               "id": "UsUQ1",
                               "name": "col1Title",
-                              "fill": "#1A1A1A",
+                              "fill": "$--foreground",
                               "content": "Product",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -715,7 +641,7 @@
                               "type": "text",
                               "id": "agtrc",
                               "name": "col1a",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "Demo",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -725,7 +651,7 @@
                               "type": "text",
                               "id": "kwZGo",
                               "name": "col1b",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "Pricing",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -744,7 +670,7 @@
                               "type": "text",
                               "id": "sNyhY",
                               "name": "col2Title",
-                              "fill": "#1A1A1A",
+                              "fill": "$--foreground",
                               "content": "Company",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -754,7 +680,7 @@
                               "type": "text",
                               "id": "zlBEA",
                               "name": "col2a",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "About",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -764,7 +690,7 @@
                               "type": "text",
                               "id": "kKfI8",
                               "name": "col2b",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "Contact",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -783,7 +709,7 @@
                               "type": "text",
                               "id": "zjw4m",
                               "name": "col4Title",
-                              "fill": "#1A1A1A",
+                              "fill": "$--foreground",
                               "content": "Legal",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -793,7 +719,7 @@
                               "type": "text",
                               "id": "UqQW0",
                               "name": "col4a",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "Terms",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -803,7 +729,7 @@
                               "type": "text",
                               "id": "iBnKU",
                               "name": "col4b",
-                              "fill": "#666666",
+                              "fill": "$--muted-foreground",
                               "content": "Privacy",
                               "fontFamily": "Inter",
                               "fontSize": 14,
@@ -819,7 +745,7 @@
                   "type": "rectangle",
                   "id": "ba9U7",
                   "name": "Footer Divider",
-                  "fill": "#E5E7EB",
+                  "fill": "$--border",
                   "width": "fill_container",
                   "height": 1
                 },
@@ -835,7 +761,7 @@
                       "type": "text",
                       "id": "jXsDE",
                       "name": "footCopy",
-                      "fill": "#888888",
+                      "fill": "$--muted-foreground",
                       "content": "© 2026 ReviewPost. All rights reserved.",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -931,7 +857,7 @@
       "y": 5800,
       "name": "Page: Landing",
       "width": 1440,
-      "fill": "#FFFFFF",
+      "fill": "$--background",
       "layout": "vertical",
       "children": [
         {
@@ -952,7 +878,12 @@
               "height": "fit_content"
             },
             "gEUsf": {
-              "fill": "$--primary"
+              "fill": "$--primary",
+              "y": 0
+            },
+            "7y3Cy": {
+              "x": 4,
+              "y": 4
             },
             "ohfKX": {
               "x": 32
@@ -977,14 +908,16 @@
             },
             "Paqf8": {
               "y": 10,
-              "fill": "#1A1A1A"
+              "fill": "#1A1A1A",
+              "x": 16
             },
             "XZWmi": {
               "width": "fit_content",
               "x": 89
             },
             "zPYoV": {
-              "y": 10
+              "y": 10,
+              "x": 16
             }
           }
         },
@@ -993,6 +926,7 @@
           "id": "z4Fxf",
           "name": "hero",
           "width": "fill_container",
+          "fill": "$--background",
           "layout": "vertical",
           "gap": 32,
           "padding": [
@@ -1023,7 +957,7 @@
                   "type": "ellipse",
                   "id": "gDHtZ",
                   "name": "badgeDot",
-                  "fill": "#4A9FD8",
+                  "fill": "$--primary",
                   "width": 8,
                   "height": 8
                 },
@@ -1031,7 +965,7 @@
                   "type": "text",
                   "id": "kAjHV",
                   "name": "badgeText",
-                  "fill": "#4A9FD8",
+                  "fill": "$--primary",
                   "content": "Now with AI-powered captions",
                   "fontFamily": "Funnel Sans",
                   "fontSize": 12,
@@ -1043,7 +977,7 @@
               "type": "text",
               "id": "BHtnA",
               "name": "heroTitle",
-              "fill": "#1A1A1A",
+              "fill": "$--foreground",
               "textGrowth": "fixed-width",
               "width": 900,
               "content": "Turn your Google reviews\ninto branded social posts.",
@@ -1058,7 +992,7 @@
               "type": "text",
               "id": "uGHiM",
               "name": "heroSub",
-              "fill": "#666666",
+              "fill": "$--muted-foreground",
               "textGrowth": "fixed-width",
               "width": 640,
               "content": "Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with caption — in seconds.",
@@ -1072,7 +1006,7 @@
               "type": "frame",
               "id": "twi0s",
               "name": "heroInputRow",
-              "fill": "#4A9FD8",
+              "fill": "$--primary",
               "cornerRadius": 9999,
               "effect": {
                 "type": "shadow",
@@ -1196,12 +1130,12 @@
                   "id": "EfQ0P",
                   "name": "card1",
                   "width": 320,
-                  "fill": "#FFFFFF",
+                  "fill": "$--card",
                   "cornerRadius": 16,
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "effect": {
                     "type": "shadow",
@@ -1245,7 +1179,7 @@
                       "type": "text",
                       "id": "Q7tTE",
                       "name": "c1quote",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "\"Best coffee in town! The pour-over is incredible and the staff is always so friendly.\"",
@@ -1258,7 +1192,7 @@
                       "type": "text",
                       "id": "nSW7e",
                       "name": "c1author",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "— Maria S. · Local Guide",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -1358,7 +1292,7 @@
                       "type": "text",
                       "id": "B6RCK",
                       "name": "c2quote",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "\"Absolutely transformed my morning routine. The atmosphere is unmatched anywhere else.\"",
@@ -1371,7 +1305,7 @@
                       "type": "text",
                       "id": "m0lfw",
                       "name": "c2author",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "— Jake T. · 52 reviews",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -1422,12 +1356,12 @@
                   "id": "unJxu",
                   "name": "card3",
                   "width": 320,
-                  "fill": "#FFFFFF",
+                  "fill": "$--card",
                   "cornerRadius": 16,
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "effect": {
                     "type": "shadow",
@@ -1471,7 +1405,7 @@
                       "type": "text",
                       "id": "nxTUo",
                       "name": "c3quote",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "\"Five stars isn't enough! Every visit has been perfect. The team truly cares.\"",
@@ -1484,7 +1418,7 @@
                       "type": "text",
                       "id": "bOEv2",
                       "name": "c3author",
-                      "fill": "$--bg-input",
+                      "fill": "$--foreground",
                       "content": "— Linda K. · 20 reviews",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -1573,7 +1507,7 @@
                   "type": "text",
                   "id": "NrW7O",
                   "name": "howSub",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Three simple steps to turn reviews into social gold",
                   "fontFamily": "Inter",
                   "fontSize": 16,
@@ -1868,7 +1802,7 @@
                   "type": "text",
                   "id": "zqYH7",
                   "name": "proofTitle",
-                  "fill": "#1A1A1A",
+                  "fill": "$--foreground",
                   "content": "Trusted by 2,000+ businesses",
                   "fontFamily": "Geist",
                   "fontSize": 36,
@@ -1879,7 +1813,7 @@
                   "type": "text",
                   "id": "Ki4WL",
                   "name": "proofSub",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Join local businesses turning their best reviews into social media content",
                   "textAlign": "center",
                   "fontFamily": "Inter",
@@ -1907,7 +1841,7 @@
                       "type": "text",
                       "id": "h5MgW",
                       "name": "stat1v",
-                      "fill": "#4A9FD8",
+                      "fill": "$--primary",
                       "content": "50K+",
                       "fontFamily": "Geist Mono",
                       "fontSize": 40,
@@ -1917,7 +1851,7 @@
                       "type": "text",
                       "id": "lUFYF",
                       "name": "stat1l",
-                      "fill": "#888888",
+                      "fill": "$--muted-foreground",
                       "content": "Posts Generated",
                       "fontFamily": "Funnel Sans",
                       "fontSize": 14,
@@ -1947,7 +1881,7 @@
                       "type": "text",
                       "id": "Hjlqg",
                       "name": "stat2l",
-                      "fill": "#888888",
+                      "fill": "$--muted-foreground",
                       "content": "Average Rating",
                       "fontFamily": "Funnel Sans",
                       "fontSize": 14,
@@ -1977,7 +1911,7 @@
                       "type": "text",
                       "id": "1J7XH",
                       "name": "stat3l",
-                      "fill": "#888888",
+                      "fill": "$--muted-foreground",
                       "content": "Social Impressions",
                       "fontFamily": "Funnel Sans",
                       "fontSize": 14,
@@ -1999,12 +1933,12 @@
                   "id": "yKzBb",
                   "name": "test1",
                   "width": "fill_container",
-                  "fill": "#FFFFFF",
+                  "fill": "$--card",
                   "cornerRadius": 16,
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "gap": 16,
@@ -2014,7 +1948,7 @@
                       "type": "text",
                       "id": "eZzZb",
                       "name": "t1q",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "\"ReviewPost saved us hours every week. Our social engagement increased 3x in the first month.\"",
@@ -2028,7 +1962,7 @@
                       "type": "text",
                       "id": "Ul1ww",
                       "name": "t1a",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "— Alex Chen, Owner, Sunrise Café",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2041,12 +1975,12 @@
                   "id": "x1gjP",
                   "name": "test2",
                   "width": "fill_container",
-                  "fill": "#FFFFFF",
+                  "fill": "$--card",
                   "cornerRadius": 16,
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "gap": 16,
@@ -2056,7 +1990,7 @@
                       "type": "text",
                       "id": "XcBZi",
                       "name": "t2q",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "\"I used to spend an hour making graphics. Now it takes 30 seconds. Absolute game-changer for our marketing.\"",
@@ -2070,7 +2004,7 @@
                       "type": "text",
                       "id": "4LabK",
                       "name": "t2a",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "— Priya Patel, Marketing Dir, FreshBite",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2109,7 +2043,7 @@
                   "type": "text",
                   "id": "pSD6c",
                   "name": "priceTitle",
-                  "fill": "#1A1A1A",
+                  "fill": "$--foreground",
                   "content": "Simple, transparent pricing",
                   "fontFamily": "Geist",
                   "fontSize": 36,
@@ -2120,7 +2054,7 @@
                   "type": "text",
                   "id": "u9LcW",
                   "name": "priceSub",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Start free. Upgrade when you're ready.",
                   "fontFamily": "Inter",
                   "fontSize": 16,
@@ -2145,7 +2079,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "gap": 20,
@@ -2155,7 +2089,7 @@
                       "type": "text",
                       "id": "1Xfn1",
                       "name": "pfName",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "Free",
                       "fontFamily": "Geist",
                       "fontSize": 18,
@@ -2194,7 +2128,7 @@
                       "type": "text",
                       "id": "8lwMX",
                       "name": "pfDesc",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "Perfect for trying it out",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2204,7 +2138,7 @@
                       "type": "rectangle",
                       "id": "1dxgs",
                       "name": "pfDiv",
-                      "fill": "#E5E7EB",
+                      "fill": "$--border",
                       "width": "fill_container",
                       "height": 1
                     },
@@ -2212,7 +2146,7 @@
                       "type": "text",
                       "id": "Tjgb1",
                       "name": "pfF1",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ 3 posts per month",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2222,7 +2156,7 @@
                       "type": "text",
                       "id": "9b902",
                       "name": "pfF2",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ 1 theme",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2232,7 +2166,7 @@
                       "type": "text",
                       "id": "XFh3e",
                       "name": "pfF3",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Watermark included",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2244,12 +2178,12 @@
                       "name": "pfBtn",
                       "width": "fill_container",
                       "height": 44,
-                      "fill": "#FFFFFF",
+                      "fill": "$--background",
                       "cornerRadius": "$--radius-pill",
                       "stroke": {
                         "align": "inside",
                         "thickness": 1,
-                        "fill": "#E5E7EB"
+                        "fill": "$--border"
                       },
                       "effect": {
                         "type": "shadow",
@@ -2330,7 +2264,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "gap": 20,
@@ -2340,7 +2274,7 @@
                       "type": "text",
                       "id": "mMiIm",
                       "name": "psName",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "Solo",
                       "fontFamily": "Geist",
                       "fontSize": 18,
@@ -2379,7 +2313,7 @@
                       "type": "text",
                       "id": "b4x5W",
                       "name": "psDesc",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "For solopreneurs & freelancers",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2389,7 +2323,7 @@
                       "type": "rectangle",
                       "id": "DrSCE",
                       "name": "psDiv",
-                      "fill": "#E5E7EB",
+                      "fill": "$--border",
                       "width": "fill_container",
                       "height": 1
                     },
@@ -2397,7 +2331,7 @@
                       "type": "text",
                       "id": "XgLfu",
                       "name": "psF1",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ 30 posts per month",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2407,7 +2341,7 @@
                       "type": "text",
                       "id": "AOa5M",
                       "name": "psF2",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ All themes",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2417,7 +2351,7 @@
                       "type": "text",
                       "id": "grLCI",
                       "name": "psF3",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ No watermark",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2427,7 +2361,7 @@
                       "type": "text",
                       "id": "r8vDV",
                       "name": "psF4",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ AI captions",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2439,12 +2373,12 @@
                       "name": "psBtn",
                       "width": "fill_container",
                       "height": 44,
-                      "fill": "#FFFFFF",
+                      "fill": "$--background",
                       "cornerRadius": "$--radius-pill",
                       "stroke": {
                         "align": "inside",
                         "thickness": 1,
-                        "fill": "#E5E7EB"
+                        "fill": "$--border"
                       },
                       "effect": {
                         "type": "shadow",
@@ -2525,7 +2459,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 2,
-                    "fill": "#4A9FD8"
+                    "fill": "$--primary"
                   },
                   "effect": {
                     "type": "shadow",
@@ -2542,30 +2476,36 @@
                   "padding": 28,
                   "children": [
                     {
+                      "type": "frame",
                       "id": "d2V0l",
-                      "type": "ref",
-                      "ref": "Czglb",
                       "name": "pbBadge",
-                      "x": 28,
-                      "y": 28,
-                      "width": "fit_content",
-                      "height": "fit_content",
-                      "fill": "#4A9FD8",
-                      "descendants": {
-                        "3Y57T": {
-                          "content": "Most Popular",
-                          "x": 8,
-                          "y": 4,
+                      "fill": "$--primary",
+                      "cornerRadius": 4,
+                      "gap": 4,
+                      "padding": [
+                        4,
+                        8
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bmTAL",
+                          "name": "binText",
                           "fill": "$--accent",
-                          "name": "binText"
+                          "content": "Most Popular",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$--font-secondary",
+                          "fontSize": 12,
+                          "fontWeight": "600"
                         }
-                      }
+                      ]
                     },
                     {
                       "type": "text",
                       "id": "GOSYG",
                       "name": "pbName",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "Business",
                       "fontFamily": "Geist",
                       "fontSize": 18,
@@ -2604,7 +2544,7 @@
                       "type": "text",
                       "id": "nSVEd",
                       "name": "pbDesc",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "For growing businesses",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2614,7 +2554,7 @@
                       "type": "rectangle",
                       "id": "yY8oH",
                       "name": "pbDiv",
-                      "fill": "#E5E7EB",
+                      "fill": "$--border",
                       "width": "fill_container",
                       "height": 1
                     },
@@ -2622,7 +2562,7 @@
                       "type": "text",
                       "id": "pUZYV",
                       "name": "pbF1",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Unlimited posts",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2632,7 +2572,7 @@
                       "type": "text",
                       "id": "JHMfW",
                       "name": "pbF2",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ All themes + custom branding",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2642,7 +2582,7 @@
                       "type": "text",
                       "id": "Ebmq2",
                       "name": "pbF3",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ AI captions",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2652,7 +2592,7 @@
                       "type": "text",
                       "id": "ByWxL",
                       "name": "pbF4",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Auto-schedule to social",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2662,7 +2602,7 @@
                       "type": "text",
                       "id": "2irLl",
                       "name": "pbF5",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Priority support",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2745,7 +2685,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "gap": 20,
@@ -2755,7 +2695,7 @@
                       "type": "text",
                       "id": "SQ70u",
                       "name": "paName",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "Agency",
                       "fontFamily": "Geist",
                       "fontSize": 18,
@@ -2794,7 +2734,7 @@
                       "type": "text",
                       "id": "7xj6O",
                       "name": "paDesc",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "For agencies & multi-location",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2804,7 +2744,7 @@
                       "type": "rectangle",
                       "id": "H42nh",
                       "name": "paDiv",
-                      "fill": "#E5E7EB",
+                      "fill": "$--border",
                       "width": "fill_container",
                       "height": 1
                     },
@@ -2812,7 +2752,7 @@
                       "type": "text",
                       "id": "LnX7K",
                       "name": "paF1",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Everything in Business",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2822,7 +2762,7 @@
                       "type": "text",
                       "id": "GJcMi",
                       "name": "paF2",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ 10 business locations",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2832,7 +2772,7 @@
                       "type": "text",
                       "id": "m2Qan",
                       "name": "paF3",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ Team collaboration",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2842,7 +2782,7 @@
                       "type": "text",
                       "id": "DKx1W",
                       "name": "paF4",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ White-label exports",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2852,7 +2792,7 @@
                       "type": "text",
                       "id": "5UIdP",
                       "name": "paF5",
-                      "fill": "#666666",
+                      "fill": "$--muted-foreground",
                       "content": "✓ API access",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -2864,12 +2804,12 @@
                       "name": "paBtn",
                       "width": "fill_container",
                       "height": 44,
-                      "fill": "#FFFFFF",
+                      "fill": "$--background",
                       "cornerRadius": "$--radius-pill",
                       "stroke": {
                         "align": "inside",
                         "thickness": 1,
-                        "fill": "#E5E7EB"
+                        "fill": "$--border"
                       },
                       "effect": {
                         "type": "shadow",
@@ -2961,7 +2901,7 @@
               "type": "text",
               "id": "x1f8S",
               "name": "faqTitle",
-              "fill": "#1A1A1A",
+              "fill": "$--foreground",
               "content": "Frequently Asked Questions",
               "fontFamily": "Geist",
               "fontSize": 36,
@@ -2985,7 +2925,7 @@
                     "thickness": {
                       "bottom": 1
                     },
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "children": [
@@ -3092,7 +3032,7 @@
                     "thickness": {
                       "bottom": 1
                     },
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "children": [
@@ -3201,7 +3141,7 @@
                     "thickness": {
                       "bottom": 1
                     },
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "children": [
@@ -3310,7 +3250,7 @@
                     "thickness": {
                       "bottom": 1
                     },
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "children": [
@@ -3419,7 +3359,7 @@
                     "thickness": {
                       "bottom": 1
                     },
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "layout": "vertical",
                   "children": [
@@ -3527,7 +3467,7 @@
           "id": "vzio4",
           "name": "ctaSection",
           "width": "fill_container",
-          "fill": "#4A9FD8",
+          "fill": "$--primary",
           "layout": "vertical",
           "gap": 48,
           "padding": [
@@ -3551,7 +3491,7 @@
                   "type": "text",
                   "id": "KHcFQ",
                   "name": "ctaTitle",
-                  "fill": "#FFFFFF",
+                  "fill": "$--primary-foreground",
                   "content": "Ready to turn reviews into revenue?",
                   "textAlign": "center",
                   "fontFamily": "Geist",
@@ -3562,7 +3502,7 @@
                   "type": "text",
                   "id": "eBFrV",
                   "name": "ctaSub",
-                  "fill": "#FFFFFFcc",
+                  "fill": "$--primary-foreground",
                   "textGrowth": "fixed-width",
                   "width": 560,
                   "content": "Join 2,000+ businesses already using ReviewPost. Start free — no credit card required.",
@@ -3585,7 +3525,7 @@
                   "id": "Xj3wS",
                   "name": "ctaBtn1",
                   "height": 48,
-                  "fill": "#FFFFFF",
+                  "fill": "$--background",
                   "cornerRadius": "$--radius-pill",
                   "gap": 6,
                   "padding": [
@@ -3633,7 +3573,7 @@
                       "type": "text",
                       "id": "nFzXR",
                       "name": "Button",
-                      "fill": "#1A1A1A",
+                      "fill": "$--foreground",
                       "content": "Get Started Free →",
                       "lineHeight": 1.4286,
                       "textAlign": "center",
@@ -3680,8 +3620,13 @@
             "tq0xw": {
               "fill": "$--primary"
             },
+            "tq0xw/7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "jECcU": {
-              "x": 32
+              "x": 32,
+              "y": 2.5
             },
             "riGCE": {
               "y": 36
@@ -3745,7 +3690,7 @@
       "y": 5800,
       "name": "Page: Demo",
       "width": 1440,
-      "fill": "#FFFFFF",
+      "fill": "$--background",
       "layout": "vertical",
       "children": [
         {
@@ -3764,6 +3709,14 @@
             "jVVCu": {
               "width": "fit_content",
               "height": "fit_content"
+            },
+            "gEUsf": {
+              "y": 0,
+              "fill": "$--primary"
+            },
+            "7y3Cy": {
+              "x": 4,
+              "y": 4
             },
             "ohfKX": {
               "x": 32
@@ -3788,14 +3741,16 @@
             },
             "Paqf8": {
               "y": 10,
-              "fill": "#1A1A1A"
+              "fill": "#1A1A1A",
+              "x": 16
             },
             "XZWmi": {
               "width": "fit_content",
               "x": 89
             },
             "zPYoV": {
-              "y": 10
+              "y": 10,
+              "x": 16
             }
           }
         },
@@ -4872,7 +4827,7 @@
       "name": "Page: Signup",
       "width": 1440,
       "height": 900,
-      "fill": "#FFFFFF",
+      "fill": "$--background",
       "justifyContent": "center",
       "alignItems": "center",
       "children": [
@@ -4882,7 +4837,7 @@
           "name": "brandPanel",
           "width": "fill_container",
           "height": "fill_container",
-          "fill": "#F7F8FA",
+          "fill": "$--muted",
           "layout": "vertical",
           "gap": 32,
           "padding": [
@@ -5034,7 +4989,7 @@
                   "type": "text",
                   "id": "rekEG",
                   "name": "formTitle",
-                  "fill": "#1A1A1A",
+                  "fill": "$--foreground",
                   "content": "Create your account",
                   "fontFamily": "Geist",
                   "fontSize": 28,
@@ -5044,7 +4999,7 @@
                   "type": "text",
                   "id": "5cLi6",
                   "name": "formSub",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Start turning reviews into branded posts",
                   "fontFamily": "Inter",
                   "fontSize": 14,
@@ -5056,12 +5011,12 @@
                   "name": "googleBtn",
                   "width": "fill_container",
                   "height": 44,
-                  "fill": "#F7F8FA",
+                  "fill": "$--muted",
                   "cornerRadius": "$--radius-pill",
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "gap": 10,
                   "justifyContent": "center",
@@ -5437,7 +5392,7 @@
                   "type": "text",
                   "id": "59EEO",
                   "name": "signInLink",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Already have an account? Sign in",
                   "textAlign": "center",
                   "fontFamily": "Inter",
@@ -5458,7 +5413,7 @@
       "name": "Page: Login",
       "width": 1440,
       "height": 900,
-      "fill": "#FFFFFF",
+      "fill": "$--background",
       "children": [
         {
           "type": "frame",
@@ -5466,7 +5421,7 @@
           "name": "brandL",
           "width": "fill_container",
           "height": "fill_container",
-          "fill": "#F7F8FA",
+          "fill": "$--muted",
           "layout": "vertical",
           "gap": 32,
           "padding": [
@@ -5618,7 +5573,7 @@
                   "type": "text",
                   "id": "qecEd",
                   "name": "titleL",
-                  "fill": "#1A1A1A",
+                  "fill": "$--foreground",
                   "content": "Welcome back",
                   "fontFamily": "Geist",
                   "fontSize": 28,
@@ -5628,7 +5583,7 @@
                   "type": "text",
                   "id": "iHkU8",
                   "name": "subL",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Sign in to your ReviewPost account",
                   "fontFamily": "Inter",
                   "fontSize": 14,
@@ -5640,12 +5595,12 @@
                   "name": "gBtnL",
                   "width": "fill_container",
                   "height": 44,
-                  "fill": "#FFFFFF",
+                  "fill": "$--background",
                   "cornerRadius": "$--radius-pill",
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$--border"
                   },
                   "gap": 10,
                   "justifyContent": "center",
@@ -5961,7 +5916,7 @@
                   "type": "text",
                   "id": "OoYzY",
                   "name": "createLink",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Don't have an account? Create one",
                   "textAlign": "center",
                   "fontFamily": "Funnel Sans",
@@ -5982,7 +5937,7 @@
       "name": "Page: Forgot Password",
       "width": 1440,
       "height": 900,
-      "fill": "#FFFFFF",
+      "fill": "$--background",
       "children": [
         {
           "type": "frame",
@@ -5990,7 +5945,7 @@
           "name": "brandF",
           "width": "fill_container",
           "height": "fill_container",
-          "fill": "#F7F8FA",
+          "fill": "$--muted",
           "layout": "vertical",
           "gap": 32,
           "padding": [
@@ -6071,7 +6026,7 @@
                   "type": "text",
                   "id": "AF39C",
                   "name": "titleF",
-                  "fill": "#1A1A1A",
+                  "fill": "$--foreground",
                   "content": "Reset your password",
                   "textAlign": "center",
                   "fontFamily": "Geist",
@@ -6082,7 +6037,7 @@
                   "type": "text",
                   "id": "hKtiU",
                   "name": "subF",
-                  "fill": "#666666",
+                  "fill": "$--muted-foreground",
                   "content": "Enter your email and we'll send you a reset link",
                   "textAlign": "center",
                   "fontFamily": "Inter",
@@ -6239,7 +6194,7 @@
                   "type": "text",
                   "id": "bcRgv",
                   "name": "backLink",
-                  "fill": "#4A9FD8",
+                  "fill": "$--primary",
                   "content": "← Back to sign in",
                   "fontFamily": "Funnel Sans",
                   "fontSize": 13,
@@ -6278,6 +6233,13 @@
               "width": "fit_content",
               "height": "fit_content"
             },
+            "gEUsf": {
+              "y": 0
+            },
+            "7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "ohfKX": {
               "x": 32
             },
@@ -6300,14 +6262,16 @@
               "width": "fit_content"
             },
             "Paqf8": {
-              "y": 10
+              "y": 10,
+              "x": 16
             },
             "XZWmi": {
               "width": "fit_content",
               "x": 89
             },
             "zPYoV": {
-              "y": 10
+              "y": 10,
+              "x": 16
             }
           }
         },
@@ -6355,7 +6319,7 @@
                   "type": "frame",
                   "id": "ibvcO",
                   "name": "fAll",
-                  "fill": "#4f46e5",
+                  "fill": "$--primary",
                   "cornerRadius": 999,
                   "padding": [
                     8,
@@ -6366,7 +6330,7 @@
                       "type": "text",
                       "id": "BtEmA",
                       "name": "fAllTx",
-                      "fill": "#FFFFFF",
+                      "fill": "$--primary-foreground",
                       "content": "All",
                       "fontFamily": "Inter",
                       "fontSize": 13,
@@ -6382,7 +6346,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#2A2A2E"
+                    "fill": "$--border"
                   },
                   "padding": [
                     8,
@@ -6409,7 +6373,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#2A2A2E"
+                    "fill": "$--border"
                   },
                   "padding": [
                     8,
@@ -6436,7 +6400,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#2A2A2E"
+                    "fill": "$--border"
                   },
                   "padding": [
                     8,
@@ -6463,7 +6427,7 @@
                   "stroke": {
                     "align": "inside",
                     "thickness": 1,
-                    "fill": "#2A2A2E"
+                    "fill": "$--border"
                   },
                   "padding": [
                     8,
@@ -6503,12 +6467,12 @@
               "name": "bc1",
               "clip": true,
               "width": "fill_container",
-              "fill": "#16161A",
-              "cornerRadius": 16,
+              "fill": "$--card",
+              "cornerRadius": "$--radius-xl",
               "stroke": {
                 "align": "inside",
                 "thickness": 1,
-                "fill": "#2A2A2E"
+                "fill": "$--border"
               },
               "layout": "vertical",
               "gap": 16,
@@ -6547,17 +6511,16 @@
                   ],
                   "children": [
                     {
-                      "id": "xVRCG",
+                      "id": "tjWsZ",
                       "type": "ref",
-                      "ref": "Czglb",
-                      "name": "bc1badge",
+                      "ref": "k92Ad",
                       "x": 20,
                       "y": 0,
                       "width": "fit_content",
                       "height": "fit_content",
                       "descendants": {
-                        "3Y57T": {
-                          "content": "Guide",
+                        "Sucrk": {
+                          "content": "Tips",
                           "x": 8,
                           "y": 4
                         }
@@ -6609,12 +6572,12 @@
               "name": "bc2",
               "clip": true,
               "width": "fill_container",
-              "fill": "#16161A",
-              "cornerRadius": 16,
+              "fill": "$--card",
+              "cornerRadius": "$--radius-xl",
               "stroke": {
                 "align": "inside",
                 "thickness": 1,
-                "fill": "#2A2A2E"
+                "fill": "$--border"
               },
               "layout": "vertical",
               "gap": 16,
@@ -6714,12 +6677,12 @@
               "name": "bc3",
               "clip": true,
               "width": "fill_container",
-              "fill": "#16161A",
-              "cornerRadius": 16,
+              "fill": "$--card",
+              "cornerRadius": "$--radius-xl",
               "stroke": {
                 "align": "inside",
                 "thickness": 1,
-                "fill": "#2A2A2E"
+                "fill": "$--border"
               },
               "layout": "vertical",
               "gap": 16,
@@ -6758,17 +6721,16 @@
                   ],
                   "children": [
                     {
-                      "id": "PozrZ",
+                      "id": "iIZ7V",
                       "type": "ref",
-                      "ref": "mdQIO",
-                      "name": "bc3badge",
+                      "ref": "nyuuF",
                       "x": 20,
                       "y": 0,
                       "width": "fit_content",
                       "height": "fit_content",
                       "descendants": {
-                        "vrZjE": {
-                          "content": "Tips",
+                        "dfwEJ": {
+                          "content": "Product",
                           "x": 8,
                           "y": 4
                         }
@@ -7104,8 +7066,13 @@
               "width": "fit_content",
               "height": "fit_content"
             },
+            "tq0xw/7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "jECcU": {
-              "x": 32
+              "x": 32,
+              "y": 2.5
             },
             "riGCE": {
               "y": 36
@@ -7189,6 +7156,13 @@
               "width": "fit_content",
               "height": "fit_content"
             },
+            "gEUsf": {
+              "y": 0
+            },
+            "7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "ohfKX": {
               "x": 32
             },
@@ -7211,14 +7185,16 @@
               "width": "fit_content"
             },
             "Paqf8": {
-              "y": 10
+              "y": 10,
+              "x": 16
             },
             "XZWmi": {
               "width": "fit_content",
               "x": 89
             },
             "zPYoV": {
-              "y": 10
+              "y": 10,
+              "x": 16
             }
           }
         },
@@ -7243,16 +7219,16 @@
               "gap": 32,
               "children": [
                 {
-                  "id": "8HhW4",
+                  "id": "OAWO3",
                   "type": "ref",
-                  "ref": "Czglb",
-                  "name": "articleCat",
+                  "ref": "nyuuF",
+                  "x": 0,
                   "y": 0,
                   "width": "fit_content",
                   "height": "fit_content",
                   "descendants": {
-                    "3Y57T": {
-                      "content": "Guide",
+                    "dfwEJ": {
+                      "content": "Product",
                       "x": 8,
                       "y": 4
                     }
@@ -7285,7 +7261,7 @@
                       "name": "metaAvatar",
                       "width": 36,
                       "height": 36,
-                      "fill": "$--secondary",
+                      "fill": "$--muted",
                       "cornerRadius": "$--radius-pill",
                       "stroke": {
                         "align": "inside",
@@ -7299,7 +7275,7 @@
                           "type": "text",
                           "id": "7PmiM",
                           "name": "Avatar Title",
-                          "fill": "#1A1A1A",
+                          "fill": "$--foreground",
                           "content": "JD",
                           "lineHeight": 1.4285714285714286,
                           "textAlign": "center",
@@ -7476,12 +7452,11 @@
                   "id": "TMmol",
                   "name": "ctaCard",
                   "width": "fill_container",
-                  "fill": "#1e1b4b",
-                  "cornerRadius": 16,
+                  "fill": "$--primary",
+                  "cornerRadius": "$--radius-xl",
                   "stroke": {
                     "align": "inside",
-                    "thickness": 1,
-                    "fill": "#4f46e533"
+                    "thickness": 0
                   },
                   "layout": "vertical",
                   "gap": 16,
@@ -7492,22 +7467,22 @@
                       "type": "text",
                       "id": "jy056",
                       "name": "ctaCardTitle",
-                      "fill": "#FFFFFF",
+                      "fill": "$--white",
                       "content": "Ready to turn your reviews into social posts?",
                       "textAlign": "center",
-                      "fontFamily": "Inter",
-                      "fontSize": 22,
+                      "fontFamily": "Geist",
+                      "fontSize": 28,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "4Us1A",
                       "name": "ctaCardSub",
-                      "fill": "#FFFFFFCC",
+                      "fill": "$--white",
                       "content": "Try ReviewPost free — no credit card required.",
                       "textAlign": "center",
                       "fontFamily": "Inter",
-                      "fontSize": 14,
+                      "fontSize": 16,
                       "fontWeight": "normal"
                     },
                     {
@@ -7515,7 +7490,7 @@
                       "id": "OiyRd",
                       "name": "ctaCardBtn",
                       "height": 44,
-                      "fill": "$--primary",
+                      "fill": "$--white",
                       "cornerRadius": "$--radius-pill",
                       "gap": 6,
                       "padding": [
@@ -7563,12 +7538,12 @@
                           "type": "text",
                           "id": "DCVs5",
                           "name": "Button",
-                          "fill": "$--primary-foreground",
+                          "fill": "$--foreground",
                           "content": "Get Started Free →",
                           "lineHeight": 1.4286,
                           "textAlign": "center",
                           "textAlignVertical": "middle",
-                          "fontFamily": "$--font-primary",
+                          "fontFamily": "Geist",
                           "fontSize": 14,
                           "fontWeight": "500"
                         }
@@ -7599,12 +7574,12 @@
                       "name": "rel1",
                       "clip": true,
                       "width": "fill_container",
-                      "fill": "#16161A",
+                      "fill": "$--card",
                       "cornerRadius": 16,
                       "stroke": {
                         "align": "inside",
                         "thickness": 1,
-                        "fill": "#2A2A2E"
+                        "fill": "$--border"
                       },
                       "layout": "vertical",
                       "gap": 12,
@@ -7675,12 +7650,12 @@
                       "name": "rel2",
                       "clip": true,
                       "width": "fill_container",
-                      "fill": "#16161A",
+                      "fill": "$--card",
                       "cornerRadius": 16,
                       "stroke": {
                         "align": "inside",
                         "thickness": 1,
-                        "fill": "#2A2A2E"
+                        "fill": "$--border"
                       },
                       "layout": "vertical",
                       "gap": 12,
@@ -7757,7 +7732,7 @@
           "ref": "eYaa7",
           "width": "fill_container",
           "name": "artFooter",
-          "y": 1958,
+          "y": 1969,
           "height": "fit_content",
           "descendants": {
             "etknK": {
@@ -7773,8 +7748,13 @@
               "width": "fit_content",
               "height": "fit_content"
             },
+            "tq0xw/7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "jECcU": {
-              "x": 32
+              "x": 32,
+              "y": 2.5
             },
             "riGCE": {
               "y": 36
@@ -7858,6 +7838,13 @@
               "width": "fit_content",
               "height": "fit_content"
             },
+            "gEUsf": {
+              "y": 0
+            },
+            "7y3Cy": {
+              "x": 4,
+              "y": 4
+            },
             "ohfKX": {
               "x": 32
             },
@@ -7880,14 +7867,16 @@
               "width": "fit_content"
             },
             "Paqf8": {
-              "y": 10
+              "y": 10,
+              "x": 16
             },
             "XZWmi": {
               "width": "fit_content",
               "x": 89
             },
             "zPYoV": {
-              "y": 10
+              "y": 10,
+              "x": 16
             }
           }
         },
@@ -7910,7 +7899,7 @@
               "id": "wTG2U",
               "name": "big404",
               "opacity": 0.15,
-              "fill": "#4f46e5",
+              "fill": "$--accent-indigo-hover",
               "content": "404",
               "fontFamily": "Inter",
               "fontSize": 160,
@@ -8099,472 +8088,9 @@
     },
     {
       "type": "frame",
-      "id": "TWOic",
-      "x": 4800,
-      "y": 10855,
-      "name": "Page: Onboarding",
-      "width": 1440,
-      "fill": "$--background",
-      "layout": "vertical",
-      "gap": 32,
-      "padding": [
-        64,
-        40
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "frame",
-          "id": "C7PrX",
-          "name": "Onboarding Logo",
-          "gap": 8,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "9nBUI",
-              "name": "logoIcon",
-              "width": 28,
-              "height": 28,
-              "iconFontName": "star",
-              "iconFontFamily": "lucide",
-              "fill": "$--accent-gold"
-            },
-            {
-              "type": "text",
-              "id": "ZPyuE",
-              "name": "logoTxt",
-              "fill": "$--foreground",
-              "content": "ReviewPost",
-              "fontFamily": "Inter",
-              "fontSize": 22,
-              "fontWeight": "700"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "tPxbw",
-          "name": "Step Indicator",
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "6Xjj7",
-              "name": "Step 1",
-              "width": 32,
-              "height": 32,
-              "fill": "$--primary",
-              "cornerRadius": 9999,
-              "layout": "vertical",
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "3Pq9I",
-                  "name": "step1Num",
-                  "fill": "#ffffff",
-                  "content": "1",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "PJe56",
-              "name": "line1",
-              "fill": "$--border",
-              "width": 80,
-              "height": 2
-            },
-            {
-              "type": "frame",
-              "id": "pOJaP",
-              "name": "Step 2",
-              "width": 32,
-              "height": 32,
-              "fill": "$--bg-elevated",
-              "cornerRadius": 9999,
-              "layout": "vertical",
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "kvxHn",
-                  "name": "step2Num",
-                  "fill": "$--text-muted",
-                  "content": "2",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "1nAIZ",
-              "name": "line2",
-              "fill": "$--border",
-              "width": 80,
-              "height": 2
-            },
-            {
-              "type": "frame",
-              "id": "tv3q4",
-              "name": "Step 3",
-              "width": 32,
-              "height": 32,
-              "fill": "$--bg-elevated",
-              "cornerRadius": 9999,
-              "layout": "vertical",
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "6JVU5",
-                  "name": "step3Num",
-                  "fill": "$--text-muted",
-                  "content": "3",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "2HrtT",
-              "name": "line3",
-              "fill": "$--border",
-              "width": 80,
-              "height": 2
-            },
-            {
-              "type": "frame",
-              "id": "kAonh",
-              "name": "Step 4",
-              "width": 32,
-              "height": 32,
-              "fill": "$--bg-elevated",
-              "cornerRadius": 9999,
-              "layout": "vertical",
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "6VGXn",
-                  "name": "step4Num",
-                  "fill": "$--text-muted",
-                  "content": "4",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "600"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "rkTuK",
-          "name": "Onboarding Card",
-          "width": 560,
-          "fill": "$--card",
-          "cornerRadius": 16,
-          "stroke": {
-            "align": "inside",
-            "thickness": 1,
-            "fill": "$--border"
-          },
-          "effect": {
-            "type": "shadow",
-            "shadowType": "outer",
-            "color": "#00000060",
-            "offset": {
-              "x": 0,
-              "y": 8
-            },
-            "blur": 32
-          },
-          "layout": "vertical",
-          "gap": 24,
-          "padding": 40,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "text",
-              "id": "rPY9o",
-              "name": "stepLabel",
-              "fill": "$--muted-foreground",
-              "content": "Step 1 of 4",
-              "fontFamily": "Inter",
-              "fontSize": 12,
-              "fontWeight": "600"
-            },
-            {
-              "type": "frame",
-              "id": "QSaay",
-              "name": "Icon Circle",
-              "width": 56,
-              "height": 56,
-              "fill": "$--primary",
-              "cornerRadius": 9999,
-              "layout": "vertical",
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "Q2NH7",
-                  "name": "iconInner",
-                  "width": 28,
-                  "height": 28,
-                  "iconFontName": "building-2",
-                  "iconFontFamily": "lucide",
-                  "fill": "#ffffff"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "hxKMv",
-              "name": "cardTitle",
-              "fill": "$--foreground",
-              "content": "Connect Google Business Profile",
-              "textAlign": "center",
-              "fontFamily": "Inter",
-              "fontSize": 24,
-              "fontWeight": "700"
-            },
-            {
-              "type": "text",
-              "id": "3Sf08",
-              "name": "cardDesc",
-              "fill": "$--muted-foreground",
-              "textGrowth": "fixed-width",
-              "width": 440,
-              "content": "We'll automatically pull your latest reviews every week and pick the best ones to post.",
-              "lineHeight": 1.6,
-              "textAlign": "center",
-              "fontFamily": "Inter",
-              "fontSize": 14,
-              "fontWeight": "normal"
-            },
-            {
-              "type": "frame",
-              "id": "RHGzz",
-              "name": "connectBtn",
-              "width": "fill_container",
-              "height": 48,
-              "fill": "#FFFFFF",
-              "cornerRadius": "$--radius-pill",
-              "stroke": {
-                "align": "inside",
-                "thickness": 1,
-                "fill": "#E5E7EB"
-              },
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#0000000d",
-                "offset": {
-                  "x": 0,
-                  "y": 1
-                },
-                "blur": 1.75
-              },
-              "gap": 6,
-              "padding": [
-                10,
-                16
-              ],
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "eirYy",
-                  "x": 16,
-                  "y": 10,
-                  "name": "plus",
-                  "enabled": false,
-                  "width": 20,
-                  "height": 20,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1
-                  },
-                  "layout": "none",
-                  "children": [
-                    {
-                      "type": "path",
-                      "id": "0zFGW",
-                      "x": 5,
-                      "y": 5,
-                      "name": "Vector",
-                      "geometry": "M7.07104 3.53555l-3.53552 0-3.53552 0m3.53552-3.53555l0 3.53555 0 3.53549",
-                      "width": 10,
-                      "height": 10,
-                      "stroke": {
-                        "align": "center",
-                        "thickness": 1.5,
-                        "join": "round",
-                        "cap": "round",
-                        "fill": "#1A1A1A"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "ZlZKr",
-                  "name": "Button",
-                  "fill": "#1A1A1A",
-                  "content": "Connect Google Business",
-                  "lineHeight": 1.4285714285714286,
-                  "textAlign": "center",
-                  "textAlignVertical": "middle",
-                  "fontFamily": "$--font-primary",
-                  "fontSize": 14,
-                  "fontWeight": "500"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "bMr5l",
-              "name": "Connected Status",
-              "width": "fill_container",
-              "fill": "$--color-success",
-              "cornerRadius": 8,
-              "gap": 8,
-              "padding": [
-                12,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "pbAtj",
-                  "name": "connIcon",
-                  "width": 20,
-                  "height": 20,
-                  "iconFontName": "circle-check",
-                  "iconFontFamily": "lucide",
-                  "fill": "$--color-success-foreground"
-                },
-                {
-                  "type": "text",
-                  "id": "rMskb",
-                  "name": "connText",
-                  "fill": "$--color-success-foreground",
-                  "content": "Connected: Sunshine Dental",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "500"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "nod5Q",
-              "name": "skipLink",
-              "fill": "$--muted-foreground",
-              "content": "Skip for now →",
-              "fontFamily": "Inter",
-              "fontSize": 13,
-              "fontWeight": "normal"
-            },
-            {
-              "type": "frame",
-              "id": "K2PWZ",
-              "name": "Card Footer",
-              "width": "fill_container",
-              "justifyContent": "end",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "BMxuD",
-                  "name": "continueBtn",
-                  "height": 40,
-                  "fill": "$--primary",
-                  "cornerRadius": "$--radius-pill",
-                  "gap": 6,
-                  "padding": [
-                    10,
-                    16
-                  ],
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "g1w1Y",
-                      "x": 16,
-                      "y": 10,
-                      "name": "plus",
-                      "enabled": false,
-                      "width": 20,
-                      "height": 20,
-                      "stroke": {
-                        "align": "inside",
-                        "thickness": 1
-                      },
-                      "layout": "none",
-                      "children": [
-                        {
-                          "type": "path",
-                          "id": "ikiT9",
-                          "x": 5,
-                          "y": 5,
-                          "name": "Vector",
-                          "geometry": "M7.07104 3.53555l-3.53552 0-3.53552 0m3.53552-3.53555l0 3.53555 0 3.53549",
-                          "width": 10,
-                          "height": 10,
-                          "stroke": {
-                            "align": "center",
-                            "thickness": 1.5,
-                            "join": "round",
-                            "cap": "round",
-                            "fill": "$--primary-foreground"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "PYLMO",
-                      "name": "Button",
-                      "fill": "$--primary-foreground",
-                      "content": "Continue →",
-                      "lineHeight": 1.4286,
-                      "textAlign": "center",
-                      "textAlignVertical": "middle",
-                      "fontFamily": "$--font-primary",
-                      "fontSize": 14,
-                      "fontWeight": "500"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "Ubkrb",
-      "x": -50,
-      "y": 13355,
+      "x": 0,
+      "y": 14991,
       "name": "Page: Dashboard",
       "width": 1440,
       "height": "fit_content(900)",
@@ -10477,8 +10003,8 @@
     {
       "type": "frame",
       "id": "BXitL",
-      "x": 1600,
-      "y": 13355,
+      "x": 1650,
+      "y": 14991,
       "name": "Page: Reviews",
       "width": 1440,
       "height": "fit_content(900)",
@@ -11928,8 +11454,8 @@
     {
       "type": "frame",
       "id": "oaSZv",
-      "x": 3200,
-      "y": 13355,
+      "x": 3250,
+      "y": 14991,
       "name": "Page: Posts",
       "width": 1440,
       "height": "fit_content(900)",
@@ -13418,8 +12944,8 @@
     {
       "type": "frame",
       "id": "lUPsr",
-      "x": 4800,
-      "y": 13355,
+      "x": 4850,
+      "y": 14991,
       "name": "Page: Calendar",
       "width": 1440,
       "height": "fit_content(900)",
@@ -14985,8 +14511,8 @@
     {
       "type": "frame",
       "id": "Ed9p5",
-      "x": 6400,
-      "y": 13355,
+      "x": 6450,
+      "y": 14991,
       "name": "Page: Analytics",
       "width": 1440,
       "height": "fit_content(900)",
@@ -16486,8 +16012,8 @@
     {
       "type": "frame",
       "id": "cpAZS",
-      "x": 8000,
-      "y": 13355,
+      "x": 8050,
+      "y": 14991,
       "name": "Page: Settings",
       "width": 1440,
       "height": "fit_content(900)",

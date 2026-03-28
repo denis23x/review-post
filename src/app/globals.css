@@ -9,6 +9,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-geist {
+  font-family: var(--font-geist), "Inter", system-ui, sans-serif;
+}
+
+.font-geist-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 * {
   box-sizing: border-box;
 }
