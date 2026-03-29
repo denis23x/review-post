@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#E5E7EB] bg-white px-6 py-12 md:px-12">
+    <footer className="border-t border-[#E5E7EB] bg-white px-6 pt-12 pb-8 md:px-10">
       <div className="mx-auto max-w-[1200px]">
         <div className="flex flex-col gap-8 md:flex-row md:justify-between">
           <div className="max-w-[260px]">
@@ -23,9 +23,9 @@ export function Footer() {
               <Link href="#pricing" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Pricing</Link>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[#1a1a1a]">Account</p>
-              <Link href="/login" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Log in</Link>
-              <Link href="/signup" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Sign up</Link>
+              <p className="font-semibold text-[#1a1a1a]">Company</p>
+              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">About</a>
+              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Contact</a>
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold text-[#1a1a1a]">Legal</p>
