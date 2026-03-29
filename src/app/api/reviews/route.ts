@@ -1,5 +1,4 @@
 const PLACES_BASE = 'https://places.googleapis.com/v1/places'
-
 const SHORT_LINK_HOSTS = new Set(['maps.app.goo.gl', 'goo.gl'])
 
 /**
@@ -25,25 +24,33 @@ async function expandUrl(url: string): Promise<string> {
  *  - https://maps.google.com/maps/place/NAME/@lat,lng,zoom/...
  *  - https://www.google.com/maps/place/NAME/@lat,lng,zoom/...
  *  - https://maps.google.com/?q=NAME
- *  - https://maps.google.com/?cid=12345  (returns empty — caller uses url directly)
- *  - https://maps.app.goo.gl/xyz          (short link — expanded before extraction)
+ *  - https://maps.google.com/?cid=12345 (returns empty — caller uses url directly)
+ *  - https://maps.app.goo.gl/xyz (short link — expanded before extraction)
  */
 function extractSearchQuery(url: string): string {
   try {
     const parsed = new URL(url)
 
-    // Explicit query params take priority
+    // 1. Explicit query params (highest priority)
     const q = parsed.searchParams.get('q') ?? parsed.searchParams.get('query')
     if (q) return q
 
-    // /maps/place/BUSINESS+NAME/@lat,lng,...  →  extract segment after 'place'
     const parts = parsed.pathname.split('/').filter(Boolean)
+
+    // 2. /maps/place/<name>
     const placeIdx = parts.indexOf('place')
     if (placeIdx !== -1 && parts[placeIdx + 1]) {
       return decodeURIComponent(parts[placeIdx + 1].replace(/\+/g, ' '))
     }
+
+    // 3. /maps/search/<query>
+    const searchIdx = parts.indexOf('search')
+    if (searchIdx !== -1 && parts[searchIdx + 1]) {
+      return decodeURIComponent(parts[searchIdx + 1].replace(/\+/g, ' '))
+    }
+
   } catch {
-    // malformed URL — fall through and use as-is
+    // ignore
   }
 
   return url
@@ -55,14 +62,44 @@ function extractSearchQuery(url: string): string {
  */
 function extractCoordinates(url: string): { lat: number; lng: number } | null {
   try {
-    const match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
+    // 1. Real place coordinates (preferred)
+    const dataMatch = url.match(/!3d(-?\d+(\.\d+)?)!4d(-?\d+(\.\d+)?)/)
+    if (dataMatch) {
+      return {
+        lat: parseFloat(dataMatch[1]),
+        lng: parseFloat(dataMatch[3]),
+      }
+    }
+
+    // 2. Viewport fallback
+    const match = url.match(/@(-?\d+(\.\d+)?),(-?\d+(\.\d+)?)/)
     if (match) {
-      return { lat: parseFloat(match[1]), lng: parseFloat(match[2]) }
+      return {
+        lat: parseFloat(match[1]),
+        lng: parseFloat(match[3]),
+      }
     }
   } catch {
     // ignore
   }
+
   return null
+}
+
+/**
+ * Converts meters to degrees of latitude and longitude.
+ * @param meters - The distance in meters.
+ * @param latitude - The latitude in degrees.
+ * @returns The distance in degrees of latitude and longitude.
+ */
+function metersToDegrees(meters: number, latitude: number) {
+  const x = 111320 // approximate meters in one degree of latitude
+  const latDelta = meters / x
+
+  const lngDelta =
+    meters / (x * Math.cos((latitude * Math.PI) / 180))
+
+  return { latDelta, lngDelta }
 }
 
 export async function POST(req: Request) {
@@ -80,19 +117,37 @@ export async function POST(req: Request) {
   const resolvedUrl = await expandUrl(body.url as string)
   const searchQuery = extractSearchQuery(resolvedUrl)
   const coords = extractCoordinates(resolvedUrl)
-  console.log('👉 ~ searchQuery:', searchQuery, 'coords:', coords)
 
   // ── Step 1: resolve Place ID ────────────────────────────────────────────────
   let placeId: string
+  let placeLanguage: string
 
   try {
     const searchBody: Record<string, unknown> = { textQuery: searchQuery }
 
     if (coords) {
-      searchBody.locationBias = {
-        circle: {
-          center: { latitude: coords.lat, longitude: coords.lng },
-          radius: 500.0,
+      // Bias approach (not deprecated, but not recommended)
+      // searchBody.locationBias = {
+      //   circle: {
+      //     center: { latitude: coords.lat, longitude: coords.lng },
+      //     radius: 500.0,
+      //   },
+      // }
+
+      // Rectangle approach (recommended)
+      const meters = 500
+      const { latDelta, lngDelta } = metersToDegrees(meters, coords.lat)
+
+      searchBody.locationRestriction = {
+        rectangle: {
+          low: {
+            latitude: coords.lat - latDelta,
+            longitude: coords.lng - lngDelta,
+          },
+          high: {
+            latitude: coords.lat + latDelta,
+            longitude: coords.lng + lngDelta,
+          },
         },
       }
     }
@@ -118,13 +173,15 @@ export async function POST(req: Request) {
     }
 
     const findData = await findRes.json()
-    console.log('👉 ~ searchText result:', JSON.stringify(findData))
 
     if (!findData.places?.length) {
       return Response.json({ error: 'could not resolve place' }, { status: 400 })
     }
 
-    placeId = findData.places[0].id as string
+    const [findPlace] = findData.places;
+
+    placeId = findPlace.id as string
+    placeLanguage = findPlace.displayName.languageCode as string
   } catch {
     return Response.json({ error: 'google api error' }, { status: 500 })
   }
@@ -134,6 +191,7 @@ export async function POST(req: Request) {
     const detailsRes = await fetch(`${PLACES_BASE}/${placeId}`, {
       headers: {
         'X-Goog-Api-Key': apiKey,
+        'Accept-Language': placeLanguage,
         'X-Goog-FieldMask': 'id,displayName,rating,reviews',
       },
     })
@@ -143,18 +201,21 @@ export async function POST(req: Request) {
     }
 
     if (!detailsRes.ok) {
+      const errBody = await detailsRes.json().catch(() => null)
+      console.error('👉 ~ placeId error:', detailsRes.status, errBody)
       return Response.json({ error: 'could not find this business' }, { status: 400 })
     }
 
     const detailsData = await detailsRes.json()
 
     const reviews = (detailsData.reviews ?? []).map((r: {
-      authorAttribution: { displayName: string }
+      authorAttribution: { displayName: string, photoUrl: string }
       rating: number
       text: { text: string }
       publishTime: string
     }) => ({
       authorName: r.authorAttribution?.displayName,
+      authorPhotoUrl: r.authorAttribution?.photoUrl,
       rating: r.rating,
       text: r.text?.text,
       time: Math.floor(new Date(r.publishTime).getTime() / 1000),

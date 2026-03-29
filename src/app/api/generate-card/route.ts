@@ -135,7 +135,7 @@ export async function POST(req: Request) {
       },
     })
   } catch (err) {
-    console.error('Card generation error:', err)
+    console.error('👉 ~ generate-card error:', err)
     return Response.json({ error: 'card generation failed' }, { status: 500 })
   }
 }

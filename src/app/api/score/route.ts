@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       ],
     })
   } catch (error) {
-    console.error('👉 ~ error:', error)
+    console.error('👉 ~ score error:', error)
     return Response.json({ error: 'ai scoring failed' }, { status: 500 })
   }
 
