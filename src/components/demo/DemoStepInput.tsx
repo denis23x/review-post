@@ -1,15 +1,13 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Link, Map } from 'lucide-react';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
-import { Button } from '@/components/ui/Button';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { googleMapsUrlSchema } from '@/lib/validators';
 import { useDemoStore } from '@/store/demoStore';
-import { Spinner } from '../ui/Spinner';
 import { Fragment } from 'react';
+import { cn } from '@/lib/cn';
 
 export function DemoStepInput() {
   const searchParams = useSearchParams();
@@ -27,7 +25,6 @@ export function DemoStepInput() {
   return (
     <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
       <h2 className="text-xl font-semibold text-[#1a1a1a]">Step 1: Paste your Google Maps URL</h2>
-
       <form
         className="mt-6 flex flex-col gap-6"
         onSubmit={(e) => {
@@ -49,7 +46,10 @@ export function DemoStepInput() {
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                   placeholder="https://maps.google.com/..."
-                  className="h-11 w-full rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none"
+                  className={cn(
+                    'h-11 w-full rounded-full border border-[#E5E7EB] bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none',
+                    field.state.meta.errors.length && 'border-[#ef4444]'
+                  )}
                   autoComplete="off"
                 />
               </div>
@@ -71,20 +71,17 @@ export function DemoStepInput() {
           </div>
         )}
 
-        <form.Subscribe selector={(state) => state.isSubmitting}>
-          {(isSubmitting) => (
+        <form.Subscribe selector={(state) => state.isValid}>
+          {(isValid) => (
             <button
+              disabled={!isValid}
               type="submit"
-              className="flex h-10 w-full items-center rounded-full bg-[#4A9FD8] px-4 text-sm font-medium text-white transition-opacity hover:opacity-80"
-            >
-              Generate Posts &rarr;
-              {isSubmitting ? (
-                <Fragment>
-                  <Spinner size="sm" /> Fetching reviews...
-                </Fragment>
-              ) : (
-                'Generate Posts &rarr;'
+              className={cn(
+                'flex h-10 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#4A9FD8] px-4 text-sm font-medium text-white transition-opacity hover:opacity-80',
+                'disabled:cursor-not-allowed disabled:opacity-50'
               )}
+            >
+              <Fragment>Generate Posts &rarr;</Fragment>
             </button>
           )}
         </form.Subscribe>

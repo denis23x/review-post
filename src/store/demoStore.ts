@@ -14,6 +14,7 @@ export interface ResultData {
   businessName: string;
   rating: number;
   caption: string;
+  hashtags: string[];
   reviewText: string;
 }
 
@@ -43,7 +44,7 @@ const INITIAL_LOADING_STEPS: LoadingStepState = {
 
 export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   step: 'input',
-  theme: 'dark',
+  theme: 'light',
   error: null,
   isRegenerating: false,
   loadingSteps: INITIAL_LOADING_STEPS,
@@ -117,6 +118,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
           businessName: reviewsData.name,
           rating: scoreData.selectedReview.rating,
           caption: scoreData.caption,
+          hashtags: scoreData.hashtags,
           reviewText: scoreData.selectedReview.text,
         },
       });

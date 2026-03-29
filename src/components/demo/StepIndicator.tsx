@@ -18,7 +18,7 @@ export function StepIndicator() {
       {STEPS.map((s, i) => (
         <div key={s.id} className="flex items-center gap-2">
           <div
-            className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-all"
+            className="text-md flex h-10 w-10 items-center justify-center rounded-full font-semibold transition-all"
             style={{
               background: i <= activeIndex ? '#4A9FD8' : '#F7F8FA',
               color: i <= activeIndex ? '#ffffff' : '#888888',

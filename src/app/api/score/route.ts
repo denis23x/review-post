@@ -13,6 +13,7 @@ Scoring criteria:
 Return a valid JSON object with exactly two fields:
 - "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
 - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
+- "hashtags": an array of 3-5 relevant hashtags for the post
 
 IMPORTANT: Always respond in the same language as the reviews provided. Never translate any text.
 `.trim();
@@ -64,7 +65,7 @@ export async function POST(req: Request) {
     return Response.json({ error: 'ai scoring failed' }, { status: 500 });
   }
 
-  let parsed: { review?: string; caption?: string } = {};
+  let parsed: { review?: string; caption?: string; hashtags?: string[] } = {};
   try {
     parsed = JSON.parse(completion.choices[0].message.content ?? '{}');
   } catch {
@@ -76,5 +77,6 @@ export async function POST(req: Request) {
   return Response.json({
     selectedReview,
     caption: parsed.caption ?? '',
+    hashtags: parsed.hashtags ?? [],
   });
 }

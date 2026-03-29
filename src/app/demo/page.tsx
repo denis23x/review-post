@@ -15,7 +15,7 @@ export default function DemoPage() {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      <main className="mx-auto flex max-w-[800px] flex-col items-center gap-12 px-6 py-12">
+      <main className="mx-auto flex max-w-[1040px] flex-col items-center gap-12 px-6 py-12">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">
             Try Review to Post &mdash; Free

@@ -1,6 +1,5 @@
 'use client';
 
-import { Spinner } from '@/components/ui/Spinner';
 import { LoadingStepItem } from '@/components/demo/LoadingStepItem';
 import { useDemoStore } from '@/store/demoStore';
 
@@ -16,8 +15,7 @@ export function DemoStepLoading() {
   return (
     <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
       <div className="flex items-center gap-3">
-        <Spinner size="md" className="text-[#4A9FD8]" />
-        <h2 className="text-xl font-semibold text-[#1a1a1a]">Step 2: Generating your post...</h2>
+        <h2 className="text-xl font-semibold text-[#1a1a1a]">Step 2: Generating your post</h2>
       </div>
       <div className="mt-6 flex flex-col gap-3">
         {LOADING_STEPS.map(({ key, label }) => (

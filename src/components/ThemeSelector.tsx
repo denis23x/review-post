@@ -9,8 +9,8 @@ interface ThemeSelectorProps {
 }
 
 const themes: { value: Theme; label: string }[] = [
-  { value: 'dark', label: 'Dark' },
   { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
   { value: 'brand', label: 'Brand' },
 ];
 
@@ -23,7 +23,7 @@ export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
           type="button"
           onClick={() => onChange(theme.value)}
           className={cn(
-            'flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium',
+            'flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium',
             'border transition-all duration-150 outline-none',
             'focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
             value === theme.value
