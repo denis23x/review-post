@@ -51,7 +51,7 @@ export function Pricing() {
   return (
     <section
       id="pricing"
-      className="flex flex-col items-center gap-12 bg-[#F7F8FA] px-6 py-20 md:px-12 lg:px-[120px]"
+      className="flex flex-col items-center gap-12 bg-[#F7F8FA] px-6 py-20 md:px-12 lg:px-[120px] scroll-mt-16"
     >
       <div className="flex flex-col items-center gap-4 text-center">
         <h2 className="font-geist text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">
@@ -96,7 +96,7 @@ export function Pricing() {
             ))}
 
             <Link
-              href={plan.name === 'Agency' ? '/contact' : '/demo'}
+              href={'/demo'}
               className="mt-auto flex h-11 items-center justify-center rounded-full font-geist text-[14px] font-medium transition-opacity hover:opacity-80"
               style={
                 plan.featured

@@ -54,104 +54,105 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex flex-col items-center gap-8 overflow-hidden px-6 py-20 md:px-12 lg:px-[120px]"
+      className="overflow-hidden"
       style={{
         background: [
           'radial-gradient(80% 60% at 50% 25%, rgba(74,159,216,0.10) 0%, rgba(74,159,216,0) 100%)',
-          'linear-gradient(180deg, rgba(232,242,251,0.5) 0%, rgba(240,246,252,0.5) 35%, rgba(250,252,254,0.5) 70%, rgba(255,255,255,0.5) 100%)',
         ].join(', '),
       }}
     >
-      {/* Decorative rings — top right */}
-      <div className="pointer-events-none absolute" style={{ width: 450, height: 450, right: -130, top: -256, borderRadius: '50%', border: '18px solid #4A9FD8', opacity: 0.04 }} />
-      <div className="pointer-events-none absolute" style={{ width: 320, height: 320, right: -65,  top: -191, borderRadius: '50%', border: '16px solid #4A9FD8', opacity: 0.05 }} />
-      <div className="pointer-events-none absolute" style={{ width: 200, height: 200, right: -5,   top: -131, borderRadius: '50%', border: '12px solid #4A9FD8', opacity: 0.06 }} />
+      <div className="flex flex-col items-center relative w-full max-w-[1440px] mx-auto gap-8 px-6 py-20 md:px-12 lg:px-[120px]">
+        {/* Decorative rings — top right */}
+        <div className="pointer-events-none absolute" style={{ width: 450, height: 450, right: -170, top: -256, borderRadius: '50%', border: '18px solid #4A9FD8', opacity: 0.04 }} />
+        <div className="pointer-events-none absolute" style={{ width: 320, height: 320, right: -105,  top: -191, borderRadius: '50%', border: '16px solid #4A9FD8', opacity: 0.05 }} />
+        <div className="pointer-events-none absolute" style={{ width: 200, height: 200, right: -45,   top: -131, borderRadius: '50%', border: '12px solid #4A9FD8', opacity: 0.06 }} />
 
-      {/* Decorative diamonds */}
-      <div className="pointer-events-none absolute" style={{ width: 280, height: 280, left: -80, top: -30,  backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.06, transform: 'rotate(45deg)' }} />
-      <div className="pointer-events-none absolute" style={{ width: 363, height: 363, right: -4,  top: 759, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.08, transform: 'rotate(45deg)' }} />
-      <div className="pointer-events-none absolute" style={{ width: 180, height: 180, right: 227, top: 493, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.04, transform: 'rotate(45deg)' }} />
+        {/* Decorative diamonds */}
+        <div className="pointer-events-none absolute" style={{ width: 280, height: 280, left: -70, top: -150,  backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.06, transform: 'rotate(45deg)' }} />
+        <div className="pointer-events-none absolute" style={{ width: 363, height: 363, right: -104,  top: 759, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.08, transform: 'rotate(45deg)' }} />
+        <div className="pointer-events-none absolute" style={{ width: 180, height: 180, right: 127, top: 493, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.04, transform: 'rotate(45deg)' }} />
 
-      {/* Badges */}
-      <div className="relative flex gap-4">
-        <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
-          <Bot size={16} className="text-[#4A9FD8]" />
-          <span className="text-xs font-medium text-[#4A9FD8]">Now with AI-powered captions</span>
-        </div>
-        <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
-          <Layers2 size={16} className="text-[#4A9FD8]" />
-          <span className="text-xs font-medium text-[#4A9FD8]">BETA</span>
-        </div>
-      </div>
-
-      {/* Headline */}
-      <h1 className="font-geist relative mx-auto max-w-[900px] text-center text-[56px] font-extrabold leading-[1.1] tracking-[-2px] text-[#1a1a1a]">
-        Turn your Google reviews
-        <br />
-        into branded social posts.
-      </h1>
-
-      {/* Subheadline */}
-      <p className="relative mx-auto max-w-[640px] text-center text-lg leading-normal text-[#666666]">
-        Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with
-        caption &mdash; in seconds.
-      </p>
-
-      {/* Input + CTA */}
-      <form
-        onSubmit={handleSubmit}
-        className="relative flex items-center gap-3 rounded-full bg-[#4A9FD8] p-1.5"
-        style={{ boxShadow: '0 4px 16px rgba(74,159,216,0.20)' }}
-      >
-        <input
-          type="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Paste your Google Maps URL..."
-          className="h-11 w-[300px] rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none sm:w-[420px]"
-        />
-        <button
-          type="submit"
-          className="flex h-11 items-center rounded-full bg-white px-4 text-[15px] font-medium text-[#1a1a1a] whitespace-nowrap transition-opacity hover:opacity-80"
-        >
-          Generate Post &rarr;
-        </button>
-      </form>
-
-      {/* Example review cards — fixed 320 px each, scrollable on mobile */}
-      <div className="relative flex gap-6 overflow-x-auto pb-2">
-        {EXAMPLE_CARDS.map((card, i) => (
-          <div
-            key={i}
-            className="flex w-[320px] shrink-0 flex-col gap-4 rounded-[16px] p-6"
-            style={{
-              background: card.featured ? '#F0F7FC' : '#FFFFFF',
-              border: card.featured ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
-              boxShadow: card.featured
-                ? '0 2px 8px rgba(74,159,216,0.10)'
-                : '0 2px 8px rgba(0,0,0,0.05)',
-            }}
-          >
-            <StarRating rating={card.rating} size="sm" />
-            <p className="text-sm font-medium leading-normal text-[#1a1a1a]">
-              &ldquo;{card.quote}&rdquo;
-            </p>
-            <span className="text-xs font-semibold text-[#1a1a1a]">&mdash; {card.author}</span>
-            <div className="mt-auto flex items-center gap-1.5">
-              {card.platforms.map((p) => (
-                <span
-                  key={p}
-                  className="flex h-5 w-5 items-center justify-center rounded-full"
-                  style={{ backgroundColor: PLATFORM_BADGES[p].color }}
-                >
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="white" aria-label={p}>
-                    <path d={PLATFORM_BADGES[p].path} />
-                  </svg>
-                </span>
-              ))}
-            </div>
+        {/* Badges */}
+        <div className="relative flex gap-4">
+          <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
+            <Bot size={16} className="text-[#4A9FD8]" />
+            <span className="text-xs font-medium text-[#4A9FD8]">Now with AI-powered captions</span>
           </div>
-        ))}
+          <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
+            <Layers2 size={16} className="text-[#4A9FD8]" />
+            <span className="text-xs font-medium text-[#4A9FD8]">BETA</span>
+          </div>
+        </div>
+
+        {/* Headline */}
+        <h1 className="font-geist relative mx-auto max-w-[900px] text-center text-[56px] font-extrabold leading-[1.1] tracking-[-2px] text-[#1a1a1a]">
+          Turn your Google reviews
+          <br />
+          into branded social posts.
+        </h1>
+
+        {/* Subheadline */}
+        <p className="relative mx-auto max-w-[640px] text-center text-lg leading-normal text-[#666666]">
+          Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with
+          caption &mdash; in seconds.
+        </p>
+
+        {/* Input + CTA */}
+        <form
+          onSubmit={handleSubmit}
+          className="relative flex items-center gap-3 rounded-full bg-[#4A9FD8] p-1.5"
+          style={{ boxShadow: '0 4px 16px rgba(74,159,216,0.20)' }}
+        >
+          <input
+            type="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Paste your Google Maps URL..."
+            className="h-11 w-[300px] rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none sm:w-[420px]"
+          />
+          <button
+            type="submit"
+            className="flex h-11 items-center rounded-full bg-white px-4 text-[15px] font-medium text-[#1a1a1a] whitespace-nowrap transition-opacity hover:opacity-80"
+          >
+            Generate Post &rarr;
+          </button>
+        </form>
+
+        {/* Example review cards — fixed 320 px each, scrollable on mobile */}
+        <div className="relative flex gap-6 overflow-x-auto pb-2">
+          {EXAMPLE_CARDS.map((card, i) => (
+            <div
+              key={i}
+              className="flex w-[320px] shrink-0 flex-col gap-4 rounded-[16px] p-6"
+              style={{
+                background: card.featured ? '#F0F7FC' : '#FFFFFF',
+                border: card.featured ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
+                boxShadow: card.featured
+                  ? '0 2px 8px rgba(74,159,216,0.10)'
+                  : '0 2px 8px rgba(0,0,0,0.05)',
+              }}
+            >
+              <StarRating rating={card.rating} size="sm" />
+              <p className="text-sm font-medium leading-normal text-[#1a1a1a]">
+                &ldquo;{card.quote}&rdquo;
+              </p>
+              <span className="text-xs font-semibold text-[#1a1a1a]">&mdash; {card.author}</span>
+              <div className="mt-auto flex items-center gap-1.5">
+                {card.platforms.map((p) => (
+                  <span
+                    key={p}
+                    className="flex h-5 w-5 items-center justify-center rounded-full"
+                    style={{ backgroundColor: PLATFORM_BADGES[p].color }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="white" aria-label={p}>
+                      <path d={PLATFORM_BADGES[p].path} />
+                    </svg>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

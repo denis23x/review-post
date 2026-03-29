@@ -14,7 +14,7 @@ export function Cta() {
         </p>
       </div>
       <Link
-        href="/signup"
+        href="/demo"
         className="flex h-12 items-center gap-1.5 rounded-full bg-white px-4 text-[15px] font-medium text-[#1a1a1a] transition-opacity hover:opacity-90"
       >
         Get Started Free <ArrowRight size={16} />

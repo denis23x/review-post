@@ -1,16 +1,15 @@
+import { MapPin } from 'lucide-react'
 import Link from 'next/link'
 
 export function Footer() {
   return (
     <footer className="border-t border-[#E5E7EB] bg-white px-6 pt-12 pb-8 md:px-10">
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-[1440px]">
         <div className="flex flex-col gap-8 md:flex-row md:justify-between">
           <div className="max-w-[260px]">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#4A9FD8]">
-                <span className="text-xs font-bold text-[#F6A700]">★</span>
-              </div>
-              <span className="text-sm font-bold text-[#1a1a1a]">ReviewPost</span>
+              <MapPin size={16} className="text-white fill-[#4A9FD8] h-8 w-8" />
+              <span className="text-sm font-bold text-[#1a1a1a]">Review to Post</span>
             </div>
             <p className="mt-3 text-sm text-[#666666]">
               Turn your Google reviews into social posts. Automatically.
