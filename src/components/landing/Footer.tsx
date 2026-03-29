@@ -1,0 +1,43 @@
+import Link from 'next/link'
+
+export function Footer() {
+  return (
+    <footer className="border-t border-[#E5E7EB] bg-white px-6 py-12 md:px-12">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="flex flex-col gap-8 md:flex-row md:justify-between">
+          <div className="max-w-[260px]">
+            <div className="flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#4A9FD8]">
+                <span className="text-xs font-bold text-[#F6A700]">★</span>
+              </div>
+              <span className="text-sm font-bold text-[#1a1a1a]">ReviewPost</span>
+            </div>
+            <p className="mt-3 text-sm text-[#666666]">
+              Turn your Google reviews into social posts. Automatically.
+            </p>
+          </div>
+          <div className="flex gap-12 text-sm">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-[#1a1a1a]">Product</p>
+              <Link href="/demo" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Demo</Link>
+              <Link href="#pricing" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Pricing</Link>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-[#1a1a1a]">Account</p>
+              <Link href="/login" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Log in</Link>
+              <Link href="/signup" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Sign up</Link>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-[#1a1a1a]">Legal</p>
+              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Terms</a>
+              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">Privacy</a>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 border-t border-[#E5E7EB] pt-6 text-xs text-[#888888]">
+          &copy; 2026 ReviewPost. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  )
+}
