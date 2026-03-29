@@ -49,6 +49,22 @@ function extractSearchQuery(url: string): string {
   return url
 }
 
+/**
+ * Extracts lat/lng coordinates from a Google Maps URL.
+ * Matches the `@lat,lng` anchor present in standard place URLs.
+ */
+function extractCoordinates(url: string): { lat: number; lng: number } | null {
+  try {
+    const match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
+    if (match) {
+      return { lat: parseFloat(match[1]), lng: parseFloat(match[2]) }
+    }
+  } catch {
+    // ignore
+  }
+  return null
+}
+
 export async function POST(req: Request) {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY
 
@@ -63,12 +79,24 @@ export async function POST(req: Request) {
 
   const resolvedUrl = await expandUrl(body.url as string)
   const searchQuery = extractSearchQuery(resolvedUrl)
-  console.log('👉 ~ searchQuery:', searchQuery)
+  const coords = extractCoordinates(resolvedUrl)
+  console.log('👉 ~ searchQuery:', searchQuery, 'coords:', coords)
 
   // ── Step 1: resolve Place ID ────────────────────────────────────────────────
   let placeId: string
 
   try {
+    const searchBody: Record<string, unknown> = { textQuery: searchQuery }
+
+    if (coords) {
+      searchBody.locationBias = {
+        circle: {
+          center: { latitude: coords.lat, longitude: coords.lng },
+          radius: 500.0,
+        },
+      }
+    }
+
     const findRes = await fetch(`${PLACES_BASE}:searchText`, {
       method: 'POST',
       headers: {
@@ -76,7 +104,7 @@ export async function POST(req: Request) {
         'X-Goog-Api-Key': apiKey,
         'X-Goog-FieldMask': 'places.id,places.displayName',
       },
-      body: JSON.stringify({ textQuery: searchQuery }),
+      body: JSON.stringify(searchBody),
     })
 
     if (findRes.status === 429) {

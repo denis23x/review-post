@@ -1,6 +1,5 @@
 import React from 'react'
-import satori from 'satori'
-import { Resvg } from '@resvg/resvg-js'
+import { ImageResponse } from '@vercel/og'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -124,25 +123,14 @@ export async function POST(req: Request) {
       )
     )
 
-    const svg = await satori(
-      element,
-      {
-        width: 1080,
-        height: 1080,
-        fonts: [
-          { name: 'Inter', data: fonts.interRegular.buffer as ArrayBuffer, weight: 400, style: 'normal' },
-          { name: 'Inter', data: fonts.interBold.buffer as ArrayBuffer, weight: 700, style: 'normal' },
-        ],
-      }
-    )
-
-    const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: 1080 } })
-    const pngBuffer = resvg.render().asPng()
-    const png = Buffer.from(pngBuffer)
-
-    return new Response(png as unknown as BodyInit, {
+    return new ImageResponse(element, {
+      width: 1080,
+      height: 1080,
+      fonts: [
+        { name: 'Inter', data: fonts.interRegular.buffer as ArrayBuffer, weight: 400, style: 'normal' },
+        { name: 'Inter', data: fonts.interBold.buffer as ArrayBuffer, weight: 700, style: 'normal' },
+      ],
       headers: {
-        'Content-Type': 'image/png',
         'Content-Disposition': `attachment; filename="reviewpost-${Date.now()}.png"`,
       },
     })

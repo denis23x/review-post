@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { MapPin, CheckCircle, Loader2, Circle, Copy, Check, RefreshCw, ArrowLeft, Star } from 'lucide-react'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
@@ -97,6 +98,8 @@ function LoadingStepItem({
 }
 
 export default function DemoPage() {
+  const searchParams = useSearchParams()
+  const initialUrl = searchParams.get('url') ?? ''
   const [step, setStep] = useState<Step>('input')
   const [theme, setTheme] = useState<Theme>('dark')
   const [error, setError] = useState<string | null>(null)
@@ -244,7 +247,7 @@ export default function DemoPage() {
   }, [result]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const form = useForm({
-    defaultValues: { url: '' },
+    defaultValues: { url: initialUrl },
     validatorAdapter: zodValidator(),
     onSubmit: async ({ value }) => {
       await handleGenerate(value.url)

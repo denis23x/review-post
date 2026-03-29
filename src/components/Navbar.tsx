@@ -1,45 +1,41 @@
 import Link from 'next/link'
-import { Star } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Wand2 } from 'lucide-react'
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-10 h-16 border-b border-[#E5E7EB] bg-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2 text-[#1a1a1a] hover:opacity-80 transition-opacity">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4A9FD8]">
-            <Star size={16} fill="currentColor" className="text-[#F6A700]" />
+    <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-[#E5E7EB] bg-white px-6 md:px-10">
+      {/* Left: Logo + Nav Links */}
+      <div className="flex items-center gap-8">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-6 w-6 items-center justify-center rounded bg-[#4A9FD8]">
+            <Wand2 size={16} className="text-white" />
           </div>
-          <span className="text-[15px] font-bold tracking-tight">ReviewPost</span>
+          <span className="text-lg font-bold text-[#1A1A1A]">Review to Post</span>
         </Link>
-
         <nav className="hidden items-center gap-6 md:flex">
-          <Link
-            href="/#how-it-works"
-            className="text-sm text-[#666666] hover:text-[#1a1a1a] transition-colors"
-          >
+          <Link href="/#how-it-works" className="text-sm text-[#666666] transition-colors hover:text-[#1A1A1A]">
             Product
           </Link>
-          <Link
-            href="/#pricing"
-            className="text-sm text-[#666666] hover:text-[#1a1a1a] transition-colors"
-          >
+          <Link href="/#pricing" className="text-sm text-[#666666] transition-colors hover:text-[#1A1A1A]">
             Pricing
           </Link>
         </nav>
+      </div>
 
-        <div className="flex items-center gap-3">
-          <Link href="/login" className="hidden md:inline-flex">
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button size="sm">
-              Sign up free
-            </Button>
-          </Link>
-        </div>
+      {/* Right: Action buttons */}
+      <div className="flex items-center gap-3">
+        <Link
+          href="/login"
+          className="hidden h-10 items-center rounded-full border border-[#E5E7EB] px-4 font-geist text-sm font-medium text-[#1A1A1A] transition-opacity hover:opacity-80 md:flex"
+        >
+          Sign In
+        </Link>
+        <Link
+          href="/signup"
+          className="flex h-10 items-center rounded-full bg-[#4A9FD8] px-4 font-geist text-sm font-medium text-white transition-opacity hover:opacity-80"
+        >
+          Try Free →
+        </Link>
       </div>
     </header>
   )

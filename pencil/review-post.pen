@@ -932,6 +932,7 @@
               "type": "gradient",
               "gradientType": "linear",
               "enabled": true,
+              "opacity": 0.5,
               "rotation": 180,
               "size": {
                 "height": 1
@@ -959,7 +960,7 @@
               "type": "gradient",
               "gradientType": "radial",
               "enabled": true,
-              "opacity": 0.2,
+              "opacity": 0.1,
               "rotation": 0,
               "size": {
                 "width": 0.8,
@@ -1069,40 +1070,88 @@
               "height": 280
             },
             {
-              "type": "frame",
-              "id": "UeJ9x",
-              "name": "heroBadge",
-              "fill": "#4A9FD815",
-              "cornerRadius": 999,
-              "stroke": {
-                "align": "inside",
-                "thickness": 1,
-                "fill": "#4A9FD833"
-              },
-              "gap": 6,
-              "padding": [
-                6,
-                16
-              ],
-              "alignItems": "center",
+              "type": "group",
+              "id": "2OnwY",
+              "layout": "horizontal",
+              "gap": 16,
               "children": [
                 {
-                  "type": "ellipse",
-                  "id": "gDHtZ",
-                  "name": "badgeDot",
-                  "fill": "$--primary",
-                  "width": 8,
-                  "height": 8
+                  "type": "frame",
+                  "id": "vQOKU",
+                  "name": "heroBadge",
+                  "fill": "$--accent",
+                  "cornerRadius": 999,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$--primary"
+                  },
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "kR0SS",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "bot",
+                      "iconFontFamily": "lucide",
+                      "fill": "$--primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "0juaA",
+                      "name": "badgeText",
+                      "fill": "$--primary",
+                      "content": "Now with AI-powered captions",
+                      "fontFamily": "Funnel Sans",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
                 },
                 {
-                  "type": "text",
-                  "id": "kAjHV",
-                  "name": "badgeText",
-                  "fill": "$--primary",
-                  "content": "Now with AI-powered captions",
-                  "fontFamily": "Funnel Sans",
-                  "fontSize": 12,
-                  "fontWeight": "500"
+                  "type": "frame",
+                  "id": "UeJ9x",
+                  "name": "heroBadge",
+                  "fill": "$--accent",
+                  "cornerRadius": 999,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$--primary"
+                  },
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "o47n4",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "layers-2",
+                      "iconFontFamily": "lucide",
+                      "fill": "$--primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kAjHV",
+                      "name": "badgeText",
+                      "fill": "$--primary",
+                      "content": "BETA",
+                      "fontFamily": "Funnel Sans",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
                 }
               ]
             },
@@ -3727,7 +3776,7 @@
           "ref": "eYaa7",
           "width": "fill_container",
           "name": "footerLP",
-          "y": 3524,
+          "y": 3525,
           "height": "fit_content",
           "stroke": {
             "align": "inside",
