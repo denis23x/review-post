@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { StepIndicator } from '@/components/demo/StepIndicator';
 import { DemoStepInput } from '@/components/demo/DemoStepInput';
@@ -10,6 +10,11 @@ import { useDemoStore } from '@/store/demoStore';
 
 export default function DemoPage() {
   const step = useDemoStore((s) => s.step);
+  const handleReset = useDemoStore((s) => s.handleReset);
+
+  useEffect(() => {
+    handleReset();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">

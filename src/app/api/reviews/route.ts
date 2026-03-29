@@ -205,18 +205,20 @@ export async function POST(req: Request) {
     }
 
     const detailsData = await detailsRes.json();
+    console.log('👉 ~ detailsData:', detailsData.reviews);
 
     const reviews = (detailsData.reviews ?? []).map(
       (r: {
         authorAttribution: { displayName: string; photoUrl: string };
         rating: number;
         text: { text: string };
+        originalText: { text: string };
         publishTime: string;
       }) => ({
         authorName: r.authorAttribution?.displayName,
         authorPhotoUrl: r.authorAttribution?.photoUrl,
         rating: r.rating,
-        text: r.text?.text,
+        text: r.originalText?.text ?? r.text?.text,
         time: Math.floor(new Date(r.publishTime).getTime() / 1000),
       })
     );

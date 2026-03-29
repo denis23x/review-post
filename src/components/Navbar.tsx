@@ -32,10 +32,10 @@ export function Navbar() {
         {/* Right: Action buttons */}
         <div className="flex items-center gap-3">
           <Link
-            href="/login"
+            href="/signup"
             className="hidden h-10 items-center rounded-full border border-[#E5E7EB] px-4 text-sm font-medium text-[#1A1A1A] transition-opacity hover:opacity-80 md:flex"
           >
-            Sign In
+            Sign Up
           </Link>
           <Link
             href="/demo"

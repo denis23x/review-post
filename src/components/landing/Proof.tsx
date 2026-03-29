@@ -4,17 +4,10 @@ const STATS = [
   { value: '12M+', label: 'Social Impressions', color: '#32D583' },
 ];
 
-const TESTIMONIALS = [
-  {
-    quote:
-      'ReviewPost saved us hours every week. Our social engagement increased 3x in the first month.',
-    author: 'Alex Chen, Owner, Sunrise Café',
-  },
-  {
-    quote:
-      'I used to spend an hour making graphics. Now it takes 30 seconds. Absolute game-changer for our marketing.',
-    author: 'Priya Patel, Marketing Dir, FreshBite',
-  },
+const PILL_ROWS = [
+  ['Link → post in 30 seconds', 'Publish real reviews', 'See the before & after'],
+  ['Your clients already wrote your posts', '30 seconds', 'No designer, no copywriter'],
+  ['Content without a budget', 'Free content'],
 ];
 
 export function Proof() {
@@ -43,15 +36,22 @@ export function Proof() {
         ))}
       </div>
 
-      <div className="grid w-full max-w-[1100px] gap-6 md:grid-cols-2">
-        {TESTIMONIALS.map(({ quote, author }) => (
-          <div
-            key={author}
-            className="flex flex-col gap-4 rounded-[16px] border border-[#E5E7EB] bg-white p-6"
-            style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
-          >
-            <p className="text-sm leading-normal text-[#1a1a1a] italic">&ldquo;{quote}&rdquo;</p>
-            <span className="text-[13px] text-[#666666]">&mdash; {author}</span>
+      <div className="flex w-full max-w-[1100px] flex-col items-center gap-3">
+        {PILL_ROWS.map((pills, rowIndex) => (
+          <div key={rowIndex} className="flex flex-wrap items-center justify-center gap-3">
+            {pills.map((text, i) => (
+              <span
+                key={text}
+                className="rounded-full bg-[#4A9FD8] px-5 py-2 text-sm text-white"
+                style={
+                  {
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                  } as React.CSSProperties
+                }
+              >
+                {text}
+              </span>
+            ))}
           </div>
         ))}
       </div>

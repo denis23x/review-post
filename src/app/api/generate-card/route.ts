@@ -8,7 +8,7 @@ export const runtime = 'nodejs';
 const THEMES = {
   dark: { bg: '#1a1a2e', text: '#ffffff', stars: '#FFD700', meta: '#aaaaaa' },
   light: { bg: '#ffffff', text: '#1a1a2e', stars: '#FFD700', meta: '#555555' },
-  brand: { bg: '#0f172a', text: '#f8fafc', stars: '#38bdf8', meta: '#94a3b8' },
+  brand: { bg: '#FFF0F5', text: '#1a1a2e', stars: '#DC2626', meta: '#555555' },
 };
 
 function starElement(color: string, size = 36) {
@@ -22,12 +22,35 @@ function starElement(color: string, size = 36) {
   );
 }
 
-function renderStars(count: number, color: string, size = 36) {
+function heartElement(color: string, size = 36) {
+  return React.createElement(
+    'svg',
+    {
+      width: size,
+      height: size,
+      viewBox: '0 0 24 24',
+      fill: 'none',
+      stroke: 'none',
+      strokeWidth: '2',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      style: { display: 'block' },
+    },
+    React.createElement('path', {
+      fill: color,
+      d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
+    })
+  );
+}
+
+function renderStars(count: number, color: string, size = 48, useHearts = false) {
   return React.createElement(
     'div',
     { style: { display: 'flex', gap: 4, marginTop: 40 } },
     ...Array.from({ length: count }, (_, i) =>
-      React.cloneElement(starElement(color, size), { key: i })
+      React.cloneElement(useHearts ? heartElement(color, size) : starElement(color, size), {
+        key: i,
+      })
     )
   );
 }
@@ -39,6 +62,7 @@ function truncateQuote(text: string, maxChars = 220): string {
 
 let interRegular: Buffer | null = null;
 let interBold: Buffer | null = null;
+let lobsterRegular: Buffer | null = null;
 
 function getFonts() {
   if (!interRegular) {
@@ -47,7 +71,10 @@ function getFonts() {
   if (!interBold) {
     interBold = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'));
   }
-  return { interRegular, interBold };
+  if (!lobsterRegular) {
+    lobsterRegular = readFileSync(join(process.cwd(), 'public/fonts/Lobster-Regular.ttf'));
+  }
+  return { interRegular, interBold, lobsterRegular };
 }
 
 export async function POST(req: Request) {
@@ -92,15 +119,17 @@ export async function POST(req: Request) {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: 80,
-          fontFamily: 'Inter',
+          fontFamily: theme === 'brand' ? 'Lobster' : 'Inter',
           position: 'relative',
         },
       },
+      renderStars(starCount, colors.stars, 48, theme === 'brand'),
       React.createElement(
         'div',
         {
           style: {
-            fontSize: 48,
+            marginTop: 16,
+            fontSize: theme === 'brand' ? 64 : 48,
             color: colors.text,
             lineHeight: 1.4,
             fontWeight: 700,
@@ -108,7 +137,6 @@ export async function POST(req: Request) {
         },
         `\u201c${truncated}\u201d`
       ),
-      renderStars(starCount, colors.stars),
       React.createElement(
         'div',
         { style: { marginTop: 16, fontSize: 24, color: colors.meta } },
@@ -121,12 +149,12 @@ export async function POST(req: Request) {
             position: 'absolute',
             bottom: 40,
             right: 60,
-            fontSize: 18,
+            fontSize: 32,
             color: colors.text,
-            opacity: 0.1,
+            opacity: 0.25,
           },
         },
-        'ReviewPost'
+        'Review to Post'
       )
     );
 
@@ -144,6 +172,12 @@ export async function POST(req: Request) {
           name: 'Inter',
           data: fonts.interBold.buffer as ArrayBuffer,
           weight: 700,
+          style: 'normal',
+        },
+        {
+          name: 'Lobster',
+          data: fonts.lobsterRegular.buffer as ArrayBuffer,
+          weight: 400,
           style: 'normal',
         },
       ],
