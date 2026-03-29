@@ -1,16 +1,20 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 html,
 body {
   background-color: #ffffff;
   color: #1a1a1a;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .font-geist {
-  font-family: var(--font-geist), "Inter", system-ui, sans-serif;
+  font-family: var(--font-geist), 'Inter', system-ui, sans-serif;
 }
 
 .font-geist-mono {

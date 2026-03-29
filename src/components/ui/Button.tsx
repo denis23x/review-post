@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { forwardRef } from 'react'
-import { cn } from '@/lib/cn'
-import { Spinner } from './Spinner'
+import { forwardRef } from 'react';
+import { cn } from '@/lib/cn';
+import { Spinner } from './Spinner';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive' | 'outline'
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  loading?: boolean
-  loadingText?: string
+  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive' | 'outline';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  loading?: boolean;
+  loadingText?: string;
 }
 
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
@@ -22,14 +22,14 @@ const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
     'bg-[#ef4444] text-white hover:bg-[#dc2626] focus-visible:ring-2 focus-visible:ring-[#ef4444]/50',
   outline:
     'bg-transparent text-[#4A9FD8] border border-[#4A9FD8] hover:bg-[#4A9FD8]/10 focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
-}
+};
 
 const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {
   sm: 'h-8 px-3 text-[13px] font-semibold gap-1.5',
   md: 'h-10 px-4 text-sm font-semibold gap-2',
   lg: 'h-12 px-6 text-base font-semibold gap-2',
   xl: 'h-14 px-8 text-lg font-bold gap-2.5',
-}
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -45,16 +45,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const isDisabled = disabled || loading
+    const isDisabled = disabled || loading;
 
     return (
       <button
         ref={ref}
         disabled={isDisabled}
         className={cn(
-          'inline-flex items-center justify-center rounded-[8px] transition-all duration-150',
+          'inline-flex items-center justify-center rounded-full transition-all duration-150',
           'outline-none focus-visible:outline-none',
-          'disabled:opacity-40 disabled:cursor-not-allowed',
+          'disabled:cursor-not-allowed disabled:opacity-40',
           'active:scale-[0.97]',
           variantStyles[variant],
           sizeStyles[size],
@@ -65,8 +65,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {loading && <Spinner size="sm" />}
         {loading && loadingText ? loadingText : children}
       </button>
-    )
+    );
   }
-)
+);
 
-Button.displayName = 'Button'
+Button.displayName = 'Button';

@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { CheckCircle } from 'lucide-react'
-import { useDemoStore } from '@/store/demoStore'
+import { CheckCircle } from 'lucide-react';
+import { useDemoStore } from '@/store/demoStore';
 
 const STEPS = [
   { id: 'input', label: 'Paste URL' },
   { id: 'loading', label: 'Generating' },
   { id: 'result', label: 'Your Post' },
-]
+];
 
 export function StepIndicator() {
-  const step = useDemoStore((s) => s.step)
-  const activeIndex = STEPS.findIndex((s) => s.id === step)
+  const step = useDemoStore((s) => s.step);
+  const activeIndex = STEPS.findIndex((s) => s.id === step);
 
   return (
     <div className="flex items-center gap-2">
@@ -35,5 +35,5 @@ export function StepIndicator() {
         </div>
       ))}
     </div>
-  )
+  );
 }

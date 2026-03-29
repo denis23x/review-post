@@ -1,0 +1,8 @@
+.claude
+.next
+node_modules
+public
+build
+dist
+coverage
+pnpm-lock.yaml 

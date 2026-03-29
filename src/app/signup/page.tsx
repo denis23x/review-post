@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import { Star } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { StarRating } from '@/components/ui/StarRating'
+import Link from 'next/link';
+import { Star } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { StarRating } from '@/components/ui/StarRating';
 
 export default function SignupPage() {
   return (
@@ -13,15 +13,15 @@ export default function SignupPage() {
           <span className="text-[22px] font-bold text-[#1a1a1a]">ReviewPost</span>
         </div>
 
-        <p className="max-w-[400px] text-center text-[20px] font-medium leading-relaxed text-[#1a1a1a]">
+        <p className="max-w-[400px] text-center text-[20px] leading-relaxed font-medium text-[#1a1a1a]">
           Turn Google reviews into scroll-stopping social posts.
         </p>
 
         <div className="w-[340px] rounded-[16px] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
           <StarRating rating={5} size="md" />
-          <p className="mt-4 text-sm italic leading-relaxed text-[#1a1a1a]">
-            &ldquo;Absolutely the best coffee in town! The baristas really know their craft and
-            the atmosphere is so welcoming.&rdquo;
+          <p className="mt-4 text-sm leading-relaxed text-[#1a1a1a] italic">
+            &ldquo;Absolutely the best coffee in town! The baristas really know their craft and the
+            atmosphere is so welcoming.&rdquo;
           </p>
           <p className="mt-3 text-[13px] text-[#666666]">&mdash; Sarah M.</p>
         </div>
@@ -39,16 +39,12 @@ export default function SignupPage() {
 
         <div className="w-full max-w-[400px]">
           <h1 className="text-[28px] font-bold text-[#1a1a1a]">Create your account</h1>
-          <p className="mt-2 text-sm text-[#666666]">
-            Start turning reviews into branded posts
-          </p>
+          <p className="mt-2 text-sm text-[#666666]">Start turning reviews into branded posts</p>
 
           {/* Google SSO */}
           <button
             type="button"
-            className="mt-6 flex h-11 w-full items-center justify-center gap-2.5 rounded-full border border-[#E5E7EB]
-              bg-[#F7F8FA] text-sm font-medium text-[#1a1a1a] transition-colors
-              hover:bg-[#eef0f3] focus:outline-none focus:ring-2 focus:ring-[#4A9FD8]/30"
+            className="mt-6 flex h-11 w-full items-center justify-center gap-2.5 rounded-full border border-[#E5E7EB] bg-[#F7F8FA] text-sm font-medium text-[#1a1a1a] transition-colors hover:bg-[#eef0f3] focus:ring-2 focus:ring-[#4A9FD8]/30 focus:outline-none"
           >
             <span className="text-lg font-bold">G</span>
             Continue with Google
@@ -71,9 +67,7 @@ export default function SignupPage() {
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a]
-                  placeholder:text-[#888888] outline-none transition-all
-                  focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
+                className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a] transition-all outline-none placeholder:text-[#888888] focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
                 autoComplete="email"
               />
             </div>
@@ -85,9 +79,7 @@ export default function SignupPage() {
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a]
-                  placeholder:text-[#888888] outline-none transition-all
-                  focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
+                className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a] transition-all outline-none placeholder:text-[#888888] focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
                 autoComplete="new-password"
               />
             </div>
@@ -95,10 +87,7 @@ export default function SignupPage() {
 
           {/* Terms */}
           <label className="mt-4 flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-[#E5E7EB] accent-[#4A9FD8]"
-            />
+            <input type="checkbox" className="h-4 w-4 rounded border-[#E5E7EB] accent-[#4A9FD8]" />
             <span className="text-[13px] text-[#666666]">
               I agree to the Terms of Service and Privacy Policy
             </span>
@@ -118,5 +107,5 @@ export default function SignupPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

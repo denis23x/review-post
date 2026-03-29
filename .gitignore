@@ -3,6 +3,7 @@ node_modules/
 
 .pnpm-store/
 .playwright-mcp/
+.vscode/
 
 # Next.js
 .next/

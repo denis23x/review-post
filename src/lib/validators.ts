@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const googleMapsUrlSchema = z
   .string()
@@ -10,28 +10,28 @@ export const googleMapsUrlSchema = z
       val.includes('maps.app.goo.gl') ||
       val.includes('goo.gl/maps'),
     { message: "This doesn't look like a Google Maps link" }
-  )
+  );
 
 export const reviewSchema = z.object({
   authorName: z.string(),
   rating: z.number().min(1).max(5),
   text: z.string(),
   time: z.number(),
-})
+});
 
 export const reviewsResponseSchema = z.object({
   placeId: z.string(),
   name: z.string(),
   rating: z.number(),
   reviews: z.array(reviewSchema),
-})
+});
 
 export const scoreResponseSchema = z.object({
   selectedReview: reviewSchema,
   caption: z.string(),
-})
+});
 
-export type Review = z.infer<typeof reviewSchema>
-export type ReviewsResponse = z.infer<typeof reviewsResponseSchema>
-export type ScoreResponse = z.infer<typeof scoreResponseSchema>
-export type Theme = 'dark' | 'light' | 'brand'
+export type Review = z.infer<typeof reviewSchema>;
+export type ReviewsResponse = z.infer<typeof reviewsResponseSchema>;
+export type ScoreResponse = z.infer<typeof scoreResponseSchema>;
+export type Theme = 'dark' | 'light' | 'brand';

@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { Star, Lock } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import Link from 'next/link';
+import { Star, Lock } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 export default function ForgotPasswordPage() {
   return (
@@ -12,7 +12,7 @@ export default function ForgotPasswordPage() {
           <span className="text-[22px] font-bold text-[#1a1a1a]">ReviewPost</span>
         </div>
 
-        <p className="max-w-[400px] text-center text-[20px] font-medium leading-relaxed text-[#666666]">
+        <p className="max-w-[400px] text-center text-[20px] leading-relaxed font-medium text-[#666666]">
           Secure your account in seconds.
         </p>
       </aside>
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           {/* Email field */}
-          <div className="w-full flex flex-col gap-1.5">
+          <div className="flex w-full flex-col gap-1.5">
             <label htmlFor="email" className="text-[13px] font-medium text-[#1a1a1a]">
               Email
             </label>
@@ -49,9 +49,7 @@ export default function ForgotPasswordPage() {
               id="email"
               type="email"
               placeholder="you@example.com"
-              className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a]
-                placeholder:text-[#888888] outline-none transition-all
-                focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
+              className="h-11 w-full rounded-[8px] border border-[#E5E7EB] bg-white px-4 text-sm text-[#1a1a1a] transition-all outline-none placeholder:text-[#888888] focus:border-[#4A9FD8] focus:shadow-[0_0_0_3px_rgba(74,159,216,0.15)]"
               autoComplete="email"
             />
           </div>
@@ -67,5 +65,5 @@ export default function ForgotPasswordPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

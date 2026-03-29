@@ -1,4 +1,4 @@
-import Groq from 'groq-sdk'
+import Groq from 'groq-sdk';
 
 const SYSTEM_PROMPT = `
 You are a social media manager for local businesses.
@@ -15,36 +15,36 @@ Return a valid JSON object with exactly two fields:
 - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
 
 IMPORTANT: Always respond in the same language as the reviews provided. Never translate any text.
-`.trim()
+`.trim();
 
 interface ReviewInput {
-  authorName: string
-  rating: number
-  text: string
+  authorName: string;
+  rating: number;
+  text: string;
 }
 
 export async function POST(req: Request) {
-  const apiKey = process.env.GROQ_API_KEY
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    return Response.json({ error: 'groq not configured' }, { status: 500 })
+    return Response.json({ error: 'groq not configured' }, { status: 500 });
   }
 
-  const body = await req.json().catch(() => null)
+  const body = await req.json().catch(() => null);
   if (!body?.reviews?.length) {
-    return Response.json({ error: 'no reviews provided' }, { status: 400 })
+    return Response.json({ error: 'no reviews provided' }, { status: 400 });
   }
 
   const qualifying: ReviewInput[] = (body.reviews as ReviewInput[]).filter(
     (r) => r.rating >= 3 && r.text?.trim()
-  )
+  );
 
   if (!qualifying.length) {
-    return Response.json({ error: 'no qualifying reviews' }, { status: 200 })
+    return Response.json({ error: 'no qualifying reviews' }, { status: 200 });
   }
 
-  const groq = new Groq({ apiKey })
+  const groq = new Groq({ apiKey });
 
-  let completion
+  let completion;
   try {
     completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
@@ -58,24 +58,23 @@ export async function POST(req: Request) {
           content: `Reviews:\n${JSON.stringify(qualifying, null, 2)}`,
         },
       ],
-    })
+    });
   } catch (error) {
-    console.error('👉 ~ score error:', error)
-    return Response.json({ error: 'ai scoring failed' }, { status: 500 })
+    console.error('👉 ~ score error:', error);
+    return Response.json({ error: 'ai scoring failed' }, { status: 500 });
   }
 
-  let parsed: { review?: string; caption?: string } = {}
+  let parsed: { review?: string; caption?: string } = {};
   try {
-    parsed = JSON.parse(completion.choices[0].message.content ?? '{}')
+    parsed = JSON.parse(completion.choices[0].message.content ?? '{}');
   } catch {
     // AI returned non-JSON — fall back to first qualifying review
   }
 
-  const selectedReview =
-    qualifying.find((r) => r.text === parsed.review) ?? qualifying[0]
+  const selectedReview = qualifying.find((r) => r.text === parsed.review) ?? qualifying[0];
 
   return Response.json({
     selectedReview,
     caption: parsed.caption ?? '',
-  })
+  });
 }

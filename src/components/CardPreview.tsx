@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { cn } from '@/lib/cn'
+import { cn } from '@/lib/cn';
 
 interface CardPreviewProps {
-  src: string
-  businessName: string
-  rating: number
-  className?: string
+  src: string;
+  businessName: string;
+  rating: number;
+  className?: string;
 }
 
 export function CardPreview({ src, businessName, rating, className }: CardPreviewProps) {
@@ -27,5 +27,5 @@ export function CardPreview({ src, businessName, rating, className }: CardPrevie
         draggable={false}
       />
     </div>
-  )
+  );
 }

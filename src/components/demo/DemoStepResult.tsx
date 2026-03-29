@@ -1,36 +1,43 @@
-'use client'
+'use client';
 
-import { ArrowLeft, Copy, Check, RefreshCw, Star } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { ThemeSelector } from '@/components/ThemeSelector'
-import { CardPreview } from '@/components/CardPreview'
-import { DownloadButton } from '@/components/DownloadButton'
-import { StarRating } from '@/components/ui/StarRating'
-import { useDemoStore } from '@/store/demoStore'
+import { ArrowLeft, Copy, Check, RefreshCw, Star } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { ThemeSelector } from '@/components/ThemeSelector';
+import { CardPreview } from '@/components/CardPreview';
+import { DownloadButton } from '@/components/DownloadButton';
+import { StarRating } from '@/components/ui/StarRating';
+import { useDemoStore } from '@/store/demoStore';
 
 export function DemoStepResult() {
-  const { result, theme, error, isRegenerating, copied, setTheme, handleRegenerate, handleCopy, handleReset } =
-    useDemoStore()
+  const {
+    result,
+    theme,
+    error,
+    isRegenerating,
+    copied,
+    setTheme,
+    handleRegenerate,
+    handleCopy,
+    handleReset,
+  } = useDemoStore();
 
-  if (!result) return null
+  if (!result) return null;
 
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <button
         onClick={handleReset}
-        className="flex items-center gap-1.5 self-start text-sm text-[#666666] hover:text-[#1a1a1a] transition-colors"
+        className="flex items-center gap-1.5 self-start text-sm text-[#666666] transition-colors hover:text-[#1a1a1a]"
       >
         <ArrowLeft size={16} />
         Try another URL
       </button>
 
       <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
-        <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">
-          Step 3: Your post is ready!
-        </h2>
+        <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">Step 3: Your post is ready!</h2>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
-          <div className="flex flex-col gap-4 lg:w-[400px] shrink-0">
+          <div className="flex shrink-0 flex-col gap-4 lg:w-[400px]">
             <div className="rounded-[16px] border border-[#E5E7EB] bg-white p-2">
               <CardPreview
                 src={result.blobUrl}
@@ -52,7 +59,7 @@ export function DemoStepResult() {
             <div className="flex flex-col gap-2">
               <p className="text-sm font-semibold text-[#1a1a1a]">AI-Generated Caption</p>
               <div className="rounded-[12px] border border-[#E5E7EB] bg-white p-4">
-                <p className="text-sm text-[#1a1a1a] leading-relaxed">{result.caption}</p>
+                <p className="text-sm leading-relaxed text-[#1a1a1a]">{result.caption}</p>
                 <button
                   onClick={handleCopy}
                   className="mt-3 flex items-center gap-1.5 text-sm transition-colors"
@@ -90,11 +97,9 @@ export function DemoStepResult() {
               </Button>
             </div>
 
-            <div className="flex items-center justify-between gap-3 rounded-[16px] bg-white border border-[#E5E7EB] p-5">
-              <p className="text-[15px] font-medium text-[#1a1a1a]">
-                Want unlimited posts?
-              </p>
-              <a href="/signup" className="text-sm font-medium text-[#4A9FD8] whitespace-nowrap">
+            <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#E5E7EB] bg-white p-5">
+              <p className="text-[15px] font-medium text-[#1a1a1a]">Want unlimited posts?</p>
+              <a href="/signup" className="text-sm font-medium whitespace-nowrap text-[#4A9FD8]">
                 Sign up free &rarr;
               </a>
             </div>
@@ -102,5 +107,5 @@ export function DemoStepResult() {
         </div>
       </div>
     </div>
-  )
+  );
 }

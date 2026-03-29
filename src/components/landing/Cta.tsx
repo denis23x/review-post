@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export function Cta() {
   return (
     <section className="flex flex-col items-center gap-12 bg-[#4A9FD8] px-6 py-16 text-center md:px-12 lg:px-[120px]">
       <div className="flex flex-col items-center gap-4">
-        <h2 className="font-geist text-[32px] font-bold tracking-tight text-white">
+        <h2 className="text-[32px] font-bold tracking-tight text-white">
           Ready to turn reviews into revenue?
         </h2>
         <p className="max-w-[560px] text-base leading-normal text-white">
@@ -20,5 +20,5 @@ export function Cta() {
         Get Started Free <ArrowRight size={16} />
       </Link>
     </section>
-  )
+  );
 }

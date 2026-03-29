@@ -338,7 +338,7 @@
                               "id": "7y3Cy",
                               "width": 24,
                               "height": 24,
-                              "iconFontName": "land-plot",
+                              "iconFontName": "map-pin",
                               "iconFontFamily": "lucide",
                               "fill": "#ffffff"
                             }
@@ -883,7 +883,9 @@
             },
             "7y3Cy": {
               "x": 8,
-              "y": 8
+              "y": 8,
+              "iconFontFamily": "lucide",
+              "iconFontName": "map-pin"
             },
             "ohfKX": {
               "x": 48,
@@ -1981,93 +1983,318 @@
             {
               "type": "frame",
               "id": "QAaLi",
-              "name": "testRow",
+              "name": "CTA Cloud",
               "width": "fill_container",
-              "gap": 24,
+              "layout": "vertical",
+              "gap": 12,
+              "alignItems": "center",
               "children": [
                 {
                   "type": "frame",
-                  "id": "yKzBb",
-                  "name": "test1",
+                  "id": "PG0s3",
+                  "name": "Cloud Row 4",
                   "width": "fill_container",
-                  "fill": "$--card",
-                  "cornerRadius": 16,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 24,
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "eZzZb",
-                      "name": "t1q",
-                      "fill": "$--foreground",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "\"ReviewPost saved us hours every week. Our social engagement increased 3x in the first month.\"",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Inter",
-                      "fontSize": 14,
-                      "fontWeight": "normal",
-                      "fontStyle": "italic"
+                      "type": "frame",
+                      "id": "tty2N",
+                      "name": "tag8",
+                      "fill": "#4a9fd8",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "oqVQn",
+                          "name": "t8",
+                          "fill": "#FFFFFF",
+                          "content": "Link → post in 30 seconds",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "Ul1ww",
-                      "name": "t1a",
-                      "fill": "$--muted-foreground",
-                      "content": "— Alex Chen, Owner, Sunrise Café",
-                      "fontFamily": "Inter",
-                      "fontSize": 13,
-                      "fontWeight": "normal"
+                      "type": "frame",
+                      "id": "sz9nF",
+                      "name": "tag10",
+                      "fill": "#4a9fd8",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GiEnx",
+                          "name": "t10",
+                          "fill": "#FFFFFF",
+                          "content": "Publish real reviews",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QPLua",
+                      "name": "tag8",
+                      "fill": "#4a9fd8",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NOyBG",
+                          "name": "t8",
+                          "fill": "#FFFFFF",
+                          "content": "See the before & after",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
                     }
                   ]
                 },
                 {
                   "type": "frame",
-                  "id": "x1gjP",
-                  "name": "test2",
+                  "id": "gTxUp",
+                  "name": "row2",
                   "width": "fill_container",
-                  "fill": "$--card",
-                  "cornerRadius": 16,
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 24,
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "XcBZi",
-                      "name": "t2q",
-                      "fill": "$--foreground",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "\"I used to spend an hour making graphics. Now it takes 30 seconds. Absolute game-changer for our marketing.\"",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Inter",
-                      "fontSize": 14,
-                      "fontWeight": "normal",
-                      "fontStyle": "italic"
+                      "type": "frame",
+                      "id": "bT2dM",
+                      "name": "tag4",
+                      "fill": "#4a9fd8cc",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RLOOg",
+                          "name": "t4",
+                          "fill": "#FFFFFF",
+                          "content": "Your clients already wrote your posts",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "4LabK",
-                      "name": "t2a",
-                      "fill": "$--muted-foreground",
-                      "content": "— Priya Patel, Marketing Dir, FreshBite",
-                      "fontFamily": "Inter",
-                      "fontSize": 13,
-                      "fontWeight": "normal"
+                      "type": "frame",
+                      "id": "rYZqZ",
+                      "name": "tag10",
+                      "fill": "#4a9fd8cc",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "chMVp",
+                          "name": "t10",
+                          "fill": "#FFFFFF",
+                          "content": "30 seconds",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TizpJ",
+                      "name": "tag2",
+                      "fill": "#4a9fd8cc",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EqOBX",
+                          "name": "t2",
+                          "fill": "#FFFFFF",
+                          "content": "No designer, no copywriter",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bVK8P",
+                  "name": "Cloud Row 4",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "aTJDd",
+                      "name": "tag6",
+                      "fill": "#4a9fd899",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gVfL6",
+                          "name": "t6",
+                          "fill": "#FFFFFF",
+                          "content": "Content without a budget",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LOw6x",
+                      "name": "tag10",
+                      "fill": "#4a9fd899",
+                      "cornerRadius": 9999,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#0000000D",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 4
+                      },
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "J7dRs",
+                          "name": "t10",
+                          "fill": "#FFFFFF",
+                          "content": "Free content",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZzqgR",
+                  "name": "Cloud Row 4",
+                  "width": "fill_container",
+                  "height": "fit_content(37)",
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center"
                 }
               ]
             }
@@ -3651,7 +3878,7 @@
           "ref": "eYaa7",
           "width": "fill_container",
           "name": "footerLP",
-          "y": 3453,
+          "y": 3515,
           "height": "fit_content",
           "stroke": {
             "align": "inside",
@@ -3826,26 +4053,35 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "text",
-              "id": "28c4r",
-              "name": "demoTitle",
-              "fill": "$--foreground",
-              "content": "Try ReviewPost — Free",
-              "fontFamily": "Geist",
-              "fontSize": 36,
-              "fontWeight": "700",
-              "letterSpacing": -1
-            },
-            {
-              "type": "text",
-              "id": "nZAAd",
-              "name": "demoSub",
-              "fill": "$--muted-foreground",
-              "content": "See how your reviews look as branded social posts. No sign-up required.",
-              "textAlign": "center",
-              "fontFamily": "Inter",
-              "fontSize": 16,
-              "fontWeight": "normal"
+              "type": "group",
+              "id": "5xliX",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "28c4r",
+                  "name": "demoTitle",
+                  "fill": "$--foreground",
+                  "content": "Try ReviewPost — Free",
+                  "fontFamily": "Geist",
+                  "fontSize": 36,
+                  "fontWeight": "700",
+                  "letterSpacing": -1
+                },
+                {
+                  "type": "text",
+                  "id": "nZAAd",
+                  "name": "demoSub",
+                  "fill": "$--muted-foreground",
+                  "content": "See how your reviews look as branded social posts. No sign-up required.",
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
             },
             {
               "type": "frame",

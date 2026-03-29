@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { Download } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Download } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 interface DownloadButtonProps {
-  blobUrl: string
-  filename?: string
+  blobUrl: string;
+  filename?: string;
 }
 
 export function DownloadButton({ blobUrl, filename = 'reviewpost.png' }: DownloadButtonProps) {
@@ -16,5 +16,5 @@ export function DownloadButton({ blobUrl, filename = 'reviewpost.png' }: Downloa
         Download Image
       </Button>
     </a>
-  )
+  );
 }

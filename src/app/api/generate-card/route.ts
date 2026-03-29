@@ -1,15 +1,15 @@
-import React from 'react'
-import { ImageResponse } from '@vercel/og'
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import React from 'react';
+import { ImageResponse } from '@vercel/og';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-export const runtime = 'nodejs'
+export const runtime = 'nodejs';
 
 const THEMES = {
   dark: { bg: '#1a1a2e', text: '#ffffff', stars: '#FFD700', meta: '#aaaaaa' },
   light: { bg: '#ffffff', text: '#1a1a2e', stars: '#FFD700', meta: '#555555' },
   brand: { bg: '#0f172a', text: '#f8fafc', stars: '#38bdf8', meta: '#94a3b8' },
-}
+};
 
 function starElement(color: string, size = 36) {
   return React.createElement(
@@ -19,58 +19,65 @@ function starElement(color: string, size = 36) {
       fill: color,
       d: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
     })
-  )
+  );
 }
 
 function renderStars(count: number, color: string, size = 36) {
   return React.createElement(
     'div',
     { style: { display: 'flex', gap: 4, marginTop: 40 } },
-    ...Array.from({ length: count }, (_, i) => React.cloneElement(starElement(color, size), { key: i }))
-  )
+    ...Array.from({ length: count }, (_, i) =>
+      React.cloneElement(starElement(color, size), { key: i })
+    )
+  );
 }
 
 function truncateQuote(text: string, maxChars = 220): string {
-  if (text.length <= maxChars) return text
-  return text.slice(0, maxChars).trimEnd() + '\u2026'
+  if (text.length <= maxChars) return text;
+  return text.slice(0, maxChars).trimEnd() + '\u2026';
 }
 
-let interRegular: Buffer | null = null
-let interBold: Buffer | null = null
+let interRegular: Buffer | null = null;
+let interBold: Buffer | null = null;
 
 function getFonts() {
   if (!interRegular) {
-    interRegular = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'))
+    interRegular = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'));
   }
   if (!interBold) {
-    interBold = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'))
+    interBold = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'));
   }
-  return { interRegular, interBold }
+  return { interRegular, interBold };
 }
 
 export async function POST(req: Request) {
-  const body = await req.json().catch(() => null)
+  const body = await req.json().catch(() => null);
 
   if (!body?.quote || !body?.businessName) {
-    return Response.json({ error: 'quote and businessName required' }, { status: 400 })
+    return Response.json({ error: 'quote and businessName required' }, { status: 400 });
   }
 
-  const { quote, businessName, rating = 5, theme = 'dark' } = body as {
-    quote: string
-    businessName: string
-    rating: number
-    theme: keyof typeof THEMES
-  }
+  const {
+    quote,
+    businessName,
+    rating = 5,
+    theme = 'dark',
+  } = body as {
+    quote: string;
+    businessName: string;
+    rating: number;
+    theme: keyof typeof THEMES;
+  };
 
-  const colors = THEMES[theme] ?? THEMES.dark
-  const starCount = Math.min(5, Math.max(1, Math.round(rating)))
-  const truncated = truncateQuote(quote)
+  const colors = THEMES[theme] ?? THEMES.dark;
+  const starCount = Math.min(5, Math.max(1, Math.round(rating)));
+  const truncated = truncateQuote(quote);
 
-  let fonts
+  let fonts;
   try {
-    fonts = getFonts()
+    fonts = getFonts();
   } catch {
-    return Response.json({ error: 'fonts not found' }, { status: 500 })
+    return Response.json({ error: 'fonts not found' }, { status: 500 });
   }
 
   try {
@@ -121,21 +128,31 @@ export async function POST(req: Request) {
         },
         'ReviewPost'
       )
-    )
+    );
 
     return new ImageResponse(element, {
       width: 1080,
       height: 1080,
       fonts: [
-        { name: 'Inter', data: fonts.interRegular.buffer as ArrayBuffer, weight: 400, style: 'normal' },
-        { name: 'Inter', data: fonts.interBold.buffer as ArrayBuffer, weight: 700, style: 'normal' },
+        {
+          name: 'Inter',
+          data: fonts.interRegular.buffer as ArrayBuffer,
+          weight: 400,
+          style: 'normal',
+        },
+        {
+          name: 'Inter',
+          data: fonts.interBold.buffer as ArrayBuffer,
+          weight: 700,
+          style: 'normal',
+        },
       ],
       headers: {
         'Content-Disposition': `attachment; filename="reviewpost-${Date.now()}.png"`,
       },
-    })
+    });
   } catch (err) {
-    console.error('👉 ~ generate-card error:', err)
-    return Response.json({ error: 'card generation failed' }, { status: 500 })
+    console.error('👉 ~ generate-card error:', err);
+    return Response.json({ error: 'card generation failed' }, { status: 500 });
   }
 }

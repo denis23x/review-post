@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Bot, Layers2 } from 'lucide-react'
-import { StarRating } from '@/components/ui/StarRating'
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Bot, Layers2 } from 'lucide-react';
+import { StarRating } from '@/components/ui/StarRating';
 
 const EXAMPLE_CARDS = [
   {
@@ -16,7 +16,6 @@ const EXAMPLE_CARDS = [
     quote: 'Absolutely transformed my morning routine. The atmosphere is unmatched anywhere else.',
     author: 'Jake T. · 52 reviews',
     rating: 5,
-    featured: true,
     platforms: ['IG', 'LI'],
   },
   {
@@ -25,7 +24,7 @@ const EXAMPLE_CARDS = [
     rating: 5,
     platforms: ['FB', 'LI'],
   },
-]
+];
 
 const PLATFORM_BADGES: Record<string, { color: string; path: string }> = {
   IG: {
@@ -40,16 +39,29 @@ const PLATFORM_BADGES: Record<string, { color: string; path: string }> = {
     color: '#0A66C2',
     path: 'M20.447 20.452h-3.554v-5.569c0-1.328-0.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.554v-11.452h3.414v1.561h0.046c0.477-0.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z m-15.11-13.019c-1.144 0-2.063-0.926-2.063-2.065 0-1.138 0.92-2.063 2.063-2.063 1.14 0 2.064 0.925 2.064 2.063 0 1.139-0.925 2.065-2.064 2.065z m1.782 13.019h-3.564v-11.452h3.564v11.452z m15.106-20.452h-20.454c-0.979 0-1.771 0.774-1.771 1.729v20.542c0 0.956 0.792 1.729 1.771 1.729h20.451c0.978 0 1.778-0.773 1.778-1.729v-20.542c0-0.955-0.8-1.729-1.778-1.729h0.003z',
   },
-}
+};
 
 export function Hero() {
-  const router = useRouter()
-  const [url, setUrl] = useState('')
+  const router = useRouter();
+  const [url, setUrl] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
+  const directionRef = React.useRef(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => {
+        if (prev >= EXAMPLE_CARDS.length - 1) directionRef.current = -1;
+        if (prev <= 0) directionRef.current = 1;
+        return prev + directionRef.current;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const dest = url.trim() ? `/demo?url=${encodeURIComponent(url.trim())}` : '/demo'
-    router.push(dest)
+    e.preventDefault();
+    const dest = url.trim() ? `/demo?url=${encodeURIComponent(url.trim())}` : '/demo';
+    router.push(dest);
   }
 
   return (
@@ -61,22 +73,91 @@ export function Hero() {
         ].join(', '),
       }}
     >
-      <div className="flex flex-col items-center relative w-full max-w-[1440px] mx-auto gap-8 px-6 py-20 md:px-12 lg:px-[120px]">
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-8 px-6 py-20 md:px-12 lg:px-[120px]">
         {/* Decorative rings — top right */}
-        <div className="pointer-events-none absolute" style={{ width: 450, height: 450, right: -170, top: -256, borderRadius: '50%', border: '18px solid #4A9FD8', opacity: 0.04 }} />
-        <div className="pointer-events-none absolute" style={{ width: 320, height: 320, right: -105,  top: -191, borderRadius: '50%', border: '16px solid #4A9FD8', opacity: 0.05 }} />
-        <div className="pointer-events-none absolute" style={{ width: 200, height: 200, right: -45,   top: -131, borderRadius: '50%', border: '12px solid #4A9FD8', opacity: 0.06 }} />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 450,
+            height: 450,
+            right: -170,
+            top: -256,
+            borderRadius: '50%',
+            border: '18px solid #4A9FD8',
+            opacity: 0.04,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 320,
+            height: 320,
+            right: -105,
+            top: -191,
+            borderRadius: '50%',
+            border: '16px solid #4A9FD8',
+            opacity: 0.05,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 200,
+            height: 200,
+            right: -45,
+            top: -131,
+            borderRadius: '50%',
+            border: '12px solid #4A9FD8',
+            opacity: 0.06,
+          }}
+        />
 
         {/* Decorative diamonds */}
-        <div className="pointer-events-none absolute" style={{ width: 280, height: 280, left: -70, top: -150,  backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.06, transform: 'rotate(45deg)' }} />
-        <div className="pointer-events-none absolute" style={{ width: 363, height: 363, right: -104,  top: 759, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.08, transform: 'rotate(45deg)' }} />
-        <div className="pointer-events-none absolute" style={{ width: 180, height: 180, right: 127, top: 493, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.04, transform: 'rotate(45deg)' }} />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 280,
+            height: 280,
+            left: -70,
+            top: -150,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.06,
+            transform: 'rotate(45deg)',
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 363,
+            height: 363,
+            right: -104,
+            top: 759,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.08,
+            transform: 'rotate(45deg)',
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            width: 180,
+            height: 180,
+            right: 127,
+            top: 493,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.04,
+            transform: 'rotate(45deg)',
+          }}
+        />
 
         {/* Badges */}
         <div className="relative flex gap-4">
-          <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
-            <Bot size={16} className="text-[#4A9FD8]" />
-            <span className="text-xs font-medium text-[#4A9FD8]">Now with AI-powered captions</span>
+          <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#4A9FD8] px-4 py-1.5">
+            <Bot size={16} className="text-white" />
+            <span className="text-xs font-medium text-white">Now with AI-powered captions</span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
             <Layers2 size={16} className="text-[#4A9FD8]" />
@@ -85,7 +166,7 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-geist relative mx-auto max-w-[900px] text-center text-[56px] font-extrabold leading-[1.1] tracking-[-2px] text-[#1a1a1a]">
+        <h1 className="relative mx-auto max-w-[900px] text-center text-[56px] leading-[1.1] font-extrabold tracking-[-2px] text-[#1a1a1a]">
           Turn your Google reviews
           <br />
           into branded social posts.
@@ -93,8 +174,8 @@ export function Hero() {
 
         {/* Subheadline */}
         <p className="relative mx-auto max-w-[640px] text-center text-lg leading-normal text-[#666666]">
-          Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with
-          caption &mdash; in seconds.
+          Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with caption
+          &mdash; in seconds.
         </p>
 
         {/* Input + CTA */}
@@ -112,31 +193,33 @@ export function Hero() {
           />
           <button
             type="submit"
-            className="flex h-11 items-center rounded-full bg-white px-4 text-[15px] font-medium text-[#1a1a1a] whitespace-nowrap transition-opacity hover:opacity-80"
+            className="flex h-11 items-center rounded-full bg-white px-4 text-[15px] font-medium whitespace-nowrap text-[#1a1a1a] transition-opacity hover:opacity-80"
           >
-            Generate Post &rarr;
+            Generate Posts &rarr;
           </button>
         </form>
 
         {/* Example review cards — fixed 320 px each, scrollable on mobile */}
-        <div className="relative flex gap-6 overflow-x-auto pb-2">
+        <div className="relative mt-4 flex gap-6 overflow-x-auto pb-2">
           {EXAMPLE_CARDS.map((card, i) => (
             <div
               key={i}
               className="flex w-[320px] shrink-0 flex-col gap-4 rounded-[16px] p-6"
               style={{
-                background: card.featured ? '#F0F7FC' : '#FFFFFF',
-                border: card.featured ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
-                boxShadow: card.featured
-                  ? '0 2px 8px rgba(74,159,216,0.10)'
-                  : '0 2px 8px rgba(0,0,0,0.05)',
+                background: i === activeIndex ? '#F0F7FC' : '#FFFFFF',
+                border: i === activeIndex ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
+                boxShadow:
+                  i === activeIndex
+                    ? '0 2px 8px rgba(74,159,216,0.10)'
+                    : '0 2px 8px rgba(0,0,0,0.05)',
+                transition: 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
               }}
             >
-              <StarRating rating={card.rating} size="sm" />
-              <p className="text-sm font-medium leading-normal text-[#1a1a1a]">
+              <StarRating rating={card.rating} size="lg" />
+              <p className="text-sm leading-normal font-medium text-[#1a1a1a] italic">
                 &ldquo;{card.quote}&rdquo;
               </p>
-              <span className="text-xs font-semibold text-[#1a1a1a]">&mdash; {card.author}</span>
+              <span className="font-regular text-xs text-[#666666]">&mdash; {card.author}</span>
               <div className="mt-auto flex items-center gap-1.5">
                 {card.platforms.map((p) => (
                   <span
@@ -155,5 +238,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
