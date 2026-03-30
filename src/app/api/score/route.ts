@@ -9,11 +9,13 @@ Scoring criteria:
 - Emotional language scores higher
 - Story-driven reviews score higher
 - Minimum 3 stars — discard anything below 3 stars
+- Review text length should be less than 220 characters
 
-Return a valid JSON object with exactly two fields:
+Return a valid JSON object with exactly these fields:
 - "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
 - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
 - "hashtags": an array of 3-5 relevant hashtags for the post
+- "authorName": the name of the author of the chosen review
 
 IMPORTANT: Always respond in the same language as the reviews provided. Never translate any text.
 `.trim();
@@ -65,7 +67,7 @@ export async function POST(req: Request) {
     return Response.json({ error: 'ai scoring failed' }, { status: 500 });
   }
 
-  let parsed: { review?: string; caption?: string; hashtags?: string[] } = {};
+  let parsed: { review?: string; caption?: string; hashtags?: string[]; authorName?: string } = {};
   try {
     parsed = JSON.parse(completion.choices[0].message.content ?? '{}');
   } catch {
@@ -78,5 +80,6 @@ export async function POST(req: Request) {
     selectedReview,
     caption: parsed.caption ?? '',
     hashtags: parsed.hashtags ?? [],
+    authorName: parsed.authorName ?? '',
   });
 }

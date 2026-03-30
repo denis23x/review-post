@@ -205,7 +205,6 @@ export async function POST(req: Request) {
     }
 
     const detailsData = await detailsRes.json();
-    console.log('👉 ~ detailsData:', detailsData.reviews);
 
     const reviews = (detailsData.reviews ?? []).map(
       (r: {

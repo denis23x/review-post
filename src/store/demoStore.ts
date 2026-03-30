@@ -16,6 +16,7 @@ export interface ResultData {
   caption: string;
   hashtags: string[];
   reviewText: string;
+  authorName: string;
 }
 
 interface DemoState {
@@ -102,6 +103,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
           quote: scoreData.selectedReview.text,
           businessName: reviewsData.name,
           rating: scoreData.selectedReview.rating,
+          authorName: scoreData.selectedReview.authorName,
           theme,
         }),
       });
@@ -120,6 +122,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
           caption: scoreData.caption,
           hashtags: scoreData.hashtags,
           reviewText: scoreData.selectedReview.text,
+          authorName: scoreData.selectedReview.authorName,
         },
       });
 

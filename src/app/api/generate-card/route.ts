@@ -88,12 +88,14 @@ export async function POST(req: Request) {
     quote,
     businessName,
     rating = 5,
-    theme = 'dark',
+    theme = 'light',
+    authorName,
   } = body as {
     quote: string;
     businessName: string;
     rating: number;
     theme: keyof typeof THEMES;
+    authorName: string;
   };
 
   const colors = THEMES[theme] ?? THEMES.dark;
