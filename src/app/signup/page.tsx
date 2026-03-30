@@ -1,16 +1,28 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { StarRating } from '@/components/ui/StarRating';
 
+export const metadata: Metadata = {
+  title: 'Create Account',
+  description:
+    'Create your free Review to Post account and start turning Google reviews into branded social media posts.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: '/signup' },
+};
+
 export default function SignupPage() {
   return (
     <div className="flex min-h-screen">
       {/* Brand panel */}
-      <aside className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex">
+      <aside
+        aria-label="Review to Post branding"
+        className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex"
+      >
         <div className="flex items-center gap-2">
           <Star size={28} fill="currentColor" className="text-[#F6A700]" />
-          <span className="text-[22px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[22px] font-bold text-[#1a1a1a]">Review to Post</span>
         </div>
 
         <p className="max-w-[400px] text-center text-[20px] leading-relaxed font-medium text-[#1a1a1a]">
@@ -34,7 +46,7 @@ export default function SignupPage() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4A9FD8]">
             <Star size={16} fill="currentColor" className="text-[#F6A700]" />
           </div>
-          <span className="text-[15px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[15px] font-bold text-[#1a1a1a]">Review to Post</span>
         </Link>
 
         <div className="w-full max-w-[400px]">

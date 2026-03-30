@@ -8,7 +8,7 @@ interface DownloadButtonProps {
   filename?: string;
 }
 
-export function DownloadButton({ blobUrl, filename = 'reviewpost.png' }: DownloadButtonProps) {
+export function DownloadButton({ blobUrl, filename = 'Review to Post.png' }: DownloadButtonProps) {
   return (
     <a href={blobUrl} download={filename} className="contents">
       <button

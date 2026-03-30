@@ -1,16 +1,28 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { StarRating } from '@/components/ui/StarRating';
 
+export const metadata: Metadata = {
+  title: 'Sign In',
+  description:
+    'Sign in to your Review to Post account to manage and download your branded social media cards.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: '/login' },
+};
+
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* Brand panel */}
-      <aside className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex">
+      <aside
+        aria-label="Review to Post branding"
+        className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex"
+      >
         <div className="flex items-center gap-2">
           <Star size={28} fill="currentColor" className="text-[#F6A700]" />
-          <span className="text-[22px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[22px] font-bold text-[#1a1a1a]">Review to Post</span>
         </div>
 
         <p className="max-w-[400px] text-center text-[20px] leading-relaxed font-medium text-[#666666]">
@@ -34,12 +46,12 @@ export default function LoginPage() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4A9FD8]">
             <Star size={16} fill="currentColor" className="text-[#F6A700]" />
           </div>
-          <span className="text-[15px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[15px] font-bold text-[#1a1a1a]">Review to Post</span>
         </Link>
 
         <div className="w-full max-w-[400px]">
           <h1 className="text-[28px] font-bold text-[#1a1a1a]">Welcome back</h1>
-          <p className="mt-2 text-sm text-[#666666]">Sign in to your ReviewPost account</p>
+          <p className="mt-2 text-sm text-[#666666]">Sign in to your Review to Post account</p>
 
           {/* Google SSO */}
           <button

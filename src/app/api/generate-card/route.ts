@@ -182,7 +182,7 @@ export async function POST(req: Request) {
         },
       ],
       headers: {
-        'Content-Disposition': `attachment; filename="reviewpost-${Date.now()}.png"`,
+        'Content-Disposition': `attachment; filename="Review to Post-${Date.now()}.png"`,
       },
     });
   } catch (err) {

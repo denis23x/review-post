@@ -1,15 +1,27 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+
+export const metadata: Metadata = {
+  title: 'Reset Password',
+  description:
+    "Reset your Review to Post account password. Enter your email and we'll send you a reset link.",
+  robots: { index: false, follow: false },
+  alternates: { canonical: '/forgot-password' },
+};
 
 export default function ForgotPasswordPage() {
   return (
     <div className="flex min-h-screen">
       {/* Brand panel */}
-      <aside className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex">
+      <aside
+        aria-label="Review to Post branding"
+        className="hidden w-[576px] shrink-0 flex-col items-center justify-center gap-8 bg-[#F7F8FA] px-10 py-12 lg:flex"
+      >
         <div className="flex items-center gap-2">
           <Star size={28} fill="currentColor" className="text-[#F6A700]" />
-          <span className="text-[22px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[22px] font-bold text-[#1a1a1a]">Review to Post</span>
         </div>
 
         <p className="max-w-[400px] text-center text-[20px] leading-relaxed font-medium text-[#666666]">
@@ -24,7 +36,7 @@ export default function ForgotPasswordPage() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4A9FD8]">
             <Star size={16} fill="currentColor" className="text-[#F6A700]" />
           </div>
-          <span className="text-[15px] font-bold text-[#1a1a1a]">ReviewPost</span>
+          <span className="text-[15px] font-bold text-[#1a1a1a]">Review to Post</span>
         </Link>
 
         <div className="flex w-full max-w-[400px] flex-col items-center gap-6">

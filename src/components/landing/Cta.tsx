@@ -9,7 +9,7 @@ export function Cta() {
           Ready to turn reviews into revenue?
         </h2>
         <p className="max-w-[560px] text-base leading-normal text-white">
-          Join 2,000+ businesses already using ReviewPost. Start free &mdash; no credit card
+          Join 2,000+ businesses already using Review to Post. Start free &mdash; no credit card
           required.
         </p>
       </div>

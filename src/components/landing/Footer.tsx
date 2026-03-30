@@ -49,7 +49,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-[#E5E7EB] pt-6 text-xs text-[#888888]">
-          &copy; 2026 ReviewPost. All rights reserved.
+          &copy; 2026 Review to Post. All rights reserved.
         </div>
       </div>
     </footer>

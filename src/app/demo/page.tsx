@@ -34,7 +34,7 @@ export default function DemoPage() {
 
         <Suspense>{step === 'input' && <DemoStepInput />}</Suspense>
         {step === 'loading' && <DemoStepLoading />}
-        {step === 'result' && <DemoStepResult />}
+        <Suspense>{step === 'result' && <DemoStepResult />}</Suspense>
       </main>
     </div>
   );

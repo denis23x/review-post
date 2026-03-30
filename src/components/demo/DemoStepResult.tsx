@@ -7,6 +7,8 @@ import { CardPreview } from '@/components/CardPreview';
 import { DownloadButton } from '@/components/DownloadButton';
 import { useDemoStore } from '@/store/demoStore';
 import { cn } from '@/lib/cn';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export function DemoStepResult() {
   const {
@@ -22,6 +24,17 @@ export function DemoStepResult() {
   } = useDemoStore();
 
   if (!result) return null;
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialUrl = searchParams.get('url') ?? '';
+
+  useEffect(() => {
+    if (initialUrl) {
+      router.replace(pathname, { scroll: false });
+    }
+  }, []);
 
   return (
     <div className="flex w-full flex-col gap-6">

@@ -6,7 +6,7 @@ import { zodValidator } from '@tanstack/zod-form-adapter';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { googleMapsUrlSchema } from '@/lib/validators';
 import { useDemoStore } from '@/store/demoStore';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { cn } from '@/lib/cn';
 
 export function DemoStepInput() {
@@ -21,6 +21,13 @@ export function DemoStepInput() {
       await handleGenerate(value.url);
     },
   });
+
+  useEffect(() => {
+    if (initialUrl) {
+      form.setFieldValue('url', initialUrl);
+      form.handleSubmit();
+    }
+  }, [form, initialUrl]);
 
   return (
     <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
