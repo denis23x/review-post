@@ -131,7 +131,7 @@ export async function POST(req: Request) {
         {
           style: {
             marginTop: 16,
-            fontSize: theme === 'brand' ? 64 : 48,
+            fontSize: theme === 'brand' ? 56 : 48,
             color: colors.text,
             lineHeight: 1.4,
             fontWeight: 700,
