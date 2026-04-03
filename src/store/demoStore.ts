@@ -1,6 +1,21 @@
 import { create } from 'zustand';
 import type { Theme } from '@/lib/validators';
 
+const USAGE_COOKIE = 'rp_weekly_usage';
+export const USAGE_LIMIT = 300;
+
+export function getWeeklyUsageCount(): number {
+  if (typeof document === 'undefined') return 0;
+  const match = document.cookie.match(new RegExp(`(?:^|; )${USAGE_COOKIE}=([^;]*)`));
+  return match ? parseInt(match[1], 10) || 0 : 0;
+}
+
+function incrementWeeklyUsageCount(): void {
+  const count = getWeeklyUsageCount() + 1;
+  const expires = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toUTCString();
+  document.cookie = `${USAGE_COOKIE}=${count}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
 export type Step = 'input' | 'loading' | 'result';
 
 export interface LoadingStepState {
@@ -63,6 +78,13 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   setActiveCardIndex: (index) => set({ activeCardIndex: index, copied: false }),
 
   handleGenerate: async (url) => {
+    if (getWeeklyUsageCount() >= USAGE_LIMIT) {
+      set({ error: 'Only 3 reviews per week are available during the MVP stage.' });
+      return;
+    }
+
+    incrementWeeklyUsageCount();
+
     set({
       error: null,
       step: 'loading',
@@ -105,12 +127,14 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
 
       const { theme } = get();
       const results = await Promise.all(
-        (scoreData.scoredReviews as Array<{
-          selectedReview: { text: string; rating: number; authorName: string };
-          caption: string;
-          hashtags: string[];
-          authorName: string;
-        }>).map(async (scored) => {
+        (
+          scoreData.scoredReviews as Array<{
+            selectedReview: { text: string; rating: number; authorName: string };
+            caption: string;
+            hashtags: string[];
+            authorName: string;
+          }>
+        ).map(async (scored) => {
           const cardRes = await fetch('/api/generate-card', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -202,9 +226,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       }
       const data = await res.json();
       const updatedResults = results.map((r, i) =>
-        i === activeCardIndex
-          ? { ...r, caption: data.caption, hashtags: data.hashtags }
-          : r
+        i === activeCardIndex ? { ...r, caption: data.caption, hashtags: data.hashtags } : r
       );
       set({ results: updatedResults });
     } catch (err) {
@@ -231,6 +253,12 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   handleReset: () => {
     const { results } = get();
     results.forEach((r) => URL.revokeObjectURL(r.blobUrl));
-    set({ step: 'input', results: [], activeCardIndex: 0, error: null, loadingSteps: INITIAL_LOADING_STEPS });
+    set({
+      step: 'input',
+      results: [],
+      activeCardIndex: 0,
+      error: null,
+      loadingSteps: INITIAL_LOADING_STEPS,
+    });
   },
 }));

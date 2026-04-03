@@ -93,7 +93,10 @@ export async function POST(req: Request) {
       return true;
     })
     .map((item) => {
-      const selectedReview = qualifying.find((r) => r.text === item.review) ?? qualifying[0];
+      const selectedReview =
+        qualifying.find((r) => r.text === item.review) ??
+        qualifying.find((r) => r.authorName === item.authorName) ??
+        qualifying[0];
       return {
         selectedReview,
         caption: item.caption ?? '',
