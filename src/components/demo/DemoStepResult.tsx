@@ -17,10 +17,12 @@ export function DemoStepResult() {
     theme,
     error,
     isRegenerating,
+    isRegeneratingCaption,
     copied,
     setTheme,
     setActiveCardIndex,
     handleRegenerate,
+    handleRegenerateCaption,
     handleCopy,
     handleReset,
   } = useDemoStore();
@@ -101,8 +103,8 @@ export function DemoStepResult() {
                 <Button
                   variant="secondary"
                   size="md"
-                  // onClick={handleRegenerateCaption}
-                  // loading={isRegeneratingCaption}
+                  onClick={handleRegenerateCaption}
+                  loading={isRegeneratingCaption}
                   loadingText="Regenerating..."
                   className="gap-1.5"
                 >

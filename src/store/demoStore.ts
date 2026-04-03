@@ -24,6 +24,7 @@ interface DemoState {
   theme: Theme;
   error: string | null;
   isRegenerating: boolean;
+  isRegeneratingCaption: boolean;
   loadingSteps: LoadingStepState;
   results: ResultData[];
   activeCardIndex: number;
@@ -35,6 +36,7 @@ interface DemoActions {
   setActiveCardIndex: (index: number) => void;
   handleGenerate: (url: string) => Promise<void>;
   handleRegenerate: () => Promise<void>;
+  handleRegenerateCaption: () => Promise<void>;
   handleCopy: () => Promise<void>;
   handleReset: () => void;
 }
@@ -50,6 +52,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   theme: 'light',
   error: null,
   isRegenerating: false,
+  isRegeneratingCaption: false,
   loadingSteps: INITIAL_LOADING_STEPS,
   results: [],
   activeCardIndex: 0,
@@ -178,6 +181,37 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       set({ error: msg });
     } finally {
       set({ isRegenerating: false });
+    }
+  },
+
+  handleRegenerateCaption: async () => {
+    const { results, activeCardIndex, isRegeneratingCaption } = get();
+    const result = results[activeCardIndex];
+    if (!result || isRegeneratingCaption) return;
+    set({ isRegeneratingCaption: true, error: null });
+
+    try {
+      const res = await fetch('/api/caption', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reviewText: result.reviewText }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? 'Caption regeneration failed. Try again.');
+      }
+      const data = await res.json();
+      const updatedResults = results.map((r, i) =>
+        i === activeCardIndex
+          ? { ...r, caption: data.caption, hashtags: data.hashtags }
+          : r
+      );
+      set({ results: updatedResults });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Something went wrong.';
+      set({ error: msg });
+    } finally {
+      set({ isRegeneratingCaption: false });
     }
   },
 
