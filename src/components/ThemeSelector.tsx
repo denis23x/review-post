@@ -11,7 +11,7 @@ interface ThemeSelectorProps {
 const themes: { value: Theme; label: string }[] = [
   { value: 'light', label: 'Light' },
   { value: 'dark', label: 'Dark' },
-  { value: 'brand', label: 'Brand' },
+  { value: 'brand', label: 'Brand (customizable)' },
 ];
 
 export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {

@@ -6,9 +6,33 @@ import { join } from 'path';
 export const runtime = 'nodejs';
 
 const THEMES = {
-  dark: { bg: '#1a1a2e', text: '#ffffff', stars: '#FFD700', meta: '#aaaaaa' },
-  light: { bg: '#ffffff', text: '#1a1a2e', stars: '#FFD700', meta: '#555555' },
-  brand: { bg: '#FFF0F5', text: '#1a1a2e', stars: '#DC2626', meta: '#555555' },
+  dark: {
+    bg: '#1a1a2e',
+    text: '#ffffff',
+    stars: '#FFD700',
+    avatar: '#ffffff',
+    meta: '#aaaaaa',
+    border: '#aaaaaa',
+    watermark: '#ffffff',
+  },
+  light: {
+    bg: '#ffffff',
+    text: '#1a1a2e',
+    stars: '#FFD700',
+    avatar: '#1a1a2e',
+    meta: '#555555',
+    border: '#e5e7eb',
+    watermark: '#1a1a2e',
+  },
+  brand: {
+    bg: '#FFC1CC',
+    text: '#1a1a2e',
+    stars: '#DC2626',
+    avatar: '#000000',
+    meta: '#000000',
+    border: '#ffffff',
+    watermark: '#000000',
+  },
 };
 
 function starElement(color: string, size = 36) {
@@ -55,6 +79,27 @@ function renderStars(count: number, color: string, size = 48, useHearts = false)
   );
 }
 
+function renderAvatar(color: string) {
+  return React.createElement(
+    'svg',
+    {
+      xmlns: 'http://www.w3.org/2000/svg',
+      width: '48',
+      height: '48',
+      viewBox: '0 0 24 24',
+      fill: 'none',
+      stroke: color,
+      'stroke-width': '1.5',
+      'stroke-linecap': 'round',
+      'stroke-linejoin': 'round',
+      style: { display: 'block', opacity: 1 },
+    },
+    React.createElement('path', { d: 'M17.925 20.056a6 6 0 0 0-11.851.001' }),
+    React.createElement('circle', { cx: '12', cy: '11', r: '4' }),
+    React.createElement('circle', { cx: '12', cy: '12', r: '10' })
+  );
+}
+
 function truncateQuote(text: string, maxChars = 220): string {
   if (text.length <= maxChars) return text;
   return text.slice(0, maxChars).trimEnd() + '\u2026';
@@ -69,7 +114,7 @@ function getFonts() {
     interRegular = readFileSync(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'));
   }
   if (!interBold) {
-    interBold = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'));
+    interBold = readFileSync(join(process.cwd(), 'public/fonts/Inter-Italic.ttf'));
   }
   if (!lobsterRegular) {
     lobsterRegular = readFileSync(join(process.cwd(), 'public/fonts/Lobster-Regular.ttf'));
@@ -130,18 +175,32 @@ export async function POST(req: Request) {
         'div',
         {
           style: {
-            marginTop: 16,
-            fontSize: theme === 'brand' ? 56 : 48,
+            marginTop: 32,
+            fontSize: 48,
             color: colors.text,
             lineHeight: 1.4,
             fontWeight: 700,
+            border: `2px solid ${colors.border}`,
+            borderRadius: 48,
+            background: theme === 'brand' ? 'white' : 'transparent',
+            padding: 32,
           },
         },
         `\u201c${truncated}\u201d`
       ),
       React.createElement(
         'div',
-        { style: { marginTop: 16, fontSize: 24, color: colors.meta } },
+        { style: { marginTop: 32, display: 'flex', alignItems: 'center', gap: 8 } },
+        renderAvatar(colors.avatar),
+        React.createElement(
+          'div',
+          { style: { fontSize: 32, color: colors.avatar } },
+          `${authorName}`
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: { marginTop: 16, fontSize: 28, color: colors.meta } },
         `\u2014 ${businessName}`
       ),
       React.createElement(
@@ -149,14 +208,14 @@ export async function POST(req: Request) {
         {
           style: {
             position: 'absolute',
-            bottom: 40,
-            right: 60,
-            fontSize: 32,
-            color: colors.text,
-            opacity: 0.25,
+            bottom: 60,
+            left: 80,
+            fontSize: 24,
+            color: colors.watermark,
+            opacity: 0.5,
           },
         },
-        'Review to Post'
+        'https://review-to-post.vercel.app'
       )
     );
 

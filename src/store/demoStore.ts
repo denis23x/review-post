@@ -146,6 +146,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
           quote: result.reviewText,
           businessName: result.businessName,
           rating: result.rating,
+          authorName: result.authorName,
           theme,
         }),
       });
