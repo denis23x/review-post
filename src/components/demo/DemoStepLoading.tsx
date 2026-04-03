@@ -2,6 +2,7 @@
 
 import { LoadingStepItem } from '@/components/demo/LoadingStepItem';
 import { useDemoStore } from '@/store/demoStore';
+import { Shield } from 'lucide-react';
 
 const LOADING_STEPS: { key: 'reviews' | 'score' | 'card'; label: string }[] = [
   { key: 'reviews', label: 'Fetching business reviews...' },
@@ -21,6 +22,13 @@ export function DemoStepLoading() {
         {LOADING_STEPS.map(({ key, label }) => (
           <LoadingStepItem key={key} state={loadingSteps[key]} label={label} />
         ))}
+      </div>
+      <div className="mt-6 flex flex-wrap items-center gap-2 rounded-[32px] border border-[#E5E7EB] bg-[#FFFFFF] p-3">
+        <Shield size={16} className="shrink-0 text-[#000000]" />
+        <p className="text-sm text-[#000000]">
+          This service relies on xAI infrastructure, which may have regional availability
+          restrictions. Verify that your location is supported.
+        </p>
       </div>
     </div>
   );

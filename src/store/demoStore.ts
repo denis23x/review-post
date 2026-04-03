@@ -25,12 +25,14 @@ interface DemoState {
   error: string | null;
   isRegenerating: boolean;
   loadingSteps: LoadingStepState;
-  result: ResultData | null;
+  results: ResultData[];
+  activeCardIndex: number;
   copied: boolean;
 }
 
 interface DemoActions {
   setTheme: (theme: Theme) => void;
+  setActiveCardIndex: (index: number) => void;
   handleGenerate: (url: string) => Promise<void>;
   handleRegenerate: () => Promise<void>;
   handleCopy: () => Promise<void>;
@@ -49,10 +51,13 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   error: null,
   isRegenerating: false,
   loadingSteps: INITIAL_LOADING_STEPS,
-  result: null,
+  results: [],
+  activeCardIndex: 0,
   copied: false,
 
   setTheme: (theme) => set({ theme }),
+
+  setActiveCardIndex: (index) => set({ activeCardIndex: index, copied: false }),
 
   handleGenerate: async (url) => {
     set({
@@ -96,34 +101,42 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       set({ loadingSteps: { reviews: 'done', score: 'done', card: 'active' } });
 
       const { theme } = get();
-      const cardRes = await fetch('/api/generate-card', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          quote: scoreData.selectedReview.text,
-          businessName: reviewsData.name,
-          rating: scoreData.selectedReview.rating,
-          authorName: scoreData.selectedReview.authorName,
-          theme,
-        }),
-      });
-      if (!cardRes.ok) {
-        throw new Error('Card generation failed. Try again.');
-      }
-      const blob = await cardRes.blob();
-      const blobUrl = URL.createObjectURL(blob);
+      const results = await Promise.all(
+        (scoreData.scoredReviews as Array<{
+          selectedReview: { text: string; rating: number; authorName: string };
+          caption: string;
+          hashtags: string[];
+          authorName: string;
+        }>).map(async (scored) => {
+          const cardRes = await fetch('/api/generate-card', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              quote: scored.selectedReview.text,
+              businessName: reviewsData.name,
+              rating: scored.selectedReview.rating,
+              authorName: scored.authorName,
+              theme,
+            }),
+          });
+          if (!cardRes.ok) throw new Error('Card generation failed. Try again.');
+          const blob = await cardRes.blob();
+          return {
+            blobUrl: URL.createObjectURL(blob),
+            businessName: reviewsData.name,
+            rating: scored.selectedReview.rating,
+            caption: scored.caption,
+            hashtags: scored.hashtags,
+            reviewText: scored.selectedReview.text,
+            authorName: scored.authorName,
+          };
+        })
+      );
 
       set({
         loadingSteps: { reviews: 'done', score: 'done', card: 'done' },
-        result: {
-          blobUrl,
-          businessName: reviewsData.name,
-          rating: scoreData.selectedReview.rating,
-          caption: scoreData.caption,
-          hashtags: scoreData.hashtags,
-          reviewText: scoreData.selectedReview.text,
-          authorName: scoreData.selectedReview.authorName,
-        },
+        results,
+        activeCardIndex: 0,
       });
 
       setTimeout(() => set({ step: 'result' }), 400);
@@ -134,31 +147,32 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   },
 
   handleRegenerate: async () => {
-    const { result, isRegenerating, theme } = get();
-    if (!result || isRegenerating) return;
+    const { results, isRegenerating, theme } = get();
+    if (!results.length || isRegenerating) return;
     set({ isRegenerating: true, error: null });
 
     try {
-      const cardRes = await fetch('/api/generate-card', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          quote: result.reviewText,
-          businessName: result.businessName,
-          rating: result.rating,
-          authorName: result.authorName,
-          theme,
-        }),
-      });
-      if (!cardRes.ok) throw new Error('Card generation failed. Try again.');
-
-      const blob = await cardRes.blob();
-      const newBlobUrl = URL.createObjectURL(blob);
-
-      URL.revokeObjectURL(result.blobUrl);
-      set((state) => ({
-        result: state.result ? { ...state.result, blobUrl: newBlobUrl } : null,
-      }));
+      const newResults = await Promise.all(
+        results.map(async (result) => {
+          const cardRes = await fetch('/api/generate-card', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              quote: result.reviewText,
+              businessName: result.businessName,
+              rating: result.rating,
+              authorName: result.authorName,
+              theme,
+            }),
+          });
+          if (!cardRes.ok) throw new Error('Card generation failed. Try again.');
+          const blob = await cardRes.blob();
+          const newBlobUrl = URL.createObjectURL(blob);
+          URL.revokeObjectURL(result.blobUrl);
+          return { ...result, blobUrl: newBlobUrl };
+        })
+      );
+      set({ results: newResults });
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong.';
       set({ error: msg });
@@ -168,7 +182,8 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   },
 
   handleCopy: async () => {
-    const { result } = get();
+    const { results, activeCardIndex } = get();
+    const result = results[activeCardIndex];
     if (!result?.caption) return;
     try {
       await navigator.clipboard.writeText(result.caption);
@@ -180,8 +195,8 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
   },
 
   handleReset: () => {
-    const { result } = get();
-    if (result?.blobUrl) URL.revokeObjectURL(result.blobUrl);
-    set({ step: 'input', result: null, error: null, loadingSteps: INITIAL_LOADING_STEPS });
+    const { results } = get();
+    results.forEach((r) => URL.revokeObjectURL(r.blobUrl));
+    set({ step: 'input', results: [], activeCardIndex: 0, error: null, loadingSteps: INITIAL_LOADING_STEPS });
   },
 }));

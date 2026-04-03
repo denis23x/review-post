@@ -12,18 +12,22 @@ import { useEffect } from 'react';
 
 export function DemoStepResult() {
   const {
-    result,
+    results,
+    activeCardIndex,
     theme,
     error,
     isRegenerating,
     copied,
     setTheme,
+    setActiveCardIndex,
     handleRegenerate,
     handleCopy,
     handleReset,
   } = useDemoStore();
 
-  if (!result) return null;
+  const result = results[activeCardIndex];
+
+  if (!results.length || !result) return null;
 
   const router = useRouter();
   const pathname = usePathname();
@@ -49,13 +53,29 @@ export function DemoStepResult() {
       <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
         <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">Step 3: Your post is ready!</h2>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
-          <div className="flex flex-1 rounded-[16px] border border-[#E5E7EB]">
-            <CardPreview
-              src={result.blobUrl}
-              businessName={result.businessName}
-              rating={result.rating}
-              className="max-w-full"
-            />
+          <div className="flex flex-1 flex-col gap-3">
+            <div className="flex flex-1 rounded-[16px] border border-[#E5E7EB]">
+              <CardPreview
+                src={result.blobUrl}
+                businessName={result.businessName}
+                rating={result.rating}
+                className="max-w-full"
+              />
+            </div>
+            {results.length > 1 && (
+              <div className="flex items-center justify-center gap-3">
+                {results.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveCardIndex(i)}
+                    className={cn(
+                      'h-3 w-3 rounded-full transition-colors',
+                      i === activeCardIndex ? 'bg-[#1a1a1a]' : 'bg-[#D1D5DB] hover:bg-[#9CA3AF]'
+                    )}
+                  />
+                ))}
+              </div>
+            )}
           </div>
           <div className="flex flex-1 flex-col gap-8">
             <div className="flex flex-col items-start gap-2">
@@ -68,15 +88,28 @@ export function DemoStepResult() {
                   {result.hashtags.map((hashtag) => `#${hashtag}`).join(' ')}
                 </p>
               </div>
-              <button
-                onClick={handleCopy}
-                className={cn(
-                  'flex h-10 cursor-pointer items-center justify-center gap-3 rounded-full bg-[#4A9FD8] px-4 text-sm font-medium text-white transition-opacity hover:opacity-80'
-                )}
-              >
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-                {copied ? 'Copied!' : 'Copy Caption'}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleCopy}
+                  className={cn(
+                    'flex h-10 cursor-pointer items-center justify-center gap-3 rounded-full bg-[#4A9FD8] px-4 text-sm font-medium text-white transition-opacity hover:opacity-80'
+                  )}
+                >
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? 'Copied!' : 'Copy Caption'}
+                </button>
+                <Button
+                  variant="secondary"
+                  size="md"
+                  // onClick={handleRegenerateCaption}
+                  // loading={isRegeneratingCaption}
+                  loadingText="Regenerating..."
+                  className="gap-1.5"
+                >
+                  <RefreshCw size={15} />
+                  Change Caption
+                </Button>
+              </div>
             </div>
 
             <div className="flex flex-1 flex-col gap-4">

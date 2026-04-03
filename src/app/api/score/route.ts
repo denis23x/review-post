@@ -2,7 +2,7 @@ import Groq from 'groq-sdk';
 
 const SYSTEM_PROMPT = `
 You are a social media manager for local businesses.
-Given a list of customer reviews, pick the single best one to turn into a social media post.
+Given a list of customer reviews, pick the top 3 best ones to turn into social media posts.
 
 Scoring criteria:
 - Specific details beat vague praise ("Dr. Smith fixed my tooth painlessly in 20 mins" > "Great place!")
@@ -10,12 +10,14 @@ Scoring criteria:
 - Story-driven reviews score higher
 - Minimum 3 stars — discard anything below 3 stars
 - Review text length should be less than 220 characters
+- Each selected review must be unique — do not repeat the same review
 
-Return a valid JSON object with exactly these fields:
-- "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
-- "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
-- "hashtags": an array of 3-5 relevant hashtags for the post
-- "authorName": the name of the author of the chosen review
+Return a valid JSON object with exactly this field:
+- "reviews": an array of up to 3 objects (return as many qualifying reviews as exist, maximum 3), each with:
+  - "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
+  - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
+  - "hashtags": an array of 3-5 relevant hashtags for the post
+  - "authorName": the name of the author of the chosen review
 
 IMPORTANT: Always respond in the same language as the reviews provided. Never translate any text.
 `.trim();
@@ -67,19 +69,47 @@ export async function POST(req: Request) {
     return Response.json({ error: 'ai scoring failed' }, { status: 500 });
   }
 
-  let parsed: { review?: string; caption?: string; hashtags?: string[]; authorName?: string } = {};
+  interface ParsedReview {
+    review?: string;
+    caption?: string;
+    hashtags?: string[];
+    authorName?: string;
+  }
+
+  let parsed: { reviews?: ParsedReview[] } = {};
   try {
     parsed = JSON.parse(completion.choices[0].message.content ?? '{}');
   } catch {
     // AI returned non-JSON — fall back to first qualifying review
   }
 
-  const selectedReview = qualifying.find((r) => r.text === parsed.review) ?? qualifying[0];
+  const seenTexts = new Set<string>();
+  const scoredReviews = ((parsed.reviews ?? []) as ParsedReview[])
+    .slice(0, 3)
+    .filter((item) => {
+      const text = item.review ?? '';
+      if (!text || seenTexts.has(text)) return false;
+      seenTexts.add(text);
+      return true;
+    })
+    .map((item) => {
+      const selectedReview = qualifying.find((r) => r.text === item.review) ?? qualifying[0];
+      return {
+        selectedReview,
+        caption: item.caption ?? '',
+        hashtags: item.hashtags ?? [],
+        authorName: item.authorName ?? selectedReview.authorName ?? '',
+      };
+    });
 
-  return Response.json({
-    selectedReview,
-    caption: parsed.caption ?? '',
-    hashtags: parsed.hashtags ?? [],
-    authorName: parsed.authorName ?? '',
-  });
+  if (!scoredReviews.length) {
+    scoredReviews.push({
+      selectedReview: qualifying[0],
+      caption: '',
+      hashtags: [],
+      authorName: qualifying[0].authorName ?? '',
+    });
+  }
+
+  return Response.json({ scoredReviews });
 }
