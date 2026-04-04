@@ -61,8 +61,11 @@ function extractSearchQuery(url: string): string {
  */
 function extractCoordinates(url: string): { lat: number; lng: number } | null {
   try {
-    // 1. Real place coordinates (preferred)
-    const dataMatch = url.match(/!3d(-?\d+(\.\d+)?)!4d(-?\d+(\.\d+)?)/);
+    // 1. Real place coordinates (preferred).
+    // Google Maps URLs contain multiple !3d/!4d pairs: the first belongs to the
+    // city/context entity, the last belongs to the actual target place.
+    const dataMatches = [...url.matchAll(/!3d(-?\d+(\.\d+)?)!4d(-?\d+(\.\d+)?)/g)];
+    const dataMatch = dataMatches.at(-1);
     if (dataMatch) {
       return {
         lat: parseFloat(dataMatch[1]),

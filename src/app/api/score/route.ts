@@ -84,26 +84,33 @@ export async function POST(req: Request) {
   }
 
   const seenTexts = new Set<string>();
+  const usedQualifying = new Set<ReviewInput>();
   const scoredReviews = ((parsed.reviews ?? []) as ParsedReview[])
     .slice(0, 3)
-    .filter((item) => {
-      const text = item.review ?? '';
-      if (!text || seenTexts.has(text)) return false;
-      seenTexts.add(text);
-      return true;
-    })
-    .map((item) => {
-      const selectedReview =
-        qualifying.find((r) => r.text === item.review) ??
-        qualifying.find((r) => r.authorName === item.authorName) ??
-        qualifying[0];
-      return {
-        selectedReview,
-        caption: item.caption ?? '',
-        hashtags: item.hashtags ?? [],
-        authorName: item.authorName ?? selectedReview.authorName ?? '',
-      };
-    });
+    .reduce<{ selectedReview: ReviewInput; caption: string; hashtags: string[]; authorName: string }[]>(
+      (acc, item) => {
+        const text = item.review ?? '';
+        if (!text || seenTexts.has(text)) return acc;
+        seenTexts.add(text);
+
+        const selectedReview =
+          qualifying.find((r) => !usedQualifying.has(r) && r.text === item.review) ??
+          qualifying.find((r) => !usedQualifying.has(r) && r.authorName === item.authorName) ??
+          qualifying.find((r) => !usedQualifying.has(r));
+
+        if (!selectedReview) return acc;
+        usedQualifying.add(selectedReview);
+
+        acc.push({
+          selectedReview,
+          caption: item.caption ?? '',
+          hashtags: item.hashtags ?? [],
+          authorName: item.authorName ?? selectedReview.authorName ?? '',
+        });
+        return acc;
+      },
+      []
+    );
 
   if (!scoredReviews.length) {
     scoredReviews.push({
