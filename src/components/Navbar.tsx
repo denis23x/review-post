@@ -1,7 +1,10 @@
-import Link from 'next/link';
 import { MapPin } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 
-export function Navbar() {
+export async function Navbar() {
+  const t = await getTranslations('navbar');
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-[#E5E7EB] bg-white/50 px-6 backdrop-blur-sm backdrop-filter md:px-10">
       <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between">
@@ -18,13 +21,13 @@ export function Navbar() {
               href="/#how-it-works"
               className="text-sm text-[#666666] transition-colors hover:text-[#1A1A1A]"
             >
-              Product
+              {t('product')}
             </Link>
             <Link
               href="/#pricing"
               className="text-sm text-[#666666] transition-colors hover:text-[#1A1A1A]"
             >
-              Pricing
+              {t('pricing')}
             </Link>
           </nav>
         </div>
@@ -35,13 +38,13 @@ export function Navbar() {
             href="/signup"
             className="hidden h-10 items-center rounded-full border border-[#E5E7EB] px-4 text-sm font-medium text-[#1A1A1A] transition-opacity hover:opacity-80 md:flex"
           >
-            Sign Up
+            {t('signUp')}
           </Link>
           <Link
             href="/demo"
             className="flex h-10 items-center rounded-full bg-[#4A9FD8] px-4 text-sm font-medium text-white transition-opacity hover:opacity-80"
           >
-            Try Free &rarr;
+            {t('tryFree')}
           </Link>
         </div>
       </div>

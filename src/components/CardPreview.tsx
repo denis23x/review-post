@@ -1,3 +1,6 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/cn';
 
 interface CardPreviewProps {
@@ -8,6 +11,8 @@ interface CardPreviewProps {
 }
 
 export function CardPreview({ src, businessName, rating, className }: CardPreviewProps) {
+  const t = useTranslations('card');
+
   return (
     <div
       className={cn(
@@ -20,7 +25,7 @@ export function CardPreview({ src, businessName, rating, className }: CardPrevie
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
-        alt={`Generated post card for ${businessName} — ${rating} stars`}
+        alt={t('imageAlt', { businessName, rating })}
         className="h-full w-full object-cover"
         draggable={false}
       />

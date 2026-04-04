@@ -1,18 +1,26 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { ThemeSelector } from '@/components/ThemeSelector';
-import { googleMapsUrlSchema } from '@/lib/validators';
+import { createGoogleMapsUrlSchema } from '@/lib/validators';
 import { useDemoStore } from '@/store/demoStore';
 import { Fragment, useEffect } from 'react';
 import { cn } from '@/lib/cn';
 
 export function DemoStepInput() {
+  const t = useTranslations('demo.stepInput');
+  const tValidation = useTranslations('validation');
   const searchParams = useSearchParams();
   const initialUrl = searchParams.get('url') ?? '';
   const { theme, error, setTheme, handleGenerate } = useDemoStore();
+
+  const urlSchema = createGoogleMapsUrlSchema({
+    required: tValidation('urlRequired'),
+    invalid: tValidation('urlInvalid'),
+  });
 
   const form = useForm({
     defaultValues: { url: initialUrl },
@@ -31,7 +39,7 @@ export function DemoStepInput() {
 
   return (
     <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
-      <h2 className="text-xl font-semibold text-[#1a1a1a]">Step 1: Paste your Google Maps URL</h2>
+      <h2 className="text-xl font-semibold text-[#1a1a1a]">{t('title')}</h2>
       <form
         className="mt-6 flex flex-col gap-6"
         onSubmit={(e) => {
@@ -39,11 +47,11 @@ export function DemoStepInput() {
           form.handleSubmit();
         }}
       >
-        <form.Field name="url" validators={{ onChange: googleMapsUrlSchema }}>
+        <form.Field name="url" validators={{ onChange: urlSchema }}>
           {(field) => (
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#1a1a1a]" htmlFor="url-input">
-                Business URL
+                {t('label')}
               </label>
               <div className="relative flex items-center">
                 <input
@@ -52,7 +60,7 @@ export function DemoStepInput() {
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
-                  placeholder="https://maps.google.com/..."
+                  placeholder={t('placeholder')}
                   className={cn(
                     'h-11 w-full rounded-full border border-[#E5E7EB] bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none',
                     field.state.meta.errors.length &&
@@ -69,7 +77,7 @@ export function DemoStepInput() {
         </form.Field>
 
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-[#1a1a1a]">Choose a theme</p>
+          <p className="text-sm font-medium text-[#1a1a1a]">{t('chooseTheme')}</p>
           <ThemeSelector value={theme} onChange={setTheme} />
         </div>
 
@@ -89,7 +97,7 @@ export function DemoStepInput() {
                 'disabled:cursor-not-allowed disabled:opacity-50'
               )}
             >
-              <Fragment>Generate Posts &rarr;</Fragment>
+              <Fragment>{t('submit')}</Fragment>
             </button>
           )}
         </form.Subscribe>

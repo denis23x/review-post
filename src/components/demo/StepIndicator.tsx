@@ -1,16 +1,19 @@
 'use client';
 
 import { CheckCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useDemoStore } from '@/store/demoStore';
 
-const STEPS = [
-  { id: 'input', label: 'Paste URL' },
-  { id: 'loading', label: 'Generating' },
-  { id: 'result', label: 'Your Post' },
-];
-
 export function StepIndicator() {
+  const t = useTranslations('demo.stepIndicator');
   const step = useDemoStore((s) => s.step);
+
+  const STEPS = [
+    { id: 'input', label: t('pasteUrl') },
+    { id: 'loading', label: t('generating') },
+    { id: 'result', label: t('yourPost') },
+  ];
+
   const activeIndex = STEPS.findIndex((s) => s.id === step);
 
   return (

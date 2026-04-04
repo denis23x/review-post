@@ -12,6 +12,25 @@ export const googleMapsUrlSchema = z
     { message: "This doesn't look like a Google Maps link" }
   );
 
+interface GoogleMapsUrlMessages {
+  required: string;
+  invalid: string;
+}
+
+export function createGoogleMapsUrlSchema(messages: GoogleMapsUrlMessages) {
+  return z
+    .string()
+    .min(1, messages.required)
+    .refine(
+      (val) =>
+        val.includes('maps.google.com') ||
+        val.includes('google.com/maps') ||
+        val.includes('maps.app.goo.gl') ||
+        val.includes('goo.gl/maps'),
+      { message: messages.invalid }
+    );
+}
+
 export const reviewSchema = z.object({
   authorName: z.string(),
   rating: z.number().min(1).max(5),

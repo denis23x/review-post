@@ -1,30 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 import { Bot, Layers2 } from 'lucide-react';
 import { StarRating } from '@/components/ui/StarRating';
-
-const EXAMPLE_CARDS = [
-  {
-    quote: 'Best coffee in town! The pour-over is incredible and the staff is always so friendly.',
-    author: 'Maria S. · Local Guide',
-    rating: 5,
-    platforms: ['IG', 'FB'],
-  },
-  {
-    quote: 'Absolutely transformed my morning routine. The atmosphere is unmatched anywhere else.',
-    author: 'Jake T. · 52 reviews',
-    rating: 5,
-    platforms: ['IG', 'LI'],
-  },
-  {
-    quote: "Five stars isn't enough! Every visit has been perfect. The team truly cares.",
-    author: 'Linda K. · 20 reviews',
-    rating: 5,
-    platforms: ['FB', 'LI'],
-  },
-];
 
 const PLATFORM_BADGES: Record<string, { color: string; path: string }> = {
   IG: {
@@ -42,10 +22,17 @@ const PLATFORM_BADGES: Record<string, { color: string; path: string }> = {
 };
 
 export function Hero() {
+  const t = useTranslations('landing.hero');
   const router = useRouter();
   const [url, setUrl] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const directionRef = React.useRef(1);
+
+  const EXAMPLE_CARDS = [
+    { quote: t('card1Quote'), author: t('card1Author'), rating: 5, platforms: ['IG', 'FB'] },
+    { quote: t('card2Quote'), author: t('card2Author'), rating: 5, platforms: ['IG', 'LI'] },
+    { quote: t('card3Quote'), author: t('card3Author'), rating: 5, platforms: ['FB', 'LI'] },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,105 +64,51 @@ export function Hero() {
         {/* Decorative rings — top right */}
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 450,
-            height: 450,
-            right: -170,
-            top: -256,
-            borderRadius: '50%',
-            border: '18px solid #4A9FD8',
-            opacity: 0.04,
-          }}
+          style={{ width: 450, height: 450, right: -170, top: -256, borderRadius: '50%', border: '18px solid #4A9FD8', opacity: 0.04 }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 320,
-            height: 320,
-            right: -105,
-            top: -191,
-            borderRadius: '50%',
-            border: '16px solid #4A9FD8',
-            opacity: 0.05,
-          }}
+          style={{ width: 320, height: 320, right: -105, top: -191, borderRadius: '50%', border: '16px solid #4A9FD8', opacity: 0.05 }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 200,
-            height: 200,
-            right: -45,
-            top: -131,
-            borderRadius: '50%',
-            border: '12px solid #4A9FD8',
-            opacity: 0.06,
-          }}
+          style={{ width: 200, height: 200, right: -45, top: -131, borderRadius: '50%', border: '12px solid #4A9FD8', opacity: 0.06 }}
         />
 
         {/* Decorative diamonds */}
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 280,
-            height: 280,
-            left: -70,
-            top: -150,
-            backgroundColor: '#4A9FD8',
-            borderRadius: 4,
-            opacity: 0.06,
-            transform: 'rotate(45deg)',
-          }}
+          style={{ width: 280, height: 280, left: -70, top: -150, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.06, transform: 'rotate(45deg)' }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 363,
-            height: 363,
-            right: -104,
-            top: 759,
-            backgroundColor: '#4A9FD8',
-            borderRadius: 4,
-            opacity: 0.08,
-            transform: 'rotate(45deg)',
-          }}
+          style={{ width: 363, height: 363, right: -104, top: 759, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.08, transform: 'rotate(45deg)' }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{
-            width: 180,
-            height: 180,
-            right: 127,
-            top: 493,
-            backgroundColor: '#4A9FD8',
-            borderRadius: 4,
-            opacity: 0.04,
-            transform: 'rotate(45deg)',
-          }}
+          style={{ width: 180, height: 180, right: 127, top: 493, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.04, transform: 'rotate(45deg)' }}
         />
 
         {/* Badges */}
         <div className="relative flex gap-4">
           <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#4A9FD8] px-4 py-1.5">
             <Bot size={16} className="text-white" />
-            <span className="text-xs font-medium text-white">Now with AI-powered captions</span>
+            <span className="text-xs font-medium text-white">{t('badgeAi')}</span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-[#4A9FD8] bg-[#F7F8FA] px-4 py-1.5">
             <Layers2 size={16} className="text-[#4A9FD8]" />
-            <span className="text-xs font-medium text-[#4A9FD8]">BETA</span>
+            <span className="text-xs font-medium text-[#4A9FD8]">{t('badgeBeta')}</span>
           </div>
         </div>
 
         {/* Headline */}
-        <h1 className="relative mx-auto max-w-[900px] text-center text-[56px] leading-[1.1] font-extrabold tracking-[-2px] text-[#1a1a1a]">
-          Turn your Google reviews
-          <br />
-          into branded social posts.
+        <h1 className="relative mx-auto max-w-[900px] whitespace-pre-line text-center text-[56px] leading-[1.1] font-extrabold tracking-[-2px] text-[#1a1a1a]">
+          {t('headline')}
         </h1>
 
         {/* Subheadline */}
         <p className="relative mx-auto max-w-[640px] text-center text-lg leading-normal text-[#666666]">
-          Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with caption
-          &mdash; in seconds.
+          {t('subheadline')}
         </p>
 
         {/* Input + CTA */}
@@ -188,18 +121,18 @@ export function Hero() {
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste your Google Maps URL..."
+            placeholder={t('placeholder')}
             className="h-11 w-[300px] rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none sm:w-[420px]"
           />
           <button
             type="submit"
             className="flex h-11 items-center rounded-full bg-white px-4 text-[15px] font-medium whitespace-nowrap text-[#1a1a1a] transition-opacity hover:opacity-80"
           >
-            Generate Posts &rarr;
+            {t('cta')}
           </button>
         </form>
 
-        {/* Example review cards — fixed 320 px each, scrollable on mobile */}
+        {/* Example review cards */}
         <div className="relative mt-4 flex gap-6 overflow-x-auto pb-2">
           {EXAMPLE_CARDS.map((card, i) => (
             <div
@@ -208,10 +141,7 @@ export function Hero() {
               style={{
                 background: i === activeIndex ? '#F0F7FC' : '#FFFFFF',
                 border: i === activeIndex ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
-                boxShadow:
-                  i === activeIndex
-                    ? '0 2px 8px rgba(74,159,216,0.10)'
-                    : '0 2px 8px rgba(0,0,0,0.05)',
+                boxShadow: i === activeIndex ? '0 2px 8px rgba(74,159,216,0.10)' : '0 2px 8px rgba(0,0,0,0.05)',
                 transition: 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
               }}
             >

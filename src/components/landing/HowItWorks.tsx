@@ -1,27 +1,15 @@
 import { Link2, Palette, Download } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
-const HOW_IT_WORKS = [
-  {
-    step: 1,
-    Icon: Link2,
-    title: 'Paste your link',
-    body: "Drop in your Google Maps business URL. We'll fetch all your latest reviews instantly.",
-  },
-  {
-    step: 2,
-    Icon: Palette,
-    title: 'Pick your style',
-    body: 'Choose from dark, light, or branded themes. Customize colors to match your brand identity.',
-  },
-  {
-    step: 3,
-    Icon: Download,
-    title: 'Download & share',
-    body: 'Get a ready-to-post image with AI-written caption. Share to Instagram, Facebook, or LinkedIn.',
-  },
-];
+export async function HowItWorks() {
+  const t = await getTranslations('landing.howItWorks');
 
-export function HowItWorks() {
+  const HOW_IT_WORKS = [
+    { step: 1, Icon: Link2, title: t('step1Title'), body: t('step1Body') },
+    { step: 2, Icon: Palette, title: t('step2Title'), body: t('step2Body') },
+    { step: 3, Icon: Download, title: t('step3Title'), body: t('step3Body') },
+  ];
+
   return (
     <section
       id="how-it-works"
@@ -29,10 +17,8 @@ export function HowItWorks() {
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-12">
         <div className="text-center">
-          <h2 className="text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">How It Works</h2>
-          <p className="mt-4 text-base text-[#666666]">
-            Three simple steps to turn reviews into social gold
-          </p>
+          <h2 className="text-[36px] font-bold tracking-[-1px] text-[#1a1a1a]">{t('title')}</h2>
+          <p className="mt-4 text-base text-[#666666]">{t('subtitle')}</p>
         </div>
 
         <div className="flex w-full flex-col gap-6">

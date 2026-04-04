@@ -1,16 +1,19 @@
 'use client';
 
 import { ArrowLeft, Copy, Check, RefreshCw } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { CardPreview } from '@/components/CardPreview';
 import { DownloadButton } from '@/components/DownloadButton';
 import { useDemoStore } from '@/store/demoStore';
+import { useSearchParams } from 'next/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 export function DemoStepResult() {
+  const t = useTranslations('demo.stepResult');
   const {
     results,
     activeCardIndex,
@@ -49,11 +52,11 @@ export function DemoStepResult() {
         className="flex items-center gap-1.5 self-start text-sm text-[#666666] transition-colors hover:text-[#1a1a1a]"
       >
         <ArrowLeft size={16} />
-        Try another URL
+        {t('tryAnother')}
       </button>
 
       <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
-        <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">Step 3: Your post is ready!</h2>
+        <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">{t('title')}</h2>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
           <div className="flex flex-1 flex-col gap-3">
             <div className="flex flex-1 rounded-[16px] border border-[#E5E7EB]">
@@ -81,7 +84,7 @@ export function DemoStepResult() {
           </div>
           <div className="flex flex-1 flex-col gap-8">
             <div className="flex flex-col items-start gap-2">
-              <p className="text-sm font-semibold text-[#1a1a1a]">AI-Generated Caption</p>
+              <p className="text-sm font-semibold text-[#1a1a1a]">{t('aiCaption')}</p>
               <div className="w-full rounded-[12px] border border-[#E5E7EB] bg-white p-4">
                 <p className="font-regular text-sm leading-relaxed text-[#1a1a1a]">
                   {result.caption}
@@ -98,25 +101,25 @@ export function DemoStepResult() {
                   )}
                 >
                   {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? 'Copied!' : 'Copy Caption'}
+                  {copied ? t('copied') : t('copyCaption')}
                 </button>
                 <Button
                   variant="secondary"
                   size="md"
                   onClick={handleRegenerateCaption}
                   loading={isRegeneratingCaption}
-                  loadingText="Regenerating..."
+                  loadingText={t('regenerating')}
                   className="gap-1.5"
                 >
                   <RefreshCw size={15} />
-                  Change Caption
+                  {t('changeCaption')}
                 </Button>
               </div>
             </div>
 
             <div className="flex flex-1 flex-col gap-4">
               <div className="flex flex-col gap-3">
-                <p className="text-sm font-medium text-[#1a1a1a]">Change theme</p>
+                <p className="text-sm font-medium text-[#1a1a1a]">{t('changeThemeLabel')}</p>
                 <ThemeSelector value={theme} onChange={setTheme} />
               </div>
 
@@ -133,18 +136,21 @@ export function DemoStepResult() {
                   size="md"
                   onClick={handleRegenerate}
                   loading={isRegenerating}
-                  loadingText="Regenerating..."
+                  loadingText={t('regenerating')}
                   className="gap-1.5"
                 >
                   <RefreshCw size={15} />
-                  Change Theme
+                  {t('changeThemeButton')}
                 </Button>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#E5E7EB] bg-white px-5 py-3">
-                <p className="text-[15px] font-medium text-[#1a1a1a]">Want unlimited posts?</p>
-                <a href="/signup" className="text-sm font-medium whitespace-nowrap text-[#4A9FD8]">
-                  Sign up free &rarr;
-                </a>
+                <p className="text-[15px] font-medium text-[#1a1a1a]">{t('wantUnlimited')}</p>
+                <Link
+                  href="/signup"
+                  className="text-sm font-medium whitespace-nowrap text-[#4A9FD8]"
+                >
+                  {t('signUpFree')}
+                </Link>
               </div>
             </div>
           </div>

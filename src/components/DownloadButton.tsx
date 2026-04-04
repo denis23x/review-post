@@ -1,6 +1,7 @@
 'use client';
 
 import { Download } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/cn';
 
 interface DownloadButtonProps {
@@ -8,9 +9,11 @@ interface DownloadButtonProps {
   filename?: string;
 }
 
-export function DownloadButton({ blobUrl, filename = 'Review to Post.png' }: DownloadButtonProps) {
+export function DownloadButton({ blobUrl, filename }: DownloadButtonProps) {
+  const t = useTranslations('download');
+
   return (
-    <a href={blobUrl} download={filename} className="contents">
+    <a href={blobUrl} download={filename ?? t('filename')} className="contents">
       <button
         type="button"
         className={cn(
@@ -19,7 +22,7 @@ export function DownloadButton({ blobUrl, filename = 'Review to Post.png' }: Dow
         )}
       >
         <Download size={16} />
-        Download Image
+        {t('button')}
       </button>
     </a>
   );

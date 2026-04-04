@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/cn';
 import type { Theme } from '@/lib/validators';
 
@@ -8,13 +9,15 @@ interface ThemeSelectorProps {
   onChange: (theme: Theme) => void;
 }
 
-const themes: { value: Theme; label: string }[] = [
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'brand', label: 'Brand (customizable)' },
-];
-
 export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
+  const t = useTranslations('themes');
+
+  const themes: { value: Theme; label: string }[] = [
+    { value: 'light', label: t('light') },
+    { value: 'dark', label: t('dark') },
+    { value: 'brand', label: t('brand') },
+  ];
+
   return (
     <div className="flex flex-wrap gap-4">
       {themes.map((theme) => (

@@ -2,12 +2,16 @@
 
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/cn';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
 export default function WaitlistForm() {
+  const t = useTranslations('signup.form');
+  const tValidation = useTranslations('validation');
+
   const [email, setEmail] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [formState, setFormState] = useState<FormState>('idle');
@@ -16,8 +20,8 @@ export default function WaitlistForm() {
   const [agreedError, setAgreedError] = useState('');
 
   const validateEmail = (value: string): string => {
-    if (!value.trim()) return 'Email is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Enter a valid email address';
+    if (!value.trim()) return tValidation('emailRequired');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return tValidation('emailInvalid');
     return '';
   };
 
@@ -35,7 +39,7 @@ export default function WaitlistForm() {
     e.preventDefault();
 
     const emailErr = validateEmail(email);
-    const agreedErr = agreed ? '' : 'You must agree to receive updates';
+    const agreedErr = agreed ? '' : tValidation('agreeRequired');
 
     if (emailErr || agreedErr) {
       setEmailError(emailErr);
@@ -59,15 +63,13 @@ export default function WaitlistForm() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error((data as { message?: string }).message || 'Something went wrong');
+        throw new Error((data as { message?: string }).message || t('errorDefault'));
       }
 
       setFormState('success');
     } catch (err) {
       setFormState('error');
-      setErrorMessage(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again.'
-      );
+      setErrorMessage(err instanceof Error ? err.message : t('errorDefault'));
     }
   };
 
@@ -75,10 +77,9 @@ export default function WaitlistForm() {
     return (
       <div className="flex flex-col items-center gap-4 rounded-[32px] border border-[#E5E7EB] p-4 py-8 text-center">
         <CheckCircle size={48} className="text-[#4A9FD8]" />
-        <h2 className="text-[22px] font-bold text-[#1a1a1a]">You&rsquo;re on the list!</h2>
+        <h2 className="text-[22px] font-bold text-[#1a1a1a]">{t('successTitle')}</h2>
         <p className="max-w-[320px] text-sm text-[#666666]">
-          Thanks for signing up. We&rsquo;ll email you at{' '}
-          <span className="font-medium text-[#1a1a1a]">{email}</span> when early access opens.
+          {t('successBody', { email })}
         </p>
       </div>
     );
@@ -89,14 +90,14 @@ export default function WaitlistForm() {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-[13px] font-medium text-[#1a1a1a]">
-            Email
+            {t('emailLabel')}
           </label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={handleEmailChange}
-            placeholder="you@example.com"
+            placeholder={t('emailPlaceholder')}
             autoComplete="email"
             disabled={formState === 'loading'}
             aria-invalid={!!emailError}
@@ -124,7 +125,7 @@ export default function WaitlistForm() {
           className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#E5E7EB] accent-[#4A9FD8]"
         />
         <span className={cn('text-[13px] text-[#666666]', agreedError && 'text-[#ef4444]')}>
-          I agree to receive product updates and early access invitations
+          {t('agreeText')}
         </span>
       </label>
 
@@ -142,10 +143,10 @@ export default function WaitlistForm() {
         type="submit"
         size="md"
         loading={formState === 'loading'}
-        loadingText="Reserving your spot…"
+        loadingText={t('loadingText')}
         className="mt-6 w-full"
       >
-        Reserve My Spot
+        {t('submitButton')}
       </Button>
     </form>
   );

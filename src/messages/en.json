@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "titleTemplate": "%s | Review to Post",
+    "home": {
+      "title": "Review to Post — Turn Google Reviews into Social Posts",
+      "description": "Paste a Google Maps link. AI picks your best review and generates a branded social media card. Download and post in seconds."
+    },
+    "demo": {
+      "title": "Free Demo — Try Review to Post",
+      "description": "Paste any Google Maps business link and get a branded social media card in seconds. No sign-up required. Free to try."
+    },
+    "signup": {
+      "title": "Join the Waitlist",
+      "description": "Join the Review to Post early access waitlist. Be first in line when we launch and use the product for free during development."
+    }
+  },
+  "navbar": {
+    "product": "Product",
+    "pricing": "Pricing",
+    "signUp": "Sign Up",
+    "tryFree": "Try Free →"
+  },
+  "footer": {
+    "tagline": "Turn your Google reviews into social posts. Automatically.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "demo": "Demo",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "copyright": "© 2026 Review to Post. All rights reserved."
+  },
+  "landing": {
+    "hero": {
+      "badgeAi": "Now with AI-powered captions",
+      "badgeBeta": "BETA",
+      "headline": "Turn your Google reviews\ninto branded social posts.",
+      "subheadline": "Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with caption — in seconds.",
+      "placeholder": "Paste your Google Maps URL...",
+      "cta": "Generate Posts →",
+      "card1Quote": "Best coffee in town! The pour-over is incredible and the staff is always so friendly.",
+      "card1Author": "Maria S. · Local Guide",
+      "card2Quote": "Absolutely transformed my morning routine. The atmosphere is unmatched anywhere else.",
+      "card2Author": "Jake T. · 52 reviews",
+      "card3Quote": "Five stars isn't enough! Every visit has been perfect. The team truly cares.",
+      "card3Author": "Linda K. · 20 reviews"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Three simple steps to turn reviews into social gold",
+      "step1Title": "Paste your link",
+      "step1Body": "Drop in your Google Maps business URL. We'll fetch all your latest reviews instantly.",
+      "step2Title": "Pick your style",
+      "step2Body": "Choose from dark, light, or branded themes. Customize colors to match your brand identity.",
+      "step3Title": "Download & share",
+      "step3Body": "Get a ready-to-post image with AI-written caption. Share to Instagram, Facebook, or LinkedIn."
+    },
+    "proof": {
+      "title": "Trusted by 2,000+ businesses",
+      "subtitle": "Join local businesses turning their best reviews into social media content",
+      "postsGenerated": "Posts Generated",
+      "averageRating": "Average Rating",
+      "socialImpressions": "Social Impressions",
+      "pill1": "Link → post in 30 seconds",
+      "pill2": "Publish real reviews",
+      "pill3": "See the before & after",
+      "pill4": "Your clients already wrote your posts",
+      "pill5": "30 seconds",
+      "pill6": "No designer, no copywriter",
+      "pill7": "Content without a budget",
+      "pill8": "Free content"
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Start free. Upgrade when you're ready.",
+      "mostPopular": "Most Popular",
+      "perMonth": "/month",
+      "free": {
+        "name": "Free",
+        "amount": "$0",
+        "desc": "Perfect for trying it out",
+        "feature0": "✓ 3 posts per month",
+        "feature1": "✓ 1 theme",
+        "feature2": "✓ Watermark included",
+        "cta": "Get Started"
+      },
+      "solo": {
+        "name": "Solo",
+        "amount": "$19",
+        "desc": "For solopreneurs & freelancers",
+        "feature0": "✓ 30 posts per month",
+        "feature1": "✓ All themes",
+        "feature2": "✓ No watermark",
+        "feature3": "✓ AI captions",
+        "cta": "Start Free Trial"
+      },
+      "business": {
+        "name": "Business",
+        "amount": "$49",
+        "desc": "For growing businesses",
+        "feature0": "✓ Unlimited posts",
+        "feature1": "✓ All themes + custom branding",
+        "feature2": "✓ AI captions",
+        "feature3": "✓ Auto-schedule to social",
+        "feature4": "✓ Priority support",
+        "cta": "Start Free Trial"
+      },
+      "agency": {
+        "name": "Agency",
+        "amount": "$149",
+        "desc": "For agencies & multi-location",
+        "feature0": "✓ Everything in Business",
+        "feature1": "✓ 10 business locations",
+        "feature2": "✓ Team collaboration",
+        "feature3": "✓ White-label exports",
+        "feature4": "✓ API access",
+        "cta": "Contact Sales"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How does Review to Post work?",
+      "a1": "Simply paste your Google Maps business URL, choose a design theme, and Review to Post will automatically generate a branded social media graphic featuring your best review, complete with an AI-written caption.",
+      "q2": "Can I customize the design to match my brand?",
+      "a2": "Yes! On Business and Agency plans you can set your own brand colors and logo. All plans include multiple theme options to match your aesthetic.",
+      "q3": "Which social media platforms are supported?",
+      "a3": "Review to Post generates 1080×1080 images optimized for Instagram, Facebook, and LinkedIn. The AI-written caption is ready to copy and post.",
+      "q4": "Do I need design skills to use Review to Post?",
+      "a4": "Not at all. Everything is automated — just paste a URL and download your finished graphic. No design experience required.",
+      "q5": "Can I cancel my subscription anytime?",
+      "a5": "Yes. You can cancel anytime from your account settings. No contracts, no cancellation fees."
+    },
+    "cta": {
+      "headline": "Ready to turn reviews into revenue?",
+      "body": "Join 2,000+ businesses already using Review to Post. Start free — no credit card required.",
+      "button": "Get Started Free"
+    }
+  },
+  "demo": {
+    "pageTitle": "Try Review to Post — Free",
+    "pageSubtitle": "See how your reviews look as branded social posts. No sign-up required.",
+    "stepInput": {
+      "title": "Step 1: Paste your Google Maps URL",
+      "label": "Business URL",
+      "placeholder": "https://maps.google.com/...",
+      "chooseTheme": "Choose a theme",
+      "submit": "Generate Posts →"
+    },
+    "stepLoading": {
+      "title": "Step 2: Generating your post",
+      "remaining": "{remaining} of {limit} free reviews remaining today",
+      "fetchingReviews": "Fetching business reviews...",
+      "selectingReview": "Selecting best reviews...",
+      "generatingGraphic": "Generating graphic...",
+      "disclaimer": "This service relies on xAI infrastructure, which may have regional availability restrictions. Verify that your location is supported."
+    },
+    "stepResult": {
+      "title": "Step 3: Your post is ready!",
+      "tryAnother": "Try another URL",
+      "aiCaption": "AI-Generated Caption",
+      "copied": "Copied!",
+      "copyCaption": "Copy Caption",
+      "changeCaption": "Change Caption",
+      "regenerating": "Regenerating...",
+      "changeThemeLabel": "Change theme",
+      "changeThemeButton": "Change Theme",
+      "wantUnlimited": "Want unlimited posts?",
+      "signUpFree": "Sign up free →"
+    },
+    "stepIndicator": {
+      "pasteUrl": "Paste URL",
+      "generating": "Generating",
+      "yourPost": "Your Post"
+    }
+  },
+  "signup": {
+    "brandingAside": "Review to Post branding",
+    "comingTitle": "We're building something great",
+    "comingSub": "Here's what's coming",
+    "feature0": "AI-powered review scoring",
+    "feature1": "Multiple themes and detailed customization",
+    "feature2": "Bulk export for teams and agencies",
+    "feature3": "Scheduled posting to social platforms",
+    "feature4": "Multi-location business support",
+    "heading": "Join the waitlist",
+    "subheading": "Be among the first to get access. Waitlist members get free use of the product while it's in development.",
+    "form": {
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "agreeText": "I agree to receive product updates and early access invitations",
+      "submitButton": "Reserve My Spot",
+      "loadingText": "Reserving your spot…",
+      "successTitle": "You're on the list!",
+      "successBody": "Thanks for signing up. We'll email you at {email} when early access opens.",
+      "errorDefault": "Something went wrong. Please try again."
+    }
+  },
+  "validation": {
+    "urlRequired": "Please paste a Google Maps URL",
+    "urlInvalid": "This doesn't look like a Google Maps link",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter a valid email address",
+    "agreeRequired": "You must agree to receive updates"
+  },
+  "themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "brand": "Brand (customizable)"
+  },
+  "card": {
+    "imageAlt": "Generated post card for {businessName} — {rating} stars"
+  },
+  "download": {
+    "button": "Download Image",
+    "filename": "Review to Post.png"
+  }
+}

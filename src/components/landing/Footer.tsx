@@ -1,7 +1,10 @@
 import { MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations('footer');
+
   return (
     <footer className="border-t border-[#E5E7EB] bg-white px-6 pt-12 pb-8 md:px-10">
       <div className="mx-auto max-w-[1440px]">
@@ -11,45 +14,43 @@ export function Footer() {
               <MapPin size={16} className="h-8 w-8 fill-[#4A9FD8] text-white" />
               <span className="text-sm font-bold text-[#1a1a1a]">Review to Post</span>
             </div>
-            <p className="mt-3 text-sm text-[#666666]">
-              Turn your Google reviews into social posts. Automatically.
-            </p>
+            <p className="mt-3 text-sm text-[#666666]">{t('tagline')}</p>
           </div>
           <div className="flex gap-12 text-sm">
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[#1a1a1a]">Product</p>
+              <p className="font-semibold text-[#1a1a1a]">{t('product')}</p>
               <Link href="/demo" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
-                Demo
+                {t('demo')}
               </Link>
               <Link
-                href="#pricing"
+                href="/#pricing"
                 className="text-[#666666] transition-colors hover:text-[#1a1a1a]"
               >
-                Pricing
+                {t('pricing')}
               </Link>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[#1a1a1a]">Company</p>
+              <p className="font-semibold text-[#1a1a1a]">{t('company')}</p>
               <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
-                About
+                {t('about')}
               </a>
               <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
-                Contact
+                {t('contact')}
               </a>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[#1a1a1a]">Legal</p>
+              <p className="font-semibold text-[#1a1a1a]">{t('legal')}</p>
               <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
-                Terms
+                {t('terms')}
               </a>
               <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
-                Privacy
+                {t('privacy')}
               </a>
             </div>
           </div>
         </div>
         <div className="mt-8 border-t border-[#E5E7EB] pt-6 text-xs text-[#888888]">
-          &copy; 2026 Review to Post. All rights reserved.
+          {t('copyright')}
         </div>
       </div>
     </footer>

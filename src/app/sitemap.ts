@@ -2,19 +2,22 @@ import type { MetadataRoute } from 'next';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://localhost:3000';
 
+const locales = ['en', 'ru'] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: siteUrl,
+  const routes = ['', '/demo'] as const;
+
+  return locales.flatMap((locale) =>
+    routes.map((route) => ({
+      url: `${siteUrl}/${locale}${route}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${siteUrl}/demo`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-  ];
+      changeFrequency: (route === '' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
+      priority: route === '' ? 1 : 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${siteUrl}/${l}${route}`])
+        ),
+      },
+    }))
+  );
 }
