@@ -55,7 +55,8 @@ export function DemoStepInput() {
                   placeholder="https://maps.google.com/..."
                   className={cn(
                     'h-11 w-full rounded-full border border-[#E5E7EB] bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none',
-                    field.state.meta.errors.length && 'border-[#ef4444]'
+                    field.state.meta.errors.length &&
+                      'border-[#ef4444] transition-all focus:border-[#ef4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]'
                   )}
                   autoComplete="off"
                 />
