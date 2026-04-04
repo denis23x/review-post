@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { ThemeSelector } from '@/components/ThemeSelector';
@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
 export function DemoStepInput() {
   const t = useTranslations('demo.stepInput');
   const tValidation = useTranslations('validation');
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const initialUrl = searchParams.get('url') ?? '';
   const { theme, error, setTheme, handleGenerate } = useDemoStore();
@@ -26,7 +27,7 @@ export function DemoStepInput() {
     defaultValues: { url: initialUrl },
     validatorAdapter: zodValidator(),
     onSubmit: async ({ value }) => {
-      await handleGenerate(value.url);
+      await handleGenerate(value.url, locale);
     },
   });
 

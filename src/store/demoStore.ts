@@ -49,7 +49,7 @@ interface DemoState {
 interface DemoActions {
   setTheme: (theme: Theme) => void;
   setActiveCardIndex: (index: number) => void;
-  handleGenerate: (url: string) => Promise<void>;
+  handleGenerate: (url: string, locale: string) => Promise<void>;
   handleRegenerate: () => Promise<void>;
   handleRegenerateCaption: () => Promise<void>;
   handleCopy: () => Promise<void>;
@@ -77,7 +77,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
 
   setActiveCardIndex: (index) => set({ activeCardIndex: index, copied: false }),
 
-  handleGenerate: async (url) => {
+  handleGenerate: async (url, locale) => {
     if (getWeeklyUsageCount() >= USAGE_LIMIT) {
       set({ error: 'Only 3 reviews per week are available during the MVP stage.' });
       return;
@@ -95,7 +95,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       const reviewsRes = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, locale }),
       });
       if (!reviewsRes.ok) {
         const data = await reviewsRes.json().catch(() => ({}));

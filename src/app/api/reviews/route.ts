@@ -115,13 +115,14 @@ export async function POST(req: Request) {
     return Response.json({ error: 'url is required' }, { status: 400 });
   }
 
+  const placeLanguage: string = body.locale ?? 'en';
+
   const resolvedUrl = await expandUrl(body.url as string);
   const searchQuery = extractSearchQuery(resolvedUrl);
   const coords = extractCoordinates(resolvedUrl);
 
   // ── Step 1: resolve Place ID ────────────────────────────────────────────────
   let placeId: string;
-  let placeLanguage: string;
 
   try {
     const searchBody: Record<string, unknown> = { textQuery: searchQuery };
@@ -182,7 +183,6 @@ export async function POST(req: Request) {
     const [findPlace] = findData.places;
 
     placeId = findPlace.id as string;
-    placeLanguage = findPlace.displayName.languageCode as string;
   } catch {
     return Response.json({ error: 'google api error' }, { status: 500 });
   }
