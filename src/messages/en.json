@@ -142,6 +142,15 @@
   "demo": {
     "pageTitle": "Try Review to Post — Free",
     "pageSubtitle": "See how your reviews look as branded social posts. No sign-up required.",
+    "errors": {
+      "usageLimit": "Only 3 reviews per day are available during the MVP stage.",
+      "notFound": "Could not find this business. Try a different URL.",
+      "noReviews": "This business has no reviews yet. Try a different URL.",
+      "scoreFailed": "AI scoring failed. Try again.",
+      "cardFailed": "Card generation failed. Try again.",
+      "captionFailed": "Caption regeneration failed. Try again.",
+      "unknown": "Something went wrong."
+    },
     "stepInput": {
       "title": "Step 1: Paste your Google Maps URL",
       "label": "Business URL",

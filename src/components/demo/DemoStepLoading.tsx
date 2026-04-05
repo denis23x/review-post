@@ -2,13 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 import { LoadingStepItem } from '@/components/demo/LoadingStepItem';
-import { useDemoStore, getWeeklyUsageCount, USAGE_LIMIT } from '@/store/demoStore';
+import { useDemoStore, getDailyUsageCount, USAGE_LIMIT } from '@/store/demoStore';
 import { Shield } from 'lucide-react';
 
 export function DemoStepLoading() {
   const t = useTranslations('demo.stepLoading');
   const loadingSteps = useDemoStore((s) => s.loadingSteps);
-  const usageCount = getWeeklyUsageCount();
+  const usageCount = getDailyUsageCount();
   const remaining = USAGE_LIMIT - usageCount;
 
   const LOADING_STEPS: { key: 'reviews' | 'score' | 'card'; label: string }[] = [

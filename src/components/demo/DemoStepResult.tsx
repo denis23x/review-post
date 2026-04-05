@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 
 export function DemoStepResult() {
   const t = useTranslations('demo.stepResult');
+  const tErrors = useTranslations('demo.errors');
   const {
     results,
     activeCardIndex,
@@ -106,7 +107,7 @@ export function DemoStepResult() {
                 <Button
                   variant="secondary"
                   size="md"
-                  onClick={handleRegenerateCaption}
+                  onClick={() => handleRegenerateCaption({ captionFailed: tErrors('captionFailed'), unknown: tErrors('unknown') })}
                   loading={isRegeneratingCaption}
                   loadingText={t('regenerating')}
                   className="gap-1.5"
@@ -124,7 +125,7 @@ export function DemoStepResult() {
               </div>
 
               {error && (
-                <div className="rounded-[8px] border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
+                <div className="border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
                   {error}
                 </div>
               )}
@@ -134,7 +135,7 @@ export function DemoStepResult() {
                 <Button
                   variant="secondary"
                   size="md"
-                  onClick={handleRegenerate}
+                  onClick={() => handleRegenerate({ cardFailed: tErrors('cardFailed'), unknown: tErrors('unknown') })}
                   loading={isRegenerating}
                   loadingText={t('regenerating')}
                   className="gap-1.5"

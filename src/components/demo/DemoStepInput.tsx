@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
 export function DemoStepInput() {
   const t = useTranslations('demo.stepInput');
   const tValidation = useTranslations('validation');
+  const tErrors = useTranslations('demo.errors');
   const locale = useLocale();
   const searchParams = useSearchParams();
   const initialUrl = searchParams.get('url') ?? '';
@@ -27,7 +28,14 @@ export function DemoStepInput() {
     defaultValues: { url: initialUrl },
     validatorAdapter: zodValidator(),
     onSubmit: async ({ value }) => {
-      await handleGenerate(value.url, locale);
+      await handleGenerate(value.url, locale, {
+        usageLimit: tErrors('usageLimit'),
+        notFound: tErrors('notFound'),
+        noReviews: tErrors('noReviews'),
+        scoreFailed: tErrors('scoreFailed'),
+        cardFailed: tErrors('cardFailed'),
+        unknown: tErrors('unknown'),
+      });
     },
   });
 
@@ -83,7 +91,7 @@ export function DemoStepInput() {
         </div>
 
         {error && (
-          <div className="rounded-[8px] border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
+          <div className="border-l-4 border-[#ef4444] bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
             {error}
           </div>
         )}

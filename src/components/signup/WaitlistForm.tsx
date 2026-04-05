@@ -78,9 +78,7 @@ export default function WaitlistForm() {
       <div className="flex flex-col items-center gap-4 rounded-[32px] border border-[#E5E7EB] p-4 py-8 text-center">
         <CheckCircle size={48} className="text-[#4A9FD8]" />
         <h2 className="text-[22px] font-bold text-[#1a1a1a]">{t('successTitle')}</h2>
-        <p className="max-w-[320px] text-sm text-[#666666]">
-          {t('successBody', { email })}
-        </p>
+        <p className="max-w-[320px] text-sm text-[#666666]">{t('successBody', { email })}</p>
       </div>
     );
   }
@@ -130,10 +128,7 @@ export default function WaitlistForm() {
       </label>
 
       {formState === 'error' && (
-        <p
-          role="alert"
-          className="mt-4 rounded-[8px] bg-[#fef2f2] px-4 py-3 text-[13px] text-[#ef4444]"
-        >
+        <p role="alert" className="mt-4 bg-[#fef2f2] px-4 py-3 text-[13px] text-[#ef4444]">
           {errorMessage}
         </p>
       )}

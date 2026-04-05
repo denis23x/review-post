@@ -1,17 +1,17 @@
 import { create } from 'zustand';
 import type { Theme } from '@/lib/validators';
 
-const USAGE_COOKIE = 'rp_weekly_usage';
-export const USAGE_LIMIT = process.env.NEXT_PUBLIC_SITE_URL === 'http://localhost:3000' ? 999 : 3;
+const USAGE_COOKIE = 'rp_daily_usage';
+export const USAGE_LIMIT = process.env.NEXT_PUBLIC_SITE_URL === 'http://localhost:3000' ? 3 : 3;
 
-export function getWeeklyUsageCount(): number {
+export function getDailyUsageCount(): number {
   if (typeof document === 'undefined') return 0;
   const match = document.cookie.match(new RegExp(`(?:^|; )${USAGE_COOKIE}=([^;]*)`));
   return match ? parseInt(match[1], 10) || 0 : 0;
 }
 
-function incrementWeeklyUsageCount(): void {
-  const count = getWeeklyUsageCount() + 1;
+function incrementDailyUsageCount(): void {
+  const count = getDailyUsageCount() + 1;
   const expires = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toUTCString();
   document.cookie = `${USAGE_COOKIE}=${count}; expires=${expires}; path=/; SameSite=Lax`;
 }
@@ -47,12 +47,31 @@ interface DemoState {
   copied: boolean;
 }
 
+export interface GenerateErrors {
+  usageLimit: string;
+  notFound: string;
+  noReviews: string;
+  scoreFailed: string;
+  cardFailed: string;
+  unknown: string;
+}
+
+export interface RegenerateErrors {
+  cardFailed: string;
+  unknown: string;
+}
+
+export interface RegenerateCaptionErrors {
+  captionFailed: string;
+  unknown: string;
+}
+
 interface DemoActions {
   setTheme: (theme: Theme) => void;
   setActiveCardIndex: (index: number) => void;
-  handleGenerate: (url: string, locale: string) => Promise<void>;
-  handleRegenerate: () => Promise<void>;
-  handleRegenerateCaption: () => Promise<void>;
+  handleGenerate: (url: string, locale: string, errors: GenerateErrors) => Promise<void>;
+  handleRegenerate: (errors: RegenerateErrors) => Promise<void>;
+  handleRegenerateCaption: (errors: RegenerateCaptionErrors) => Promise<void>;
   handleCopy: () => Promise<void>;
   handleReset: () => void;
 }
@@ -78,13 +97,13 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
 
   setActiveCardIndex: (index) => set({ activeCardIndex: index, copied: false }),
 
-  handleGenerate: async (url, locale) => {
-    if (getWeeklyUsageCount() >= USAGE_LIMIT) {
-      set({ error: 'Only 3 reviews per week are available during the MVP stage.' });
+  handleGenerate: async (url, locale, errors) => {
+    if (getDailyUsageCount() >= USAGE_LIMIT) {
+      set({ error: errors.usageLimit });
       return;
     }
 
-    incrementWeeklyUsageCount();
+    incrementDailyUsageCount();
 
     set({
       error: null,
@@ -100,12 +119,12 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       });
       if (!reviewsRes.ok) {
         const data = await reviewsRes.json().catch(() => ({}));
-        throw new Error(data.error ?? 'Could not find this business. Try a different URL.');
+        throw new Error(data.error ?? errors.notFound);
       }
       const reviewsData = await reviewsRes.json();
 
       if (!reviewsData.reviews?.length) {
-        throw new Error('This business has no reviews yet. Try a different URL.');
+        throw new Error(errors.noReviews);
       }
 
       set({ loadingSteps: { reviews: 'done', score: 'active', card: 'pending' } });
@@ -117,7 +136,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       });
       if (!scoreRes.ok) {
         const data = await scoreRes.json().catch(() => ({}));
-        throw new Error(data.error ?? 'AI scoring failed. Try again.');
+        throw new Error(data.error ?? errors.scoreFailed);
       }
       const scoreData = await scoreRes.json();
       if (scoreData.error) {
@@ -149,7 +168,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
               theme,
             }),
           });
-          if (!cardRes.ok) throw new Error('Card generation failed. Try again.');
+          if (!cardRes.ok) throw new Error(errors.cardFailed);
           const blob = await cardRes.blob();
           return {
             blobUrl: URL.createObjectURL(blob),
@@ -172,12 +191,12 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
 
       setTimeout(() => set({ step: 'result' }), 400);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong.';
+      const msg = err instanceof Error ? err.message : errors.unknown;
       set({ error: msg, step: 'input', loadingSteps: INITIAL_LOADING_STEPS });
     }
   },
 
-  handleRegenerate: async () => {
+  handleRegenerate: async (errors) => {
     const { results, isRegenerating, theme } = get();
     if (!results.length || isRegenerating) return;
     set({ isRegenerating: true, error: null });
@@ -196,7 +215,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
               theme,
             }),
           });
-          if (!cardRes.ok) throw new Error('Card generation failed. Try again.');
+          if (!cardRes.ok) throw new Error(errors.cardFailed);
           const blob = await cardRes.blob();
           const newBlobUrl = URL.createObjectURL(blob);
           URL.revokeObjectURL(result.blobUrl);
@@ -205,14 +224,14 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       );
       set({ results: newResults });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong.';
+      const msg = err instanceof Error ? err.message : errors.unknown;
       set({ error: msg });
     } finally {
       set({ isRegenerating: false });
     }
   },
 
-  handleRegenerateCaption: async () => {
+  handleRegenerateCaption: async (errors) => {
     const { results, activeCardIndex, isRegeneratingCaption } = get();
     const result = results[activeCardIndex];
     if (!result || isRegeneratingCaption) return;
@@ -226,7 +245,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? 'Caption regeneration failed. Try again.');
+        throw new Error(data.error ?? errors.captionFailed);
       }
       const data = await res.json();
       const updatedResults = results.map((r, i) =>
@@ -234,7 +253,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
       );
       set({ results: updatedResults });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong.';
+      const msg = err instanceof Error ? err.message : errors.unknown;
       set({ error: msg });
     } finally {
       set({ isRegeneratingCaption: false });
