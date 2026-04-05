@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import type { Theme } from '@/lib/validators';
 
 const USAGE_COOKIE = 'rp_weekly_usage';
-export const USAGE_LIMIT = 300;
+export const USAGE_LIMIT = process.env.NEXT_PUBLIC_SITE_URL === 'http://localhost:3000' ? 999 : 3;
 
 export function getWeeklyUsageCount(): number {
   if (typeof document === 'undefined') return 0;

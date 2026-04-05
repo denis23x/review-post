@@ -27,7 +27,7 @@ export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
           onClick={() => onChange(theme.value)}
           className={cn(
             'flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium',
-            'border transition-all duration-150 outline-none',
+            'overflow-hidden border transition-all duration-150 outline-none',
             'focus-visible:ring-2 focus-visible:ring-[#4A9FD8]/50',
             value === theme.value
               ? 'border-[#4A9FD8] bg-[#EDF6FC] text-[#4A9FD8]'
@@ -43,7 +43,7 @@ export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
           >
             {value === theme.value && <span className="h-1 w-1 rounded-full bg-white" />}
           </span>
-          {theme.label}
+          <span className="truncate">{theme.label}</span>
         </button>
       ))}
     </div>

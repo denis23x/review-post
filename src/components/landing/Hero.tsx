@@ -64,29 +64,80 @@ export function Hero() {
         {/* Decorative rings — top right */}
         <div
           className="pointer-events-none absolute"
-          style={{ width: 450, height: 450, right: -170, top: -256, borderRadius: '50%', border: '18px solid #4A9FD8', opacity: 0.04 }}
+          style={{
+            width: 450,
+            height: 450,
+            right: -170,
+            top: -256,
+            borderRadius: '50%',
+            border: '18px solid #4A9FD8',
+            opacity: 0.04,
+          }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ width: 320, height: 320, right: -105, top: -191, borderRadius: '50%', border: '16px solid #4A9FD8', opacity: 0.05 }}
+          style={{
+            width: 320,
+            height: 320,
+            right: -105,
+            top: -191,
+            borderRadius: '50%',
+            border: '16px solid #4A9FD8',
+            opacity: 0.05,
+          }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ width: 200, height: 200, right: -45, top: -131, borderRadius: '50%', border: '12px solid #4A9FD8', opacity: 0.06 }}
+          style={{
+            width: 200,
+            height: 200,
+            right: -45,
+            top: -131,
+            borderRadius: '50%',
+            border: '12px solid #4A9FD8',
+            opacity: 0.06,
+          }}
         />
 
         {/* Decorative diamonds */}
         <div
-          className="pointer-events-none absolute"
-          style={{ width: 280, height: 280, left: -70, top: -150, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.06, transform: 'rotate(45deg)' }}
+          className="pointer-events-none absolute hidden sm:block"
+          style={{
+            width: 280,
+            height: 280,
+            left: -70,
+            top: -150,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.06,
+            transform: 'rotate(45deg)',
+          }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ width: 363, height: 363, right: -104, top: 759, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.08, transform: 'rotate(45deg)' }}
+          style={{
+            width: 363,
+            height: 363,
+            right: -104,
+            top: 759,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.08,
+            transform: 'rotate(45deg)',
+          }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ width: 180, height: 180, right: 127, top: 493, backgroundColor: '#4A9FD8', borderRadius: 4, opacity: 0.04, transform: 'rotate(45deg)' }}
+          style={{
+            width: 180,
+            height: 180,
+            right: 127,
+            top: 493,
+            backgroundColor: '#4A9FD8',
+            borderRadius: 4,
+            opacity: 0.04,
+            transform: 'rotate(45deg)',
+          }}
         />
 
         {/* Badges */}
@@ -102,7 +153,7 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="relative mx-auto max-w-[900px] whitespace-pre-line text-center text-[56px] leading-[1.1] font-extrabold tracking-[-2px] text-[#1a1a1a]">
+        <h1 className="relative mx-auto max-w-[900px] text-center text-[34px] leading-[1.1] font-extrabold tracking-[-2px] whitespace-pre-line text-[#1a1a1a] sm:text-[56px]">
           {t('headline')}
         </h1>
 
@@ -114,7 +165,7 @@ export function Hero() {
         {/* Input + CTA */}
         <form
           onSubmit={handleSubmit}
-          className="relative flex items-center gap-3 rounded-full bg-[#4A9FD8] p-1.5"
+          className="relative flex items-center gap-1.5 rounded-[32px] bg-[#4A9FD8] p-1.5 sm:gap-3"
           style={{ boxShadow: '0 4px 16px rgba(74,159,216,0.20)' }}
         >
           <input
@@ -122,7 +173,7 @@ export function Hero() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder={t('placeholder')}
-            className="h-11 w-[300px] rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none sm:w-[420px]"
+            className="h-11 truncate rounded-full bg-white px-5 text-sm text-[#1a1a1a] placeholder-[#1a1a1a]/40 outline-none sm:w-[300px] sm:w-[420px]"
           />
           <button
             type="submit"
@@ -133,15 +184,18 @@ export function Hero() {
         </form>
 
         {/* Example review cards */}
-        <div className="relative mt-4 flex gap-6 overflow-x-auto pb-2">
+        <div className="relative mt-4 flex flex-wrap items-center justify-center gap-6 pb-2">
           {EXAMPLE_CARDS.map((card, i) => (
             <div
               key={i}
-              className="flex w-[320px] shrink-0 flex-col gap-4 rounded-[16px] p-6"
+              className="flex h-[225px] w-[320px] shrink-0 flex-col gap-4 rounded-[16px] p-6"
               style={{
                 background: i === activeIndex ? '#F0F7FC' : '#FFFFFF',
                 border: i === activeIndex ? '1.5px solid #4A9FD8' : '1px solid #E5E7EB',
-                boxShadow: i === activeIndex ? '0 2px 8px rgba(74,159,216,0.10)' : '0 2px 8px rgba(0,0,0,0.05)',
+                boxShadow:
+                  i === activeIndex
+                    ? '0 2px 8px rgba(74,159,216,0.10)'
+                    : '0 2px 8px rgba(0,0,0,0.05)',
                 transition: 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
               }}
             >

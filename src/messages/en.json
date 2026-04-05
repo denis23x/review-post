@@ -35,11 +35,11 @@
   },
   "landing": {
     "hero": {
-      "badgeAi": "Now with AI-powered captions",
+      "badgeAi": "AI-powered",
       "badgeBeta": "BETA",
       "headline": "Turn your Google reviews\ninto branded social posts",
       "subheadline": "Paste a Google Maps link. Pick a style. Get a stunning, share-ready graphic with caption — in seconds.",
-      "placeholder": "Paste your Google Maps URL...",
+      "placeholder": "Paste your Google Maps URL",
       "cta": "Generate Posts →",
       "card1Quote": "Best coffee in town! The pour-over is incredible and the staff is always so friendly.",
       "card1Author": "Maria S. · Local Guide",
@@ -145,7 +145,7 @@
     "stepInput": {
       "title": "Step 1: Paste your Google Maps URL",
       "label": "Business URL",
-      "placeholder": "https://maps.google.com/...",
+      "placeholder": "https://maps.google.com",
       "chooseTheme": "Choose a theme",
       "submit": "Generate Posts →"
     },
@@ -208,7 +208,7 @@
   "themes": {
     "light": "Light",
     "dark": "Dark",
-    "brand": "Brand (customizable)"
+    "brand": "Brand (will be available in an update)"
   },
   "card": {
     "imageAlt": "Generated post card for {businessName} — {rating} stars"

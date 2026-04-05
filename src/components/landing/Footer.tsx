@@ -38,12 +38,18 @@ export async function Footer() {
                 {t('contact')}
               </a>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 overflow-hidden">
               <p className="font-semibold text-[#1a1a1a]">{t('legal')}</p>
-              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
+              <a
+                href="#"
+                className="truncate text-[#666666] transition-colors hover:text-[#1a1a1a]"
+              >
                 {t('terms')}
               </a>
-              <a href="#" className="text-[#666666] transition-colors hover:text-[#1a1a1a]">
+              <a
+                href="#"
+                className="truncate text-[#666666] transition-colors hover:text-[#1a1a1a]"
+              >
                 {t('privacy')}
               </a>
             </div>

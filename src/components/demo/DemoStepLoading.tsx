@@ -18,7 +18,7 @@ export function DemoStepLoading() {
   ];
 
   return (
-    <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
+    <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-4 sm:p-8">
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold text-[#1a1a1a]">{t('title')}</h2>
       </div>
@@ -30,7 +30,7 @@ export function DemoStepLoading() {
           <LoadingStepItem key={key} state={loadingSteps[key]} label={label} />
         ))}
       </div>
-      <div className="mt-6 flex flex-wrap items-center gap-2 rounded-[32px] border border-[#E5E7EB] bg-[#FFFFFF] p-3">
+      <div className="mt-6 flex flex-wrap items-center gap-2 rounded-[24px] border border-[#E5E7EB] bg-[#FFFFFF] p-3 sm:rounded-[32px]">
         <Shield size={16} className="shrink-0 text-[#000000]" />
         <p className="text-sm text-[#000000]">{t('disclaimer')}</p>
       </div>

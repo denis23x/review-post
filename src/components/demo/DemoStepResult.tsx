@@ -55,7 +55,7 @@ export function DemoStepResult() {
         {t('tryAnother')}
       </button>
 
-      <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-8">
+      <div className="w-full rounded-[16px] border border-[#E5E7EB] bg-[#F7F8FA] p-4 sm:p-8">
         <h2 className="mb-6 text-xl font-semibold text-[#1a1a1a]">{t('title')}</h2>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
           <div className="flex flex-1 flex-col gap-3">
@@ -93,7 +93,7 @@ export function DemoStepResult() {
                   {result.hashtags.map((hashtag) => `#${hashtag}`).join(' ')}
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <button
                   onClick={handleCopy}
                   className={cn(
@@ -143,7 +143,7 @@ export function DemoStepResult() {
                   {t('changeThemeButton')}
                 </Button>
               </div>
-              <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#E5E7EB] bg-white px-5 py-3">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-[16px] border border-[#E5E7EB] bg-white px-5 py-3">
                 <p className="text-[15px] font-medium text-[#1a1a1a]">{t('wantUnlimited')}</p>
                 <Link
                   href="/signup"

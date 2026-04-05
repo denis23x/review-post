@@ -14,7 +14,9 @@ export default async function DemoPage({ params }: { params: Promise<{ locale: s
 
       <main className="mx-auto flex max-w-[1040px] flex-col items-center gap-12 px-6 py-12">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-[#1a1a1a]">{t('pageTitle')}</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
+            {t('pageTitle')}
+          </h1>
           <p className="mt-3 text-base text-[#666666]">{t('pageSubtitle')}</p>
         </div>
 

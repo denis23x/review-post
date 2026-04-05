@@ -35,11 +35,11 @@
   },
   "landing": {
     "hero": {
-      "badgeAi": "Теперь с подписями на основе ИИ",
+      "badgeAi": "На базе ИИ",
       "badgeBeta": "БЕТА",
       "headline": "Превращайте отзывы Google в социальные посты",
       "subheadline": "Вставьте ссылку Google Maps. Выберите стиль. Получите готовую к публикации графику с подписью — за секунды.",
-      "placeholder": "Вставьте ссылку Google Maps...",
+      "placeholder": "Вставьте ссылку Google Maps",
       "cta": "Создать посты →",
       "card1Quote": "Лучший кофе в городе! Пуровер невероятный, а персонал всегда такой дружелюбный.",
       "card1Author": "Мария С. · Местный гид",
@@ -145,7 +145,7 @@
     "stepInput": {
       "title": "Шаг 1: Вставьте ссылку Google Maps",
       "label": "URL бизнеса",
-      "placeholder": "https://maps.google.com/...",
+      "placeholder": "https://maps.google.com",
       "chooseTheme": "Выберите тему",
       "submit": "Создать посты →"
     },
@@ -208,7 +208,7 @@
   "themes": {
     "light": "Светлая",
     "dark": "Тёмная",
-    "brand": "Брендовая (настройка будет доступна в обновлении)"
+    "brand": "Брендовая (будет доступно в обновлении)"
   },
   "card": {
     "imageAlt": "Созданная карточка поста для {businessName} — {rating} звёзд"
