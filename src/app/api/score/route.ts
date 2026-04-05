@@ -9,12 +9,12 @@ Scoring criteria:
 - Emotional language scores higher
 - Story-driven reviews score higher
 - Minimum 3 stars — discard anything below 3 stars
-- Review text length should be less than 220 characters
 - Each selected review must be unique — do not repeat the same review
 
 Return a valid JSON object with exactly this field:
 - "reviews": an array of up to 3 objects (return as many qualifying reviews as exist, maximum 3), each with:
   - "review": the full text of the chosen review (do not truncate, paraphrase, or translate — preserve the original language exactly)
+  - "condensed": a punchy, card-ready version of the review, between 150 and 220 characters, written in the same language as the original. Lead with the most emotional or specific moment — cut filler words and weak openers like "I really liked..." or "The place was good". If the original is short, expand it slightly by elaborating on the strongest detail while staying true to the author's voice. Do not add invented information. If the original is already 150–220 characters, copy it verbatim.
   - "caption": an Instagram/Facebook caption (max 150 chars, no hashtags, no emojis unless natural)
   - "hashtags": an array of 3-5 relevant hashtags for the post
   - "authorName": the name of the author of the chosen review
@@ -71,6 +71,7 @@ export async function POST(req: Request) {
 
   interface ParsedReview {
     review?: string;
+    condensed?: string;
     caption?: string;
     hashtags?: string[];
     authorName?: string;
@@ -87,7 +88,7 @@ export async function POST(req: Request) {
   const usedQualifying = new Set<ReviewInput>();
   const scoredReviews = ((parsed.reviews ?? []) as ParsedReview[])
     .slice(0, 3)
-    .reduce<{ selectedReview: ReviewInput; caption: string; hashtags: string[]; authorName: string }[]>(
+    .reduce<{ selectedReview: ReviewInput; condensed: string; caption: string; hashtags: string[]; authorName: string }[]>(
       (acc, item) => {
         const text = item.review ?? '';
         if (!text || seenTexts.has(text)) return acc;
@@ -103,6 +104,7 @@ export async function POST(req: Request) {
 
         acc.push({
           selectedReview,
+          condensed: item.condensed ?? selectedReview.text,
           caption: item.caption ?? '',
           hashtags: item.hashtags ?? [],
           authorName: item.authorName ?? selectedReview.authorName ?? '',
@@ -115,6 +117,7 @@ export async function POST(req: Request) {
   if (!scoredReviews.length) {
     scoredReviews.push({
       selectedReview: qualifying[0],
+      condensed: qualifying[0].text,
       caption: '',
       hashtags: [],
       authorName: qualifying[0].authorName ?? '',

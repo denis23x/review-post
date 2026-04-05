@@ -31,6 +31,7 @@ export interface ResultData {
   caption: string;
   hashtags: string[];
   reviewText: string;
+  condensedText: string;
   authorName: string;
 }
 
@@ -130,16 +131,18 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
         (
           scoreData.scoredReviews as Array<{
             selectedReview: { text: string; rating: number; authorName: string };
+            condensed: string;
             caption: string;
             hashtags: string[];
             authorName: string;
           }>
         ).map(async (scored) => {
+          const condensedText = scored.condensed ?? scored.selectedReview.text;
           const cardRes = await fetch('/api/generate-card', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              quote: scored.selectedReview.text,
+              quote: condensedText,
               businessName: reviewsData.name,
               rating: scored.selectedReview.rating,
               authorName: scored.authorName,
@@ -155,6 +158,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
             caption: scored.caption,
             hashtags: scored.hashtags,
             reviewText: scored.selectedReview.text,
+            condensedText,
             authorName: scored.authorName,
           };
         })
@@ -185,7 +189,7 @@ export const useDemoStore = create<DemoState & DemoActions>((set, get) => ({
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              quote: result.reviewText,
+              quote: result.condensedText,
               businessName: result.businessName,
               rating: result.rating,
               authorName: result.authorName,
