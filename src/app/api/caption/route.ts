@@ -5,7 +5,7 @@ You are a social media manager for local businesses.
 Given a single customer review, write a new caption and hashtags for a social media post.
 
 Rules:
-- Caption: max 150 chars, no hashtags, no emojis unless natural
+- Caption: exactly 2 full sentences as one short paragraph. Write flowing prose that reflects what the customer said (service, atmosphere, quality, staff)—not a headline, title, or one-liner. No hashtags in the caption; emojis only if they feel natural in that language. Aim for roughly 40–60 words unless the review is very short.
 - Hashtags: 3-5 relevant hashtags as plain words (no # prefix)
 - Always respond in the same language as the review provided. Never translate any text.
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       response_format: { type: 'json_object' },
-      max_tokens: 256,
+      max_tokens: 384,
       temperature: 0.7,
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },

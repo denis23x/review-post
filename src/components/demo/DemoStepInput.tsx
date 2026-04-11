@@ -10,6 +10,9 @@ import { useDemoStore } from '@/store/demoStore';
 import { Fragment, useEffect } from 'react';
 import { cn } from '@/lib/cn';
 
+/** Stops ?url= auto-submit from re-firing after each failed run (input remounts when step returns from loading). */
+let lastAutoSubmittedSearchUrl: string | null = null;
+
 export function DemoStepInput() {
   const t = useTranslations('demo.stepInput');
   const tValidation = useTranslations('validation');
@@ -40,10 +43,14 @@ export function DemoStepInput() {
   });
 
   useEffect(() => {
-    if (initialUrl) {
-      form.setFieldValue('url', initialUrl);
-      form.handleSubmit();
+    if (!initialUrl) {
+      lastAutoSubmittedSearchUrl = null;
+      return;
     }
+    if (lastAutoSubmittedSearchUrl === initialUrl) return;
+    lastAutoSubmittedSearchUrl = initialUrl;
+    form.setFieldValue('url', initialUrl);
+    void form.handleSubmit();
   }, [form, initialUrl]);
 
   return (
