@@ -8,6 +8,7 @@ import { Pricing } from '@/components/landing/Pricing';
 import { Faq } from '@/components/landing/Faq';
 import { Cta } from '@/components/landing/Cta';
 import { Footer } from '@/components/landing/Footer';
+import { Analytics } from '@vercel/analytics/next';
 
 export async function generateMetadata({
   params,
@@ -53,6 +54,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <Cta />
       </main>
       <Footer />
+      <Analytics />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
